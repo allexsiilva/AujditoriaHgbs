@@ -1,0 +1,25 @@
+[
+  {
+    "id": "1",
+    "name": "Administrador",
+    "email": "admin",
+    "password": "admin",
+    "role": "MASTER",
+    "permissions": []
+  },
+  {
+    "id": "user-luiz-romining",
+    "name": "Luiz Romining",
+    "email": "luiz.romining",
+    "password": "luiz",
+    "role": "USER",
+    "permissions": [
+      "DASHBOARD",
+      "NEW_AUDIT",
+      "COMPLETED_AUDITS",
+      "REPORTS",
+      "COMPARATIVE"
+    ],
+    "cargo": "Auditor Clínico"
+  }
+]

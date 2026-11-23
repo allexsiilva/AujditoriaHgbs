@@ -1,0 +1,121 @@
+=============================================================================
+🏥 HOSPAUDIT - MANUAL COMPLETO DE INSTALAÇÃO, REDE LOCAL E ATUALIZAÇÃO SEGURA
+=============================================================================
+
+Este guia contém as orientações passo a passo para instalar o HospAudit no seu
+servidor ou máquina local com XAMPP, liberar o acesso para que outros dispositivos
+da sua rede local consigam acessar o sistema, e atualizar a aplicação no futuro 
+com segurança absoluta, sem risco de perda de dados ou duplicidade de tabelas.
+
+-----------------------------------------------------------------------------
+1. COMO INSTALAR O SISTEMA NO SERVIDOR LOCAL (XAMPP / WINDOWS)
+-----------------------------------------------------------------------------
+
+O HospAudit foi construído com arquitetura híbrida otimizada para o Windows,
+integrando um servidor de alto desempenho em Node.js (Vite + esbuild) e o banco
+de dados MySQL/MariaDB nativo do XAMPP ou WAMP.
+
+Passo a Passo de Instalação:
+  1. Instale o XAMPP no computador que servirá como servidor (se já não tiver).
+  2. No Painel do XAMPP, inicie os serviços Apache e MySQL.
+  3. Coloque a pasta do projeto HospAudit em um diretório do computador (ex: C:\HospAudit).
+  4. Dê um duplo clique no arquivo "instalar.bat" localizado na raiz do projeto:
+     • O instalador verificará os requisitos do Windows.
+     • Se o Node.js não estiver instalado, ele baixará e instalará para você.
+     • Ele instalará todas as dependências do sistema automaticamente.
+     • O instalador perguntará sua chave do Gemini (IA) - se não tiver, pode deixar em branco.
+     • Ele compilará todo o frontend em uma versão de ultra-performance de Produção (Build).
+     • Criará um atalho de acesso rápido direto na sua Área de Trabalho (Desktop).
+  5. Acesse o instalador web do PHP pelo navegador do próprio servidor:
+     👉 http://localhost/install.php
+  6. O instalador web detectará automaticamente que o seu MySQL do XAMPP está ativo e
+     oferecerá o botão: "🚀 Executar Instalação Automática de 1-Clique".
+  7. Clique no botão de instalação automática. O sistema criará o banco de dados
+     "hospaudit" e rodará o script SQL "hospaudit.sql", deixando a estrutura pronta.
+     • DICA EXTRA DE POVOAMENTO: Se o seu banco de dados no phpMyAdmin estiver vazio, acesse o link
+       http://localhost/hospaudit/migrar.php pelo navegador e clique no botão azul "🚀 POPULAR BANCO VAZIO".
+       Ele preencherá na hora todos os Setores, Leitos, Usuários Mestres e Perguntas de Checklist!
+  8. Pronto! Agora basta abrir o atalho criado na Área de Trabalho para usar o sistema.
+
+-----------------------------------------------------------------------------
+2. COMO CONFIGURAR O SISTEMA PARA ACESSO EM REDE LOCAL (Múltiplos Dispositivos)
+-----------------------------------------------------------------------------
+
+Para que computadores, tablets ou celulares conectados à mesma rede local
+(Wi-Fi ou Cabo) consigam acessar o HospAudit do servidor, siga estes passos:
+
+Passo 1: Liberar o Firewall do Servidor
+  • Vá até a pasta do HospAudit no servidor.
+  • Clique com o botão direito no arquivo "liberar_rede.bat" e selecione "Executar como Administrador".
+  • O script se auto-elevará e abrirá as portas de rede necessárias no Firewall do Windows:
+    - Porta 3000 (Servidor Node.js HospAudit)
+    - Porta 80 (Apache do XAMPP)
+    - Porta 3306 (MySQL do XAMPP)
+  • Ao final, o script listará os endereços de IP locais do servidor (ex: 192.168.1.100).
+  • Anote o endereço de IP local do seu servidor.
+
+Passo 2: Atualizar o arquivo de ambiente (.env)
+  • Abra o arquivo ".env" localizado na raiz do projeto HospAudit com um editor de texto (ex: Bloco de Notas).
+  • Altere a linha "APP_URL" para refletir o IP do servidor de rede.
+    Exemplo:
+    De:   APP_URL="http://localhost:3000"
+    Para: APP_URL="http://192.168.1.100:3000"   <-- (Use o IP anotado no Passo 1)
+  • Salve e feche o arquivo.
+
+Passo 3: Acessar de outros computadores
+  • Em qualquer computador, celular ou tablet conectado à mesma rede local, abra o navegador e digite:
+    👉 http://[IP_DO_SERVIDOR]:3000  (exemplo: http://192.168.1.100:3000)
+  • O sistema funcionará de forma integrada, salvando todos os dados no MySQL do servidor.
+
+-----------------------------------------------------------------------------
+3. COMO FAZER ATUALIZAÇÕES DO SISTEMA COM 100% DE SEGURANÇA (Sem Perda ou Duplicidade)
+-----------------------------------------------------------------------------
+
+Quando uma nova versão do HospAudit for lançada com novos recursos, correções
+ou atualizações, você pode aplicá-la em menos de 1 minuto mantendo todos os seus
+dados intactos e sem duplicidade de informações.
+
+O HospAudit disponibiliza duas formas de atualização extremamente seguras:
+
+MÉTODO A - ATUALIZAÇÃO EXPRESSA POR UPLOAD WEB (MUITO MAIS FÁCIL!):
+  Este método permite atualizar o HospAudit diretamente pelo navegador, enviando o arquivo ZIP da nova versão:
+  1. Acesse o Painel de Atualizações Expressas pelo link:
+     👉 http://localhost/hospaudit/atualizar.php
+  2. Selecione ou arraste o arquivo .ZIP contendo o pacote com a nova versão do sistema.
+  3. Clique em "Fazer Upload e Instalar Atualização".
+  4. O sistema fará todo o trabalho em poucos segundos:
+     • Criará um backup SQL preventivo do seu MySQL na pasta 'backups/'.
+     • Preservará e protegerá seu arquivo 'config.php' e '.env' atuais (para não perder senhas ou portas).
+     • Extrairá os novos arquivos de tela e de código do ZIP na pasta de instalação.
+     • Executará a sincronização para atualizar e incluir novas colunas no banco de dados automaticamente.
+  5. Pronto! O sistema já estará atualizado e operando normalmente.
+
+MÉTODO B - ATUALIZAÇÃO MANUAL POR COPIAR/PASTE:
+  Como funciona a segurança de banco do HospAudit?
+  O HospAudit utiliza scripts SQL de estrutura inteligente (através de comandos
+  como "CREATE TABLE IF NOT EXISTS"). Quando você executa o atualizador ou instalador:
+  • Se as tabelas de dados já existem no MySQL, o sistema NÃO tenta recriá-las e NÃO zera os dados.
+  • O sistema apenas cria novas colunas ou tabelas que forem introduzidas na versão mais recente.
+  • Seus cadastros, auditorias, logs e configurações anteriores continuam 100% intactos.
+
+  Passo a Passo de Atualização:
+  1. No servidor, pare a execução do HospAudit atual feichando as janelas pretas (cmd/console) do sistema.
+  2. (Recomendado - Segurança): No painel do XAMPP, acesse o phpMyAdmin (http://localhost/phpmyadmin),
+     selecione o banco de dados "hospaudit", vá na aba "Exportar" e clique em "Executar" para salvar um backup rápido.
+  3. Baixe os novos arquivos da nova versão do HospAudit.
+  4. Extraia os novos arquivos por cima da pasta atual do HospAudit (substituindo os arquivos antigos).
+     ⚠️ IMPORTANTE: O arquivo ".env" e "config.php" contêm suas configurações de banco.
+     • Se você extrair por cima, certifique-se de não apagar ou substituir o arquivo ".env" e "config.php"
+       que já estavam criados na pasta, ou faça uma cópia deles antes e cole-os de volta após a extração.
+  5. Dê um duplo clique no arquivo "instalar.bat" para atualizar possíveis novas dependências de bibliotecas
+     e compilar o novo código automaticamente.
+  6. (Se houver novas tabelas ou campos na nova versão):
+     Acesse no navegador do servidor: http://localhost/install.php
+     O assistente de instalação abrirá, detectará que o banco de dados já possui tabelas e sincronizará
+     apenas os novos recursos que não existem, preservando todos os dados pré-existentes.
+  7. Dê dois cliques no atalho "HospAudit" na sua Área de Trabalho para rodar o sistema atualizado.
+
+=============================================================================
+Pronto! Com estas ferramentas e manuais, o seu HospAudit está totalmente
+preparado para operar em rede e com processo de atualizações simplificado.
+=============================================================================

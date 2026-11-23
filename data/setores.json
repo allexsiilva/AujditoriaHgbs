@@ -1,0 +1,47 @@
+[
+  {
+    "id": "uti1",
+    "name": "UTI 1",
+    "description": "Unidade de Terapia Intensiva 1"
+  },
+  {
+    "id": "uti2",
+    "name": "UTI 2",
+    "description": "Unidade de Terapia Intensiva 2"
+  },
+  {
+    "id": "v97bpaudp",
+    "name": "POSTO MATERNO INFANTIL ",
+    "description": ""
+  },
+  {
+    "id": "fyp0v6me8",
+    "name": "POSTO 2",
+    "description": ""
+  },
+  {
+    "id": "2dllmdrly",
+    "name": "POSTO 3",
+    "description": ""
+  },
+  {
+    "id": "ym3xjflk1",
+    "name": "POSTO 4",
+    "description": ""
+  },
+  {
+    "id": "cp2glpdf5",
+    "name": "OBSTETRICIA",
+    "description": ""
+  },
+  {
+    "name": "RECEPÇÃO PRINCIPAL",
+    "description": "",
+    "id": "l9a9n6wnj"
+  },
+  {
+    "name": "CENTRO CIRURGICO",
+    "description": "",
+    "id": "ly2viyg71"
+  }
+]

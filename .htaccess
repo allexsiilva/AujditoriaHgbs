@@ -1,0 +1,30 @@
+# =========================================================================
+# 🏥 HospAudit - Configuração de Redirecionamento e Segurança para Apache
+# =========================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Garante que requisições ao arquivo da API ou instalador não sejam reescritas
+  RewriteCond %{REQUEST_URI} ^/api\.php [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/install\.php [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/migrar\.php [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/exportar_backup\.php [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/check_env\.php [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/error_log\.php [NC]
+  RewriteRule ^ - [L]
+
+  # Se o arquivo ou diretório físico existe no servidor, serve ele diretamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Redireciona todas as outras rotas (como as rotas do roteador do React) para o index.html
+  # Isso evita o Erro 404 (Não Encontrado) quando o usuário atualiza a página ou digita a URL manualmente
+  RewriteRule . index.html [L]
+</IfModule>
+
+# Impedir listagem de diretório de backups por segurança
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>

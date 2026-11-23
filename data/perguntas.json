@@ -1,0 +1,391 @@
+[
+  {
+    "id": "cs_1",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Aspecto do local de inserção",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_2",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Óstio não visível",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_3",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Presença de sinais flogísticos",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_4",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Todas as saídas não utilizadas estão protegidas?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_5",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Tipo do cateter",
+    "options": [
+      "C",
+      "P",
+      "CH"
+    ]
+  },
+  {
+    "id": "cs_6",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Tipo do curativo",
+    "options": [
+      "E",
+      "NE"
+    ]
+  },
+  {
+    "id": "cs_7",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Curativo conforme indicação?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_8",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Curativo estéril totalmente aderido a pele?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_9",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Permite Visualização?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_10",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Curativo limpo e seco?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_11",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Curativo dentro da validade?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "cs_12",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção da Corrente Sanguínea",
+    "label": "Conector sem resíduo de sangue?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "pav_1",
+    "formType": "IRAS",
+    "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+    "label": "Cavidade oral limpa?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "pav_2",
+    "formType": "IRAS",
+    "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+    "label": "Higiene oral de acordo com o protocolo do hospital?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "pav_5",
+    "formType": "IRAS",
+    "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+    "label": "Mensurada pressão do cuff > 25cmh2o?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "pav_6",
+    "formType": "IRAS",
+    "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+    "label": "O nível de sedação ta dentro da meta estipulada?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "svd_1",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+    "label": "Há indicação de retirada do dispositivo?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "svd_2",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+    "label": "Fixação da sonda adequada?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "svd_3",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+    "label": "Fluxo de urina sem dobra, grumos?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "svd_4",
+    "formType": "IRAS",
+    "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+    "label": "Capacidade de bolsa até 2/3?",
+    "options": [
+      "S",
+      "N",
+      "NA"
+    ]
+  },
+  {
+    "id": "id_1",
+    "formType": "SAFETY",
+    "section": "Identificação do Paciente",
+    "label": "O paciente possui placa de identificação?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "id_2",
+    "formType": "SAFETY",
+    "section": "Identificação do Paciente",
+    "label": "O paciente possui pulseira de identificação?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "id_4",
+    "formType": "SAFETY",
+    "section": "Identificação do Paciente",
+    "label": "Os dados da pulseira conferem com o prontuário/medicamentos?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "id_5",
+    "formType": "SAFETY",
+    "section": "Identificação do Paciente",
+    "label": "A equipe verifica a identificação antes de procedimentos/medicações?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "cm_2",
+    "formType": "SAFETY",
+    "section": "Comunicação Efetiva",
+    "label": "Solicitação médica de vaga de UTI?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "cm_3",
+    "formType": "SAFETY",
+    "section": "Comunicação Efetiva",
+    "label": "Sumário de alta hospitalar?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "cm_4",
+    "formType": "SAFETY",
+    "section": "Comunicação Efetiva",
+    "label": "Solicitação/ parecer de avaliação de especialista?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "cm_5",
+    "formType": "SAFETY",
+    "section": "Comunicação Efetiva",
+    "label": "Solicitação de avaliação/ parecer do especialista respondida?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "md_1",
+    "formType": "SAFETY",
+    "section": "Medicação",
+    "label": "A dupla checagem é realizada antes da administração?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "md_2",
+    "formType": "SAFETY",
+    "section": "Medicação",
+    "label": "Aprazamento e checagem corretos?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "md_3",
+    "formType": "SAFETY",
+    "section": "Medicação",
+    "label": "Alergia medicamentosa informada?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "cg_1",
+    "formType": "SAFETY",
+    "section": "Cirurgia Segura",
+    "label": "A marcação do sítio cirúrgico é feita antes de levar o paciente à sala?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "cg_3",
+    "formType": "SAFETY",
+    "section": "Cirurgia Segura",
+    "label": "O termo de consentimento está assinado e disponível?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "ri_2",
+    "formType": "SAFETY",
+    "section": "Redução das Infecções",
+    "label": "Há pias com sabonete/papel e dispensadores de álcool gel disponíveis?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "ql_1",
+    "formType": "SAFETY",
+    "section": "Quedas e Lesão por Pressão",
+    "label": "Avaliação de risco de queda/lesão por pressão é feita na admissão e diariamente?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "ql_2",
+    "formType": "SAFETY",
+    "section": "Quedas e Lesão por Pressão",
+    "label": "Grades do leito estão elevadas e rodas travadas?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  },
+  {
+    "id": "ql_3",
+    "formType": "SAFETY",
+    "section": "Quedas e Lesão por Pressão",
+    "label": "Plano de cuidados inclui mudança de decúbito e hidratação da pele?",
+    "options": [
+      "Sim",
+      "Não"
+    ]
+  }
+]

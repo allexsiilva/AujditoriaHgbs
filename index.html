@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script>
+      // Automatically detect chunk load errors or dynamic import failures and reload the page from the server
+      window.addEventListener('error', function(e) {
+        // Prevent noisy ResizeObserver errors
+        if (e.message === 'Script error.' || (e.message && e.message.includes('ResizeObserver'))) {
+          e.stopImmediatePropagation();
+        }
+        
+        // Detect chunk/script load failure or asset loading errors
+        const isChunkError = 
+          (e.message && (
+            e.message.includes('Failed to fetch dynamically imported module') ||
+            e.message.includes('Loading chunk') ||
+            e.message.includes('error loading script') ||
+            e.message.includes('ChunkLoadError') ||
+            e.message.includes('Unexpected token') ||
+            e.message.includes('Unexpected token \'<\'')
+          )) ||
+          (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK'));
+          
+        if (isChunkError) {
+          console.warn('Chunk/Script load error detected. Attempting automatic cache-bypassing reload...');
+          const lastReload = sessionStorage.getItem('hospaudit_last_chunk_reload');
+          const now = Date.now();
+          // Avoid infinite loops (reload at most once every 10 seconds)
+          if (!lastReload || (now - parseInt(lastReload, 10) > 10000)) {
+            sessionStorage.setItem('hospaudit_last_chunk_reload', now.toString());
+            // Clear local cache for files and reload
+            window.location.reload();
+          }
+        }
+      }, true);
+      
+      window.addEventListener('unhandledrejection', function(e) {
+        if (e.reason && e.reason.message && (
+          e.reason.message.includes('Failed to fetch dynamically imported module') ||
+          e.reason.message.includes('ChunkLoadError') ||
+          e.reason.message.includes('Unexpected token') ||
+          e.reason.message.includes('Unexpected token \'<\'')
+        )) {
+          console.warn('Unhandled chunk rejection detected. Reloading...');
+          const lastReload = sessionStorage.getItem('hospaudit_last_chunk_reload');
+          const now = Date.now();
+          if (!lastReload || (now - parseInt(lastReload, 10) > 10000)) {
+            sessionStorage.setItem('hospaudit_last_chunk_reload', now.toString());
+            window.location.reload();
+          }
+        }
+      });
+
+      window.onerror = function(msg) {
+        if (msg === 'Script error.' || (msg && msg.toString().includes('ResizeObserver'))) return true;
+      };
+      
+      var originalConsoleError = console.error;
+      console.error = function() {
+        var args = Array.prototype.slice.call(arguments);
+        if (typeof args[0] === 'string' && (args[0] === 'Script error.' || args[0].includes('ResizeObserver'))) {
+          return;
+        }
+        originalConsoleError.apply(console, args);
+      };
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Auditoria Hospitalar</title>
+    <meta name="description" content="Sistema de auditoria para controle de IRAS e Identificação de Paciente, com cadastro de setores e leitos." />
+    <meta property="og:title" content="Sistema de Auditoria Hospitalar" />
+    <meta property="og:description" content="Sistema de auditoria para controle de IRAS e Identificação de Paciente, com cadastro de setores e leitos." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="src/main.tsx"></script>
+  </body>
+</html>
+

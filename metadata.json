@@ -1,0 +1,6 @@
+{
+  "name": "Sistema de Auditoria Hospitalar",
+  "description": "Sistema de auditoria para controle de IRAS e Identificação de Paciente, com cadastro de setores e leitos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

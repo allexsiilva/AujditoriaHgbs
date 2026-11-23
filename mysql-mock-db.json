@@ -1,0 +1,3971 @@
+{
+  "sectors": [
+    {
+      "id": "uti1",
+      "name": "UTI 1",
+      "description": "Unidade de Terapia Intensiva 1"
+    },
+    {
+      "id": "uti2",
+      "name": "UTI 2",
+      "description": "Unidade de Terapia Intensiva 2"
+    },
+    {
+      "id": "v97bpaudp",
+      "name": "POSTO MATERNO INFANTIL ",
+      "description": ""
+    },
+    {
+      "id": "fyp0v6me8",
+      "name": "POSTO 2",
+      "description": ""
+    },
+    {
+      "id": "2dllmdrly",
+      "name": "POSTO 3",
+      "description": ""
+    },
+    {
+      "id": "ym3xjflk1",
+      "name": "POSTO 4",
+      "description": ""
+    },
+    {
+      "id": "cp2glpdf5",
+      "name": "OBSTETRICIA",
+      "description": ""
+    },
+    {
+      "name": "RECEPÇÃO PRINCIPAL",
+      "description": "",
+      "id": "l9a9n6wnj"
+    },
+    {
+      "name": "CENTRO CIRURGICO",
+      "description": "",
+      "id": "ly2viyg71"
+    }
+  ],
+  "beds": [
+    {
+      "id": "uti1-l1",
+      "number": "Leito 01",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l2",
+      "number": "Leito 02",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l3",
+      "number": "Leito 03",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l4",
+      "number": "Leito 04",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l5",
+      "number": "Leito 05",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l6",
+      "number": "Leito 06",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l7",
+      "number": "Leito 07",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l8",
+      "number": "Leito 08",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l9",
+      "number": "Leito 09",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti1-l10",
+      "number": "Leito 10",
+      "sectorId": "uti1"
+    },
+    {
+      "id": "uti2-l11",
+      "number": "Leito 11",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l12",
+      "number": "Leito 12",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l13",
+      "number": "Leito 13",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l14",
+      "number": "Leito 14",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l15",
+      "number": "Leito 15",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l16",
+      "number": "Leito 16",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l17",
+      "number": "Leito 17",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l18",
+      "number": "Leito 18",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l19",
+      "number": "Leito 19",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "uti2-l20",
+      "number": "Leito 20",
+      "sectorId": "uti2"
+    },
+    {
+      "id": "8z14hcgqh",
+      "number": "LEITO 21/01",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "o91wd3vtw",
+      "number": "LEITO 21/02",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "r0dp0rjss",
+      "number": "LEITO 21/03",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "db3ok48p4",
+      "number": "LEITO 21/04",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "huw0wnpvp",
+      "number": "LEITO 21/05",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "bnji7sxt1",
+      "number": "LEITO 22/01",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "yh4s7ypj2",
+      "number": "LEITO 22/02",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "ze045zpid",
+      "number": "LEITO 22/03",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "r8unlmmbj",
+      "number": "LEITO 22/04",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "wrvdgl31o",
+      "number": "LEITO 22/05",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "tw13wm5ih",
+      "number": "LEITO 23/01",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "1lp79lqgq",
+      "number": "LEITO 23/02",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "a1v35o2gf",
+      "number": "LEITO 23/03",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "ngf2fcm2n",
+      "number": "LEITO 23/04",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "phamj99hb",
+      "number": "LEITO 23/05",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "khdncqbqh",
+      "number": "LEITO 23/06",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "hhwtono8i",
+      "number": "LEITO 24/01",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "dirmu591c",
+      "number": "LEITO 24/02",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "ei3z2xzbi",
+      "number": "LEITO 24/03",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "zlx3kulso",
+      "number": "LEITO 24/04",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "qbkgpsuaw",
+      "number": "LEITO 24/05",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "huxefptxr",
+      "number": "LEITO 24/06",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "k8ia4l2s8",
+      "number": "LEITO 25/01",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "lpzocnwsp",
+      "number": "LEITO 25/02",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "wj9kuel1k",
+      "number": "LEITO 25/03",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "78e40476y",
+      "number": "LEITO 25/04",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "rem3uv60x",
+      "number": "LEITO 25/05",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "qbr1tbuih",
+      "number": "LEITO 25/06",
+      "sectorId": "ym3xjflk1"
+    },
+    {
+      "id": "kk4w4401c",
+      "number": "ENF 01/01",
+      "sectorId": "v97bpaudp"
+    },
+    {
+      "id": "aox8hzdzc",
+      "number": "APTO 201",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "oabnwm7q5",
+      "number": "APTO 202",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "y02c05tsw",
+      "number": "APTO 203",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "mhxpmkkpc",
+      "number": "APTO 204",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "r5x13248a",
+      "number": "APTO 205",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "ouerdemwq",
+      "number": "APTO 206",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "u9o01gr7t",
+      "number": "APTO 206",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "2p9bzbarc",
+      "number": "APTO 207",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "d4a0rk72e",
+      "number": "APTO 208",
+      "sectorId": "2dllmdrly"
+    },
+    {
+      "id": "y2mr4k8px",
+      "number": "LEITO 01/02",
+      "sectorId": "v97bpaudp"
+    },
+    {
+      "id": "5rrtykdp4",
+      "number": "LEITO 01/03",
+      "sectorId": "v97bpaudp"
+    },
+    {
+      "id": "15vguj2od",
+      "number": "LEITO 01/04",
+      "sectorId": "v97bpaudp"
+    },
+    {
+      "id": "21xbtktx7",
+      "number": "LEITO 01/05",
+      "sectorId": "v97bpaudp"
+    },
+    {
+      "id": "t41hzscww",
+      "number": "LEITO 01/06",
+      "sectorId": "v97bpaudp"
+    },
+    {
+      "id": "8hgkaolsn",
+      "number": "LEITO 02/01",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "wt72awt5y",
+      "number": "LEITO 02/02",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "qxdqr6tbc",
+      "number": "LEITO 02/03",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "9yh2i1yqm",
+      "number": "LEITO 02/04",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "md75ulfns",
+      "number": "LEITO 02/05",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "3d5r93y5g",
+      "number": "LEITO 02/06",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "iid097ptw",
+      "number": "LEITO 03/01",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "7lbc6841b",
+      "number": "LEITO 03/02",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "2o2s425kf",
+      "number": "LEITO 03/03",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "7gkcixbdf",
+      "number": "LEITO 03/04",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "ypv8xmls9",
+      "number": "LEITO 03/05",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "wbksk90po",
+      "number": "LEITO 03/06",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "f05wtzkr3",
+      "number": "LEITO 04/01",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "o2k2zyrun",
+      "number": "LEITO 04/02",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "yh0r762of",
+      "number": "LEITO 04/03",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "0niuvavb7",
+      "number": "LEITO 04/04",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "cp4ocffil",
+      "number": "LEITO 04/05",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "n8yrtumio",
+      "number": "LEITO 04/06",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "50v7tigiy",
+      "number": "LEITO 05/01",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "8ban4vttm",
+      "number": "LEITO 05/02",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "m3w39synv",
+      "number": "LEITO 05/03",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "aehq6aczu",
+      "number": "LEITO 05/04",
+      "sectorId": "cp2glpdf5"
+    },
+    {
+      "id": "z66lbcur7",
+      "number": "LEITO 06/01",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "84lwbcjv4",
+      "number": "LEITO 06/02",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "hw9n3e4qd",
+      "number": "LEITO 06/03",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "bvuds8vv4",
+      "number": "LEITO 06/04",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "dc9yxwkm1",
+      "number": "LEITO 06/05",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "tef8iqtbc",
+      "number": "LEITO 06/06",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "68p8b2ood",
+      "number": "LEITO 07/01",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "tpilfpz4e",
+      "number": "LEITO 07/02",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "qh32l1efj",
+      "number": "LEITO 07/03",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "z4jpta4ri",
+      "number": "LEITO 07/04",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "kc1wej8fo",
+      "number": "LEITO 07/05",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "dlldx5h7i",
+      "number": "LEITO 07/06",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "hvxablqft",
+      "number": "LEITO 08/01",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "ibz9v46ro",
+      "number": "LEITO 08/02",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "krn4sh9m0",
+      "number": "LEITO 08/03",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "5k9gy0xdl",
+      "number": "LEITO 08/04",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "fozb0ymrw",
+      "number": "LEITO 08/05",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "kf7n0x3jn",
+      "number": "LEITO 08/06",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "lh5agpsrz",
+      "number": "LEITO 09/01",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "d3qt2z87w",
+      "number": "LEITO 09/02",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "dmg9sb0wm",
+      "number": "LEITO 09/03",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "pzqm02gnc",
+      "number": "LEITO 09/04",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "p9n4blbfh",
+      "number": "LEITO 09/05",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "x5wgjwlkr",
+      "number": "LEITO 09/06",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "6sej1u2un",
+      "number": "LEITO 10/01",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "uw78njqx3",
+      "number": "LEITO 10/02",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "9gvqg0ln7",
+      "number": "LEITO 10/03",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "htjly059w",
+      "number": "LEITO 10/04",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "me2xlm4mk",
+      "number": "LEITO 10/05",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "u4xw5bfz5",
+      "number": "LEITO 10/06",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "6060ck7x7",
+      "number": "LEITO 11/01",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "s0368oyjj",
+      "number": "LEITO 11/02",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "vmb64s1xd",
+      "number": "LEITO 11/03",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "vyaouz30z",
+      "number": "LEITO 11/04",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "edv7uyl8h",
+      "number": "LEITO 11/05",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "7yympja0t",
+      "number": "LEITO 12/06",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "qahxj2n0a",
+      "number": "LEITO 12/07",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "lumi3ny6y",
+      "number": "LEITO 12/08",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "58hnemu5i",
+      "number": "LEITO 12/09",
+      "sectorId": "fyp0v6me8"
+    },
+    {
+      "id": "lzmzz07fm",
+      "number": "LEITO 12/10",
+      "sectorId": "fyp0v6me8"
+    }
+  ],
+  "audits": [
+    {
+      "id": "wj6frt5at",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l1",
+      "answers": {
+        "cs_1": "S",
+        "cs_10": "N",
+        "cs_11": "S",
+        "cs_12": "N",
+        "cs_2": "S",
+        "cs_3": "S",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "N",
+        "cs_9": "S",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "S"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:01:21"
+    },
+    {
+      "id": "ko9ha00lx",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l2",
+      "answers": {
+        "cs_1": "S",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "S",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "S",
+        "cs_9": "S",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:02:43"
+    },
+    {
+      "id": "w8a2vckko",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l3",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "S",
+        "cs_9": "S",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:03:43"
+    },
+    {
+      "id": "yy22tcvhw",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l4",
+      "answers": {
+        "cs_1": "NA",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:05:27"
+    },
+    {
+      "id": "lmlte6a1l",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l6",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:06:24"
+    },
+    {
+      "id": "ourpchw9e",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l8",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "N",
+        "pav_2": "S",
+        "pav_3": "N",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:07:43"
+    },
+    {
+      "id": "nw688zdqy",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l9",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "S"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:10:22"
+    },
+    {
+      "id": "kaouafp83",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l10",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "N",
+        "cs_11": "S",
+        "cs_12": "N",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "N",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:11:44"
+    },
+    {
+      "id": "v09buifak",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l12",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:19:05"
+    },
+    {
+      "id": "yoq0eob0v",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l13",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "S",
+        "cs_9": "S",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "N",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:21:22"
+    },
+    {
+      "id": "mnw2il2yz",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l14",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:23:02"
+    },
+    {
+      "id": "7ekqato7y",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l15",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "N",
+        "cs_11": "N",
+        "cs_12": "N",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:25:06"
+    },
+    {
+      "id": "tz9gmxube",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l17",
+      "answers": {
+        "cs_1": "S",
+        "cs_10": "N",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "S",
+        "cs_9": "S",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:28:26"
+    },
+    {
+      "id": "bh5e0tm9e",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l18",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "N",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "N",
+        "cs_9": "S",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "S"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:31:15"
+    },
+    {
+      "id": "xvlyg45re",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l19",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "N",
+        "cs_9": "S",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "S"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:36:32"
+    },
+    {
+      "id": "l3jyo9geo",
+      "type": "IRAS",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l20",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 13:40:23"
+    },
+    {
+      "id": "k0u7r2luv",
+      "type": "SAFETY",
+      "date": "2026-06-22 20:00:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "ym3xjflk1",
+      "bedId": "r0dp0rjss",
+      "answers": {
+        "cg_1": "Não",
+        "cg_2": "Sim",
+        "cg_3": "Sim",
+        "cm_1": "Sim",
+        "cm_2": "Não",
+        "cm_3": "Não",
+        "cm_4": "Sim",
+        "cm_5": "Sim",
+        "id_1": "Sim",
+        "id_2": "Não",
+        "id_3": "Não",
+        "id_4": "Não",
+        "id_5": "Sim",
+        "md_1": "Sim",
+        "md_2": "Sim",
+        "md_3": "Sim",
+        "ql_1": "Sim",
+        "ql_2": "Sim",
+        "ql_3": "Sim",
+        "ri_1": "Sim",
+        "ri_2": "Sim",
+        "ri_3": "Não"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-23 14:13:15"
+    },
+    {
+      "id": "0ju8upzus",
+      "type": "IRAS",
+      "date": "2026-06-26 11:43:28",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l3",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "S",
+        "cs_9": "S",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:43:28"
+    },
+    {
+      "id": "3j26trv39",
+      "type": "IRAS",
+      "date": "2026-06-26 11:45:32",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l5",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "N",
+        "cs_9": "S",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "S"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:45:31"
+    },
+    {
+      "id": "f4l5nr6mj",
+      "type": "IRAS",
+      "date": "2026-06-26 11:46:57",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l6",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "N",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "C",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "N",
+        "cs_9": "S",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "S",
+        "pav_4": "S",
+        "pav_5": "S",
+        "pav_6": "S"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:46:57"
+    },
+    {
+      "id": "9rurtbsr3",
+      "type": "IRAS",
+      "date": "2026-06-26 11:48:50",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l7",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "N",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:48:50"
+    },
+    {
+      "id": "dp9mfa3vq",
+      "type": "IRAS",
+      "date": "2026-06-26 11:50:11",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l8",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:50:11"
+    },
+    {
+      "id": "tpk867cg1",
+      "type": "IRAS",
+      "date": "2026-06-26 11:51:51",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l9",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "N",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "cs_9": "N",
+        "svd_1": "N",
+        "svd_2": "S",
+        "svd_3": "S",
+        "svd_4": "S",
+        "svd_5": "S",
+        "svd_6": "S",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:51:51"
+    },
+    {
+      "id": "fmm3jvfsh",
+      "type": "IRAS",
+      "date": "2026-06-26 11:53:09",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti1",
+      "bedId": "uti1-l10",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "N",
+        "cs_11": "S",
+        "cs_12": "S",
+        "cs_2": "S",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "E",
+        "cs_7": "S",
+        "cs_8": "S",
+        "cs_9": "S",
+        "svd_2": "NA",
+        "svd_1": "NA",
+        "svd_3": "NA",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:53:09"
+    },
+    {
+      "id": "qztxfqhxh",
+      "type": "IRAS",
+      "date": "2026-06-26 11:55:00",
+      "evaluator": "Luiz Romining",
+      "sectorId": "uti2",
+      "bedId": "uti2-l11",
+      "answers": {
+        "cs_1": "N",
+        "cs_10": "S",
+        "cs_11": "S",
+        "cs_12": "N",
+        "cs_2": "N",
+        "cs_3": "N",
+        "cs_4": "S",
+        "cs_5": "P",
+        "cs_6": "NE",
+        "cs_7": "N",
+        "cs_8": "NA",
+        "svd_1": "NA",
+        "svd_2": "NA",
+        "svd_3": "S",
+        "svd_4": "NA",
+        "svd_5": "NA",
+        "svd_6": "NA",
+        "pav_1": "S",
+        "pav_2": "S",
+        "pav_3": "NA",
+        "pav_4": "S",
+        "pav_5": "NA",
+        "pav_6": "NA",
+        "cs_9": "N"
+      },
+      "status": "ATIVO",
+      "createdAt": "2026-06-26 14:55:00"
+    }
+  ],
+  "questions": [
+    {
+      "id": "cs_1",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Aspecto do local de inserção",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_2",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Óstio não visível",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_3",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Presença de sinais flogísticos",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_4",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Todas as saídas não utilizadas estão protegidas?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_5",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Tipo do cateter",
+      "options": [
+        "C",
+        "P",
+        "CH"
+      ]
+    },
+    {
+      "id": "cs_6",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Tipo do curativo",
+      "options": [
+        "E",
+        "NE"
+      ]
+    },
+    {
+      "id": "cs_7",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Curativo conforme indicação?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_8",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Curativo estéril totalmente aderido a pele?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_9",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Permite Visualização?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_10",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Curativo limpo e seco?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_11",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Curativo dentro da validade?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "cs_12",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção da Corrente Sanguínea",
+      "label": "Conector sem resíduo de sangue?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "pav_1",
+      "formType": "IRAS",
+      "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+      "label": "Cavidade oral limpa?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "pav_2",
+      "formType": "IRAS",
+      "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+      "label": "Higiene oral de acordo com o protocolo do hospital?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "pav_5",
+      "formType": "IRAS",
+      "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+      "label": "Mensurada pressão do cuff > 25cmh2o?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "pav_6",
+      "formType": "IRAS",
+      "section": "Prevenção de Pneumonia Associada a Ventilação Mecânica",
+      "label": "O nível de sedação ta dentro da meta estipulada?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "svd_1",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+      "label": "Há indicação de retirada do dispositivo?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "svd_2",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+      "label": "Fixação da sonda adequada?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "svd_3",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+      "label": "Fluxo de urina sem dobra, grumos?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "svd_4",
+      "formType": "IRAS",
+      "section": "Prevenção de Infecção do Trato Urinário Associado a SVD",
+      "label": "Capacidade de bolsa até 2/3?",
+      "options": [
+        "S",
+        "N",
+        "NA"
+      ]
+    },
+    {
+      "id": "id_1",
+      "formType": "SAFETY",
+      "section": "Identificação do Paciente",
+      "label": "O paciente possui placa de identificação?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "id_2",
+      "formType": "SAFETY",
+      "section": "Identificação do Paciente",
+      "label": "O paciente possui pulseira de identificação?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "id_4",
+      "formType": "SAFETY",
+      "section": "Identificação do Paciente",
+      "label": "Os dados da pulseira conferem com o prontuário/medicamentos?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "id_5",
+      "formType": "SAFETY",
+      "section": "Identificação do Paciente",
+      "label": "A equipe verifica a identificação antes de procedimentos/medicações?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "cm_2",
+      "formType": "SAFETY",
+      "section": "Comunicação Efetiva",
+      "label": "Solicitação médica de vaga de UTI?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "cm_3",
+      "formType": "SAFETY",
+      "section": "Comunicação Efetiva",
+      "label": "Sumário de alta hospitalar?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "cm_4",
+      "formType": "SAFETY",
+      "section": "Comunicação Efetiva",
+      "label": "Solicitação/ parecer de avaliação de especialista?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "cm_5",
+      "formType": "SAFETY",
+      "section": "Comunicação Efetiva",
+      "label": "Solicitação de avaliação/ parecer do especialista respondida?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "md_1",
+      "formType": "SAFETY",
+      "section": "Medicação",
+      "label": "A dupla checagem é realizada antes da administração?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "md_2",
+      "formType": "SAFETY",
+      "section": "Medicação",
+      "label": "Aprazamento e checagem corretos?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "md_3",
+      "formType": "SAFETY",
+      "section": "Medicação",
+      "label": "Alergia medicamentosa informada?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "cg_1",
+      "formType": "SAFETY",
+      "section": "Cirurgia Segura",
+      "label": "A marcação do sítio cirúrgico é feita antes de levar o paciente à sala?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "cg_3",
+      "formType": "SAFETY",
+      "section": "Cirurgia Segura",
+      "label": "O termo de consentimento está assinado e disponível?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "ri_2",
+      "formType": "SAFETY",
+      "section": "Redução das Infecções",
+      "label": "Há pias com sabonete/papel e dispensadores de álcool gel disponíveis?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "ql_1",
+      "formType": "SAFETY",
+      "section": "Quedas e Lesão por Pressão",
+      "label": "Avaliação de risco de queda/lesão por pressão é feita na admissão e diariamente?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "ql_2",
+      "formType": "SAFETY",
+      "section": "Quedas e Lesão por Pressão",
+      "label": "Grades do leito estão elevadas e rodas travadas?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    },
+    {
+      "id": "ql_3",
+      "formType": "SAFETY",
+      "section": "Quedas e Lesão por Pressão",
+      "label": "Plano de cuidados inclui mudança de decúbito e hidratação da pele?",
+      "options": [
+        "Sim",
+        "Não"
+      ]
+    }
+  ],
+  "logs": [
+    {
+      "id": "4refp67kn",
+      "timestamp": "2026-11-10T16:33:46.078Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-33-47-351Z.json"
+    },
+    {
+      "id": "m0n5ryqo8",
+      "timestamp": "2026-11-10T16:33:37.598Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-33-38-896Z.json"
+    },
+    {
+      "id": "gfu9uo2q6",
+      "timestamp": "2026-11-10T16:33:27.826Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-33-29-124Z.json"
+    },
+    {
+      "id": "bwlgj4zv9",
+      "timestamp": "2026-11-10T16:33:17.612Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-33-18-909Z.json"
+    },
+    {
+      "id": "kyae4twio",
+      "timestamp": "2026-11-10T16:33:10.687Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-33-11-984Z.json"
+    },
+    {
+      "id": "y9xsjvojm",
+      "timestamp": "2026-11-10T16:32:57.620Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-32-58-916Z.json"
+    },
+    {
+      "id": "qvarbdes7",
+      "timestamp": "2026-11-10T16:32:46.608Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-32-47-906Z.json"
+    },
+    {
+      "id": "2xozrkd5r",
+      "timestamp": "2026-11-10T16:32:36.065Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-32-37-359Z.json"
+    },
+    {
+      "id": "cw8gfx3k6",
+      "timestamp": "2026-11-10T16:32:26.517Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-32-27-810Z.json"
+    },
+    {
+      "id": "3b21ccoo1",
+      "timestamp": "2026-11-10T16:32:17.825Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-32-19-119Z.json"
+    },
+    {
+      "id": "0ozxprj7c",
+      "timestamp": "2026-11-10T16:32:07.599Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-32-08-895Z.json"
+    },
+    {
+      "id": "i8aqs7tgm",
+      "timestamp": "2026-11-10T16:31:57.823Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-31-59-115Z.json"
+    },
+    {
+      "id": "e8ly5se0f",
+      "timestamp": "2026-11-10T16:31:48.080Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-31-49-371Z.json"
+    },
+    {
+      "id": "miuyccfod",
+      "timestamp": "2026-11-10T16:31:37.615Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-31-38-908Z.json"
+    },
+    {
+      "id": "lbu4bc8xl",
+      "timestamp": "2026-11-10T16:31:27.856Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-31-29-135Z.json"
+    },
+    {
+      "id": "cm1jpwfp4",
+      "timestamp": "2026-11-10T16:31:16.835Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-31-18-124Z.json"
+    },
+    {
+      "id": "ghvfxkbd6",
+      "timestamp": "2026-11-10T16:31:06.529Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-31-07-814Z.json"
+    },
+    {
+      "id": "0kue5a123",
+      "timestamp": "2026-11-10T16:30:56.496Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-30-57-787Z.json"
+    },
+    {
+      "id": "6ztegh7kl",
+      "timestamp": "2026-11-10T16:30:46.067Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-30-47-362Z.json"
+    },
+    {
+      "id": "c5phtjfy4",
+      "timestamp": "2026-11-10T16:30:36.499Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-30-37-791Z.json"
+    },
+    {
+      "id": "qsdewl9jn",
+      "timestamp": "2026-11-10T16:30:26.854Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-30-28-146Z.json"
+    },
+    {
+      "id": "w6wflmvfv",
+      "timestamp": "2026-11-10T16:30:17.838Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-30-19-127Z.json"
+    },
+    {
+      "id": "4dmegso0a",
+      "timestamp": "2026-11-10T16:30:07.612Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-30-08-903Z.json"
+    },
+    {
+      "id": "yyj03w8nr",
+      "timestamp": "2026-11-10T16:29:57.841Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-29-59-132Z.json"
+    },
+    {
+      "id": "pcj9m6ccl",
+      "timestamp": "2026-11-10T16:29:46.868Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-29-48-159Z.json"
+    },
+    {
+      "id": "5a4k5fp3j",
+      "timestamp": "2026-11-10T16:29:37.595Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-11-10T16-29-38-885Z.json"
+    },
+    {
+      "id": "log_1794327299508",
+      "timestamp": "2026-11-10T16:14:59.508Z",
+      "user": "Administrador (Migração)",
+      "action": "Migração para Banco Nativo Node.js",
+      "details": "Banco migrado com sucesso via arquivo de backup .JSON (Modo: Fusão sem perda). Ponto de restauração: pre-node-migration-2026-11-10T16-14-59-506Z.json.",
+      "category": "BANCO_DE_DADOS"
+    },
+    {
+      "id": "k3efe5rln",
+      "timestamp": "2026-10-27T15:49:42.501Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-49-46-123Z.json"
+    },
+    {
+      "id": "b50a2yti2",
+      "timestamp": "2026-10-27T15:49:32.512Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-49-36-127Z.json"
+    },
+    {
+      "id": "umz2p4duk",
+      "timestamp": "2026-10-27T15:49:23.958Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-49-27-580Z.json"
+    },
+    {
+      "id": "zqxpseqwd",
+      "timestamp": "2026-10-27T15:49:12.490Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-49-16-108Z.json"
+    },
+    {
+      "id": "r4eehtv8l",
+      "timestamp": "2026-10-27T15:49:02.737Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-49-06-343Z.json"
+    },
+    {
+      "id": "dn8k7bszf",
+      "timestamp": "2026-10-27T15:48:52.528Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-48-56-146Z.json"
+    },
+    {
+      "id": "lqnv6ahrk",
+      "timestamp": "2026-10-27T15:48:41.541Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-48-45-156Z.json"
+    },
+    {
+      "id": "t0w2gzguu",
+      "timestamp": "2026-10-27T15:48:31.305Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-48-34-919Z.json"
+    },
+    {
+      "id": "v6ixoljme",
+      "timestamp": "2026-10-27T15:48:21.063Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-48-24-684Z.json"
+    },
+    {
+      "id": "tcdcwtsr4",
+      "timestamp": "2026-10-27T15:48:11.318Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-48-14-934Z.json"
+    },
+    {
+      "id": "7ndnzd6z7",
+      "timestamp": "2026-10-27T15:48:00.859Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-48-04-472Z.json"
+    },
+    {
+      "id": "o9yt83mwl",
+      "timestamp": "2026-10-27T15:47:50.835Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-47-54-453Z.json"
+    },
+    {
+      "id": "gsot9ysyp",
+      "timestamp": "2026-10-27T15:47:41.081Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-47-44-698Z.json"
+    },
+    {
+      "id": "am0cbg5om",
+      "timestamp": "2026-10-27T15:47:30.846Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-47-34-462Z.json"
+    },
+    {
+      "id": "hon2m5pjb",
+      "timestamp": "2026-10-27T15:47:20.845Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-47-24-462Z.json"
+    },
+    {
+      "id": "l6woz8ucr",
+      "timestamp": "2026-10-27T15:47:11.515Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-47-15-129Z.json"
+    },
+    {
+      "id": "u61o6btlg",
+      "timestamp": "2026-10-27T15:47:01.305Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-47-04-921Z.json"
+    },
+    {
+      "id": "z5altymsr",
+      "timestamp": "2026-10-27T15:46:51.092Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-46-54-695Z.json"
+    },
+    {
+      "id": "v5p3xlhao",
+      "timestamp": "2026-10-27T15:46:41.715Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-46-45-330Z.json"
+    },
+    {
+      "id": "vy4kunu6g",
+      "timestamp": "2026-10-27T15:46:30.879Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-46-34-489Z.json"
+    },
+    {
+      "id": "ceupws6rt",
+      "timestamp": "2026-10-27T15:46:20.856Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-46-24-462Z.json"
+    },
+    {
+      "id": "yu5ap2wku",
+      "timestamp": "2026-10-27T15:46:11.076Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-46-14-690Z.json"
+    },
+    {
+      "id": "b1vpk1bnj",
+      "timestamp": "2026-10-27T15:46:00.845Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-46-04-462Z.json"
+    },
+    {
+      "id": "jcptuld8k",
+      "timestamp": "2026-10-27T15:45:50.843Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-45-54-457Z.json"
+    },
+    {
+      "id": "dws4jc5tv",
+      "timestamp": "2026-10-27T15:45:41.071Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-45-44-673Z.json"
+    },
+    {
+      "id": "c92ae2hwe",
+      "timestamp": "2026-10-27T15:45:30.859Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-45-34-469Z.json"
+    },
+    {
+      "id": "g3qmb4htx",
+      "timestamp": "2026-10-27T15:45:21.066Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-45-24-674Z.json"
+    },
+    {
+      "id": "z4nyvogp1",
+      "timestamp": "2026-10-27T15:45:11.484Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-45-15-097Z.json"
+    },
+    {
+      "id": "wxv7an657",
+      "timestamp": "2026-10-27T15:45:04.071Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-45-07-662Z.json"
+    },
+    {
+      "id": "utnn9tg9a",
+      "timestamp": "2026-10-27T15:44:25.700Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-44-29-311Z.json"
+    },
+    {
+      "id": "m1ypvd62c",
+      "timestamp": "2026-10-27T15:43:25.719Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-43-29-330Z.json"
+    },
+    {
+      "id": "689kr63d9",
+      "timestamp": "2026-10-27T15:42:25.718Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-42-29-329Z.json"
+    },
+    {
+      "id": "wfhf5zkkj",
+      "timestamp": "2026-10-27T15:41:25.722Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-41-29-329Z.json"
+    },
+    {
+      "id": "i1o56zmzm",
+      "timestamp": "2026-10-27T15:41:12.736Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-41-16-344Z.json"
+    },
+    {
+      "id": "rltxh9kh9",
+      "timestamp": "2026-10-27T15:41:02.733Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-41-06-341Z.json"
+    },
+    {
+      "id": "h0njt8xy7",
+      "timestamp": "2026-10-27T15:40:52.502Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-40-56-105Z.json"
+    },
+    {
+      "id": "fwg63qjyx",
+      "timestamp": "2026-10-27T15:40:42.716Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-40-46-323Z.json"
+    },
+    {
+      "id": "gpkkcmggb",
+      "timestamp": "2026-10-27T15:40:32.719Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-40-36-327Z.json"
+    },
+    {
+      "id": "820eegcy7",
+      "timestamp": "2026-10-27T15:40:22.489Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-40-26-096Z.json"
+    },
+    {
+      "id": "wuk0wk4d8",
+      "timestamp": "2026-10-27T15:40:21.682Z",
+      "user": "Sistema (Manutenção)",
+      "action": "LIMPEZA_AUTOMATICA",
+      "details": "Manutenção de segundo plano concluída. Cookies limpos: 0 (Sessões críticas preservadas). Atualização MySQL: SUCESSO (Pull Completo)."
+    },
+    {
+      "id": "qc8kzlbt6",
+      "timestamp": "2026-10-27T15:40:21.682Z",
+      "user": "admin",
+      "action": "FORCE_SYNC_PULL_SUCCESS",
+      "details": "Dados locais consolidados e atualizados com sucesso com os dados do MySQL."
+    },
+    {
+      "id": "yob1cn03v",
+      "timestamp": "2026-10-27T15:40:21.455Z",
+      "user": "admin",
+      "action": "FORCE_SYNC_PULL",
+      "details": "Iniciando download forçado e substituição do cache local pelo MySQL."
+    },
+    {
+      "id": "geh4rxc46",
+      "timestamp": "2026-10-27T15:40:15.497Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-40-19-102Z.json"
+    },
+    {
+      "id": "l23vj5ihh",
+      "timestamp": "2026-10-27T15:40:00.750Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-40-04-355Z.json"
+    },
+    {
+      "id": "5qw87fqrz",
+      "timestamp": "2026-10-27T15:39:50.059Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-39-53-651Z.json"
+    },
+    {
+      "id": "tfqnsnbhv",
+      "timestamp": "2026-10-27T15:39:39.621Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-39-43-221Z.json"
+    },
+    {
+      "id": "nczas8pdf",
+      "timestamp": "2026-10-27T15:39:30.202Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-39-33-808Z.json"
+    },
+    {
+      "id": "bytu2to6h",
+      "timestamp": "2026-10-27T15:39:23.772Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-39-27-364Z.json"
+    },
+    {
+      "id": "330ux0jdt",
+      "timestamp": "2026-10-27T15:38:25.499Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-38-29-100Z.json"
+    },
+    {
+      "id": "337wshngi",
+      "timestamp": "2026-10-27T15:38:10.953Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-38-14-549Z.json"
+    },
+    {
+      "id": "a82d2ufwe",
+      "timestamp": "2026-10-27T15:38:00.499Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-38-04-099Z.json"
+    },
+    {
+      "id": "1eulhvu7f",
+      "timestamp": "2026-10-27T15:37:50.724Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-37-54-328Z.json"
+    },
+    {
+      "id": "o9pb1byax",
+      "timestamp": "2026-10-27T15:37:40.938Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-37-44-543Z.json"
+    },
+    {
+      "id": "9dkzopr6e",
+      "timestamp": "2026-10-27T15:37:30.500Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-37-34-103Z.json"
+    },
+    {
+      "id": "wobmi9cv1",
+      "timestamp": "2026-10-27T15:37:20.725Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-37-24-319Z.json"
+    },
+    {
+      "id": "job08l5is",
+      "timestamp": "2026-10-27T15:37:11.037Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-37-14-636Z.json"
+    },
+    {
+      "id": "y8a1ozk27",
+      "timestamp": "2026-10-27T15:36:59.842Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-37-03-444Z.json"
+    },
+    {
+      "id": "g2osj7arc",
+      "timestamp": "2026-10-27T15:36:49.640Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-36-53-240Z.json"
+    },
+    {
+      "id": "1vqcaiexs",
+      "timestamp": "2026-10-27T15:36:39.638Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-36-43-231Z.json"
+    },
+    {
+      "id": "ltpnqag4j",
+      "timestamp": "2026-10-27T15:36:29.867Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-36-33-464Z.json"
+    },
+    {
+      "id": "sc9kbbmzh",
+      "timestamp": "2026-10-27T15:36:20.146Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-36-23-748Z.json"
+    },
+    {
+      "id": "ho6p0gq3c",
+      "timestamp": "2026-10-27T15:36:09.875Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-36-13-472Z.json"
+    },
+    {
+      "id": "6b2a31wfr",
+      "timestamp": "2026-10-27T15:36:00.306Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-36-03-910Z.json"
+    },
+    {
+      "id": "thnlfiaea",
+      "timestamp": "2026-10-27T15:35:50.277Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-35-53-871Z.json"
+    },
+    {
+      "id": "13ya53erm",
+      "timestamp": "2026-10-27T15:35:40.005Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-35-43-567Z.json"
+    },
+    {
+      "id": "l3pv8hi7s",
+      "timestamp": "2026-10-27T15:35:29.870Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-35-33-467Z.json"
+    },
+    {
+      "id": "lr8f6r8vh",
+      "timestamp": "2026-10-27T15:35:19.645Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-35-23-244Z.json"
+    },
+    {
+      "id": "e0e4qv7wt",
+      "timestamp": "2026-10-27T15:35:09.654Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-35-13-255Z.json"
+    },
+    {
+      "id": "cux9xvekm",
+      "timestamp": "2026-10-27T15:34:59.863Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-35-03-461Z.json"
+    },
+    {
+      "id": "rz9l5r48t",
+      "timestamp": "2026-10-27T15:34:49.781Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-34-53-340Z.json"
+    },
+    {
+      "id": "ow7iu0r9j",
+      "timestamp": "2026-10-27T15:34:39.646Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-34-43-241Z.json"
+    },
+    {
+      "id": "ls8x7f3qt",
+      "timestamp": "2026-10-27T15:34:30.367Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-34-33-962Z.json"
+    },
+    {
+      "id": "fz6nanlmu",
+      "timestamp": "2026-10-27T15:34:20.099Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-34-23-693Z.json"
+    },
+    {
+      "id": "qxbvnfvlf",
+      "timestamp": "2026-10-27T15:34:09.845Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-34-13-442Z.json"
+    },
+    {
+      "id": "tv4sgiaa0",
+      "timestamp": "2026-10-27T15:34:00.490Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-34-04-088Z.json"
+    },
+    {
+      "id": "vcpzeto42",
+      "timestamp": "2026-10-27T15:33:50.032Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-33-53-631Z.json"
+    },
+    {
+      "id": "jgu7sv93q",
+      "timestamp": "2026-10-27T15:33:39.636Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-33-43-235Z.json"
+    },
+    {
+      "id": "mzdk04287",
+      "timestamp": "2026-10-27T15:33:29.856Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-33-33-454Z.json"
+    },
+    {
+      "id": "aof0spy69",
+      "timestamp": "2026-10-27T15:33:19.638Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-33-23-237Z.json"
+    },
+    {
+      "id": "9xze3j3ay",
+      "timestamp": "2026-10-27T15:33:09.930Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-10-27T15-33-13-529Z.json"
+    },
+    {
+      "id": "wgpaoac2x",
+      "timestamp": "2026-10-27T15:33:09.551Z",
+      "user": "admin",
+      "action": "FORCE_SYNC_PULL_SUCCESS",
+      "details": "Dados locais consolidados e atualizados com sucesso com os dados do MySQL."
+    },
+    {
+      "id": "qu2ryfdvp",
+      "timestamp": "2026-10-27T15:33:09.551Z",
+      "user": "Sistema (Manutenção)",
+      "action": "LIMPEZA_AUTOMATICA",
+      "details": "Manutenção de segundo plano concluída. Cookies limpos: 0 (Sessões críticas preservadas). Atualização MySQL: SUCESSO (Pull Completo)."
+    },
+    {
+      "id": "wehpuh8z8",
+      "timestamp": "2026-10-27T15:33:09.331Z",
+      "user": "admin",
+      "action": "FORCE_SYNC_PULL",
+      "details": "Iniciando download forçado e substituição do cache local pelo MySQL."
+    },
+    {
+      "id": "4gadcfoyc",
+      "timestamp": "2026-07-21T13:19:34.211Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-19-43-131Z.json"
+    },
+    {
+      "id": "3oqsj9gzh",
+      "timestamp": "2026-07-21T13:19:23.860Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-19-32-784Z.json"
+    },
+    {
+      "id": "7yq6mzuzm",
+      "timestamp": "2026-07-21T13:19:14.047Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-19-22-973Z.json"
+    },
+    {
+      "id": "czhmc8fce",
+      "timestamp": "2026-07-21T13:19:03.897Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-19-12-815Z.json"
+    },
+    {
+      "id": "zyxa35fra",
+      "timestamp": "2026-07-21T13:18:53.861Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-19-02-785Z.json"
+    },
+    {
+      "id": "dhn8wwqks",
+      "timestamp": "2026-07-21T13:18:44.128Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-18-53-054Z.json"
+    },
+    {
+      "id": "x810zif6m",
+      "timestamp": "2026-07-21T13:18:33.875Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-18-42-789Z.json"
+    },
+    {
+      "id": "lu73xbdlx",
+      "timestamp": "2026-07-21T13:18:24.077Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-18-33-003Z.json"
+    },
+    {
+      "id": "vpetd8xe6",
+      "timestamp": "2026-07-21T13:17:25.091Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-17-33-992Z.json"
+    },
+    {
+      "id": "xdouu0zqb",
+      "timestamp": "2026-07-21T13:17:05.078Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-17-14-001Z.json"
+    },
+    {
+      "id": "nlptn2x97",
+      "timestamp": "2026-07-21T13:16:55.328Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-17-04-224Z.json"
+    },
+    {
+      "id": "8cwu8l16f",
+      "timestamp": "2026-07-21T13:16:45.304Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-16-54-220Z.json"
+    },
+    {
+      "id": "fzs09fhyo",
+      "timestamp": "2026-07-21T13:16:35.073Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-16-43-996Z.json"
+    },
+    {
+      "id": "n4lyybnh4",
+      "timestamp": "2026-07-21T13:16:25.329Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-16-34-237Z.json"
+    },
+    {
+      "id": "y2tmjg32w",
+      "timestamp": "2026-07-21T13:16:15.785Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-16-24-703Z.json"
+    },
+    {
+      "id": "tjr7j38iu",
+      "timestamp": "2026-07-21T13:16:04.366Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-16-13-275Z.json"
+    },
+    {
+      "id": "f0jcvf49e",
+      "timestamp": "2026-07-21T13:15:54.189Z",
+      "user": "Administrador",
+      "action": "Backup Automático",
+      "details": "Backup automático em segundo plano realizado com sucesso. Arquivo: backup-auto-2026-07-21T13-16-03-110Z.json"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Administrador",
+      "email": "admin",
+      "password": "admin",
+      "role": "MASTER",
+      "permissions": []
+    },
+    {
+      "id": "user-luiz-romining",
+      "name": "Luiz Romining",
+      "email": "luiz.romining",
+      "password": "luiz",
+      "role": "USER",
+      "permissions": [
+        "DASHBOARD",
+        "NEW_AUDIT",
+        "COMPLETED_AUDITS",
+        "REPORTS",
+        "COMPARATIVE"
+      ],
+      "cargo": "Auditor Clínico"
+    }
+  ],
+  "cargos": [
+    {
+      "id": "master",
+      "name": "Administrador Master",
+      "role": "MASTER",
+      "permissions": [
+        "ALL"
+      ]
+    },
+    {
+      "id": "admin",
+      "name": "Administrador",
+      "role": "ADMIN",
+      "permissions": [
+        "DASHBOARD",
+        "COMPARATIVE",
+        "AGENDA",
+        "SECTORS",
+        "BEDS",
+        "QUESTIONS",
+        "NEW_AUDIT",
+        "COMPLETED_AUDITS",
+        "REPORTS",
+        "FORMULARIO",
+        "USERS_PERMISSIONS"
+      ]
+    },
+    {
+      "id": "auditor_clinico",
+      "name": "Auditor Clínico",
+      "role": "USER",
+      "permissions": [
+        "DASHBOARD",
+        "NEW_AUDIT",
+        "COMPLETED_AUDITS",
+        "FORMULARIO"
+      ]
+    },
+    {
+      "id": "enfermeiro_chefe",
+      "name": "Enfermeiro Chefe",
+      "role": "ADMIN",
+      "permissions": [
+        "DASHBOARD",
+        "COMPARATIVE",
+        "AGENDA",
+        "SECTORS",
+        "BEDS",
+        "QUESTIONS",
+        "NEW_AUDIT",
+        "COMPLETED_AUDITS",
+        "REPORTS"
+      ]
+    },
+    {
+      "id": "atendente_recepcao",
+      "name": "Atendente de Recepção",
+      "role": "USER",
+      "permissions": [
+        "DASHBOARD",
+        "AGENDA"
+      ]
+    },
+    {
+      "id": "farmaceutico",
+      "name": "Farmacêutico Hospitalar",
+      "role": "USER",
+      "permissions": [
+        "DASHBOARD"
+      ]
+    },
+    {
+      "id": "faturista",
+      "name": "Faturista Hospitalar",
+      "role": "USER",
+      "permissions": [
+        "DASHBOARD"
+      ]
+    },
+    {
+      "id": "tecnico_enfermagem",
+      "name": "Técnico de Enfermagem",
+      "role": "USER",
+      "permissions": [
+        "DASHBOARD",
+        "NEW_AUDIT"
+      ]
+    }
+  ],
+  "modulos_sistema": [
+    {
+      "id": "DASHBOARD",
+      "name": "Painel de Indicadores & Estatísticas",
+      "status": 1
+    },
+    {
+      "id": "INDICADORES",
+      "name": "Módulo Indicadores (TV/Tablets)",
+      "status": 1
+    },
+    {
+      "id": "COMPARATIVE",
+      "name": "Painel Comparativo de Setores",
+      "status": 1
+    },
+    {
+      "id": "AGENDA",
+      "name": "Agenda & Cronograma",
+      "status": 1
+    },
+    {
+      "id": "SECTORS",
+      "name": "Cadastro de Setores",
+      "status": 1
+    },
+    {
+      "id": "BEDS",
+      "name": "Cadastro de Leitos",
+      "status": 1
+    },
+    {
+      "id": "QUESTIONS",
+      "name": "Cadastro de Perguntas & Checklists",
+      "status": 1
+    },
+    {
+      "id": "NEW_AUDIT",
+      "name": "Nova Auditoria",
+      "status": 1
+    },
+    {
+      "id": "COMPLETED_AUDITS",
+      "name": "Auditorias Realizadas",
+      "status": 1
+    },
+    {
+      "id": "FORMULARIO",
+      "name": "Módulo de Formulários Clínicos",
+      "status": 1
+    },
+    {
+      "id": "REPORTS",
+      "name": "Gerar Relatórios & Exportações",
+      "status": 1
+    },
+    {
+      "id": "USERS_PERMISSIONS",
+      "name": "Gestão de Usuários & Permissões",
+      "status": 1
+    }
+  ],
+  "permissoes": [
+    {
+      "id": "perm_master_DASHBOARD",
+      "cargo_id": "master",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_INDICADORES",
+      "cargo_id": "master",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_COMPARATIVE",
+      "cargo_id": "master",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_AGENDA",
+      "cargo_id": "master",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_PATIENTS",
+      "cargo_id": "master",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_SECTORS",
+      "cargo_id": "master",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_BEDS",
+      "cargo_id": "master",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_QUESTIONS",
+      "cargo_id": "master",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_NEW_AUDIT",
+      "cargo_id": "master",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_COMPLETED_AUDITS",
+      "cargo_id": "master",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_FORMULARIO",
+      "cargo_id": "master",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_VOTING",
+      "cargo_id": "master",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_REPORTS",
+      "cargo_id": "master",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_master_USERS_PERMISSIONS",
+      "cargo_id": "master",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_DASHBOARD",
+      "cargo_id": "admin",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_INDICADORES",
+      "cargo_id": "admin",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_admin_COMPARATIVE",
+      "cargo_id": "admin",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_AGENDA",
+      "cargo_id": "admin",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_PATIENTS",
+      "cargo_id": "admin",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_admin_SECTORS",
+      "cargo_id": "admin",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_BEDS",
+      "cargo_id": "admin",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_QUESTIONS",
+      "cargo_id": "admin",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_NEW_AUDIT",
+      "cargo_id": "admin",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_COMPLETED_AUDITS",
+      "cargo_id": "admin",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_FORMULARIO",
+      "cargo_id": "admin",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_VOTING",
+      "cargo_id": "admin",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_admin_REPORTS",
+      "cargo_id": "admin",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_admin_USERS_PERMISSIONS",
+      "cargo_id": "admin",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_auditor_clinico_DASHBOARD",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_auditor_clinico_INDICADORES",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_COMPARATIVE",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_AGENDA",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_PATIENTS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_SECTORS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_BEDS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_QUESTIONS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_NEW_AUDIT",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_auditor_clinico_COMPLETED_AUDITS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_auditor_clinico_FORMULARIO",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_auditor_clinico_VOTING",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_REPORTS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_auditor_clinico_USERS_PERMISSIONS",
+      "cargo_id": "auditor_clinico",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_enfermeiro_chefe_DASHBOARD",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_INDICADORES",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_enfermeiro_chefe_COMPARATIVE",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_AGENDA",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_PATIENTS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_enfermeiro_chefe_SECTORS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_BEDS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_QUESTIONS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_NEW_AUDIT",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_COMPLETED_AUDITS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_FORMULARIO",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_enfermeiro_chefe_VOTING",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_enfermeiro_chefe_REPORTS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_enfermeiro_chefe_USERS_PERMISSIONS",
+      "cargo_id": "enfermeiro_chefe",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_DASHBOARD",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_atendente_recepcao_INDICADORES",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_COMPARATIVE",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_AGENDA",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_atendente_recepcao_PATIENTS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_SECTORS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_BEDS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_QUESTIONS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_NEW_AUDIT",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_COMPLETED_AUDITS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_FORMULARIO",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_VOTING",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_REPORTS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_atendente_recepcao_USERS_PERMISSIONS",
+      "cargo_id": "atendente_recepcao",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_DASHBOARD",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_farmaceutico_INDICADORES",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_COMPARATIVE",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_AGENDA",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_PATIENTS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_SECTORS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_BEDS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_QUESTIONS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_NEW_AUDIT",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_COMPLETED_AUDITS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_FORMULARIO",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_VOTING",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_REPORTS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_farmaceutico_USERS_PERMISSIONS",
+      "cargo_id": "farmaceutico",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_DASHBOARD",
+      "cargo_id": "faturista",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_faturista_INDICADORES",
+      "cargo_id": "faturista",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_COMPARATIVE",
+      "cargo_id": "faturista",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_AGENDA",
+      "cargo_id": "faturista",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_PATIENTS",
+      "cargo_id": "faturista",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_SECTORS",
+      "cargo_id": "faturista",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_BEDS",
+      "cargo_id": "faturista",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_QUESTIONS",
+      "cargo_id": "faturista",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_NEW_AUDIT",
+      "cargo_id": "faturista",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_COMPLETED_AUDITS",
+      "cargo_id": "faturista",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_FORMULARIO",
+      "cargo_id": "faturista",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_VOTING",
+      "cargo_id": "faturista",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_REPORTS",
+      "cargo_id": "faturista",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_faturista_USERS_PERMISSIONS",
+      "cargo_id": "faturista",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_DASHBOARD",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "DASHBOARD",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_tecnico_enfermagem_INDICADORES",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "INDICADORES",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_COMPARATIVE",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "COMPARATIVE",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_AGENDA",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "AGENDA",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_PATIENTS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "PATIENTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_SECTORS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "SECTORS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_BEDS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "BEDS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_QUESTIONS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "QUESTIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_NEW_AUDIT",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "NEW_AUDIT",
+      "pode_visualizar": 1,
+      "pode_criar_editar": 1,
+      "pode_deletar": 1
+    },
+    {
+      "id": "perm_tecnico_enfermagem_COMPLETED_AUDITS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "COMPLETED_AUDITS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_FORMULARIO",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "FORMULARIO",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_VOTING",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "VOTING",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_REPORTS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "REPORTS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    },
+    {
+      "id": "perm_tecnico_enfermagem_USERS_PERMISSIONS",
+      "cargo_id": "tecnico_enfermagem",
+      "modulo_id": "USERS_PERMISSIONS",
+      "pode_visualizar": 0,
+      "pode_criar_editar": 0,
+      "pode_deletar": 0
+    }
+  ],
+  "appointments": [
+    {
+      "id": "apt_1",
+      "patientName": "Carlos Eduardo Nogueira",
+      "cpf": "123.456.789-01",
+      "phone": "(88) 99876-5432",
+      "type": "CONSULTA",
+      "specialtyOrExam": "Cardiologia",
+      "date": "2026-07-10",
+      "time": "09:00",
+      "doctorName": "Dr. Roberto Kalil",
+      "status": "AGENDADO"
+    },
+    {
+      "id": "apt_2",
+      "patientName": "Maria de Fatima Sousa",
+      "cpf": "987.654.321-02",
+      "phone": "(88) 99765-4321",
+      "type": "EXAME",
+      "specialtyOrExam": "Ecocardiograma Transtorácico",
+      "date": "2026-07-10",
+      "time": "10:30",
+      "doctorName": "Dr. Roberto Kalil",
+      "status": "AGENDADO"
+    },
+    {
+      "id": "apt_3",
+      "patientName": "Antônio Ferreira Lima",
+      "cpf": "456.789.123-03",
+      "phone": "(88) 99654-1234",
+      "type": "CONSULTA",
+      "specialtyOrExam": "Ortopedia",
+      "date": "2026-07-11",
+      "time": "14:00",
+      "doctorName": "Dra. Ana Lucia",
+      "status": "AGENDADO"
+    }
+  ]
+}

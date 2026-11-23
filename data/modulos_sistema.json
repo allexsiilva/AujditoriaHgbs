@@ -1,0 +1,52 @@
+[
+  {
+    "id": "DASHBOARD",
+    "name": "Painel de Indicadores & Estatísticas",
+    "status": 1
+  },
+  {
+    "id": "INDICADORES",
+    "name": "Módulo Indicadores (TV/Tablets)",
+    "status": 1
+  },
+  {
+    "id": "COMPARATIVE",
+    "name": "Painel Comparativo de Setores",
+    "status": 1
+  },
+  {
+    "id": "SECTORS",
+    "name": "Cadastro de Setores",
+    "status": 1
+  },
+  {
+    "id": "BEDS",
+    "name": "Cadastro de Leitos",
+    "status": 1
+  },
+  {
+    "id": "QUESTIONS",
+    "name": "Cadastro de Perguntas & Checklists",
+    "status": 1
+  },
+  {
+    "id": "NEW_AUDIT",
+    "name": "Nova Auditoria",
+    "status": 1
+  },
+  {
+    "id": "COMPLETED_AUDITS",
+    "name": "Auditorias Realizadas",
+    "status": 1
+  },
+  {
+    "id": "REPORTS",
+    "name": "Gerar Relatórios & Exportações",
+    "status": 1
+  },
+  {
+    "id": "USERS_PERMISSIONS",
+    "name": "Gestão de Usuários & Permissões",
+    "status": 1
+  }
+]

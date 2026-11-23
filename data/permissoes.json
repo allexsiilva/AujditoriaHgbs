@@ -1,0 +1,770 @@
+[
+  {
+    "id": "perm_master_DASHBOARD",
+    "cargo_id": "master",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_INDICADORES",
+    "cargo_id": "master",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_COMPARATIVE",
+    "cargo_id": "master",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_PATIENTS",
+    "cargo_id": "master",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_SECTORS",
+    "cargo_id": "master",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_BEDS",
+    "cargo_id": "master",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_QUESTIONS",
+    "cargo_id": "master",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_NEW_AUDIT",
+    "cargo_id": "master",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_COMPLETED_AUDITS",
+    "cargo_id": "master",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_VOTING",
+    "cargo_id": "master",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_REPORTS",
+    "cargo_id": "master",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_master_USERS_PERMISSIONS",
+    "cargo_id": "master",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_DASHBOARD",
+    "cargo_id": "admin",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_INDICADORES",
+    "cargo_id": "admin",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_admin_COMPARATIVE",
+    "cargo_id": "admin",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_PATIENTS",
+    "cargo_id": "admin",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_admin_SECTORS",
+    "cargo_id": "admin",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_BEDS",
+    "cargo_id": "admin",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_QUESTIONS",
+    "cargo_id": "admin",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_NEW_AUDIT",
+    "cargo_id": "admin",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_COMPLETED_AUDITS",
+    "cargo_id": "admin",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_VOTING",
+    "cargo_id": "admin",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_admin_REPORTS",
+    "cargo_id": "admin",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_admin_USERS_PERMISSIONS",
+    "cargo_id": "admin",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_auditor_clinico_DASHBOARD",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_auditor_clinico_INDICADORES",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_COMPARATIVE",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_PATIENTS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_SECTORS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_BEDS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_QUESTIONS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_NEW_AUDIT",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_auditor_clinico_COMPLETED_AUDITS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_auditor_clinico_VOTING",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_REPORTS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_auditor_clinico_USERS_PERMISSIONS",
+    "cargo_id": "auditor_clinico",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_enfermeiro_chefe_DASHBOARD",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_INDICADORES",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_enfermeiro_chefe_COMPARATIVE",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_PATIENTS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_enfermeiro_chefe_SECTORS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_BEDS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_QUESTIONS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_NEW_AUDIT",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_COMPLETED_AUDITS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_VOTING",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_enfermeiro_chefe_REPORTS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_enfermeiro_chefe_USERS_PERMISSIONS",
+    "cargo_id": "enfermeiro_chefe",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_DASHBOARD",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_atendente_recepcao_INDICADORES",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_COMPARATIVE",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_PATIENTS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_SECTORS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_BEDS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_QUESTIONS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_NEW_AUDIT",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_COMPLETED_AUDITS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_VOTING",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_REPORTS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_atendente_recepcao_USERS_PERMISSIONS",
+    "cargo_id": "atendente_recepcao",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_DASHBOARD",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_farmaceutico_INDICADORES",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_COMPARATIVE",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_PATIENTS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_SECTORS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_BEDS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_QUESTIONS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_NEW_AUDIT",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_COMPLETED_AUDITS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_VOTING",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_REPORTS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_farmaceutico_USERS_PERMISSIONS",
+    "cargo_id": "farmaceutico",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_DASHBOARD",
+    "cargo_id": "faturista",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_faturista_INDICADORES",
+    "cargo_id": "faturista",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_COMPARATIVE",
+    "cargo_id": "faturista",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_PATIENTS",
+    "cargo_id": "faturista",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_SECTORS",
+    "cargo_id": "faturista",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_BEDS",
+    "cargo_id": "faturista",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_QUESTIONS",
+    "cargo_id": "faturista",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_NEW_AUDIT",
+    "cargo_id": "faturista",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_COMPLETED_AUDITS",
+    "cargo_id": "faturista",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_VOTING",
+    "cargo_id": "faturista",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_REPORTS",
+    "cargo_id": "faturista",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_faturista_USERS_PERMISSIONS",
+    "cargo_id": "faturista",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_DASHBOARD",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "DASHBOARD",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_tecnico_enfermagem_INDICADORES",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "INDICADORES",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_COMPARATIVE",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "COMPARATIVE",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_PATIENTS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "PATIENTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_SECTORS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "SECTORS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_BEDS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "BEDS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_QUESTIONS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "QUESTIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_NEW_AUDIT",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "NEW_AUDIT",
+    "pode_visualizar": 1,
+    "pode_criar_editar": 1,
+    "pode_deletar": 1
+  },
+  {
+    "id": "perm_tecnico_enfermagem_COMPLETED_AUDITS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "COMPLETED_AUDITS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_VOTING",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "VOTING",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_REPORTS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "REPORTS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  },
+  {
+    "id": "perm_tecnico_enfermagem_USERS_PERMISSIONS",
+    "cargo_id": "tecnico_enfermagem",
+    "modulo_id": "USERS_PERMISSIONS",
+    "pode_visualizar": 0,
+    "pode_criar_editar": 0,
+    "pode_deletar": 0
+  }
+]

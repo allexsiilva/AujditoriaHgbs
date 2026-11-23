@@ -1,0 +1,84 @@
+[
+  {
+    "id": "master",
+    "name": "Administrador Master",
+    "role": "MASTER",
+    "permissions": [
+      "ALL"
+    ]
+  },
+  {
+    "id": "admin",
+    "name": "Administrador",
+    "role": "ADMIN",
+    "permissions": [
+      "DASHBOARD",
+      "COMPARATIVE",
+      "SECTORS",
+      "BEDS",
+      "QUESTIONS",
+      "NEW_AUDIT",
+      "COMPLETED_AUDITS",
+      "REPORTS",
+      "USERS_PERMISSIONS"
+    ]
+  },
+  {
+    "id": "auditor_clinico",
+    "name": "Auditor Clínico",
+    "role": "USER",
+    "permissions": [
+      "DASHBOARD",
+      "NEW_AUDIT",
+      "COMPLETED_AUDITS"
+    ]
+  },
+  {
+    "id": "enfermeiro_chefe",
+    "name": "Enfermeiro Chefe",
+    "role": "ADMIN",
+    "permissions": [
+      "DASHBOARD",
+      "COMPARATIVE",
+      "SECTORS",
+      "BEDS",
+      "QUESTIONS",
+      "NEW_AUDIT",
+      "COMPLETED_AUDITS",
+      "REPORTS"
+    ]
+  },
+  {
+    "id": "atendente_recepcao",
+    "name": "Atendente de Recepção",
+    "role": "USER",
+    "permissions": [
+      "DASHBOARD"
+    ]
+  },
+  {
+    "id": "farmaceutico",
+    "name": "Farmacêutico Hospitalar",
+    "role": "USER",
+    "permissions": [
+      "DASHBOARD"
+    ]
+  },
+  {
+    "id": "faturista",
+    "name": "Faturista Hospitalar",
+    "role": "USER",
+    "permissions": [
+      "DASHBOARD"
+    ]
+  },
+  {
+    "id": "tecnico_enfermagem",
+    "name": "Técnico de Enfermagem",
+    "role": "USER",
+    "permissions": [
+      "DASHBOARD",
+      "NEW_AUDIT"
+    ]
+  }
+]

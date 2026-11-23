@@ -1,0 +1,101 @@
+=========================================================================================
+🏥   HOSPAUDIT - GUIA DE INTEGRAÇÃO COMPLETA COM O XAMPP MYSQL (NODE E PHP/PDO)
+=========================================================================================
+
+Excelente decisão! Conectar o HospAudit ao banco de dados MySQL local do XAMPP une o melhor
+de dois mundos: a robustez, velocidade e escalabilidade de um banco de dados relacional 
+profissional de alta performance com a facilidade de gerenciamento através do painel XAMPP
+e da interface phpMyAdmin.
+
+Agora o HospAudit suporta DUAS Formas de Funcionamento integradas ao XAMPP:
+- Opção A (Modo Node): Usar o Node.js como servidor e salvar os dados no MySQL do XAMPP.
+- Opção B (Modo PHP/PDO Puro): Rodar 100% dentro do Apache do XAMPP via PHP/PDO, sem precisar de Node.js rodando em produção!
+
+-----------------------------------------------------------------------------------------
+COMO FUNCIONA A INTEGRAÇÃO COM O XAMPP?
+-----------------------------------------------------------------------------------------
+1. O HospAudit conecta-se ao servidor de banco de dados MySQL padrão do XAMPP:
+   - Host: localhost (127.0.0.1)
+   - Porta: 3306
+   - Usuário: root
+   - Senha: (vazia - padrão do XAMPP)
+   - Banco de Dados: hospaudit
+
+2. VOCÊ NÃO PRECISA CRIAR O BANCO DE DADOS MANUALMENTE!
+   O HospAudit é inteligente: ao iniciar (seja via Node ou pelo arquivo PHP), se ele detectar 
+   que o banco de dados "hospaudit" não existe no seu MySQL, ele executa o comando 
+   "CREATE DATABASE IF NOT EXISTS" e cria toda a estrutura de armazenamento segura automaticamente.
+
+3. MIGRAÇÃO AUTOMÁTICA DE DADOS:
+   Se você já possui dados cadastrados no sistema (no arquivo local "mysql-mock-db.json" ou na 
+   pasta data/), o HospAudit enviará e sincronizará automaticamente todos esses dados para o 
+   XAMPP MySQL na primeira conexão, garantindo que você não perca absolutamente nada!
+
+-----------------------------------------------------------------------------------------
+OPÇÃO A: INICIANDO COM NODE.JS CONECTADO AO MYSQL DO XAMPP
+-----------------------------------------------------------------------------------------
+
+PASSO 1: INICIAR O MYSQL NO SEU XAMPP
+1. Abra o painel de controle do seu XAMPP ("XAMPP Control Panel") no Windows.
+2. Na linha correspondente ao "MySQL", clique no botão "Start".
+3. A caixinha do MySQL deve ficar verde, indicando que está ativo e rodando na porta 3306.
+
+PASSO 2: EXECUTAR O CONFIGURADOR AUTOMÁTICO DO HOSPAUDIT
+1. Na pasta raiz do seu HospAudit, dê dois cliques no arquivo:
+   👉 "usar_banco_xampp.bat"
+2. O script configurará instantaneamente suas credenciais no seu arquivo ".env"
+   e na sua pasta "data/mysql_config.json" para usarem o XAMPP MySQL padrão.
+
+PASSO 3: INICIAR O SISTEMA
+1. Dê dois cliques no arquivo:
+   👉 "iniciar.bat"
+2. O console do Node.js iniciará o servidor e imprimirá a linha verde de sucesso:
+   "[MySQL] BANCO ATIVO! Conectado com sucesso ao MySQL em localhost:3306, base 'hospaudit'."
+
+-----------------------------------------------------------------------------------------
+OPÇÃO B: RODAR 100% DENTRO DO APACHE DO XAMPP (MODO PHP/PDO PURO)
+-----------------------------------------------------------------------------------------
+Este modo é altamente recomendado para produção, pois elimina a necessidade do Node.js 
+estar rodando em segundo plano. Todo o sistema será gerenciado pelo Apache + PHP do seu XAMPP!
+
+PASSO 1: INICIAR APACHE E MYSQL NO XAMPP
+1. Abra o painel de controle do seu XAMPP ("XAMPP Control Panel").
+2. Clique em "Start" nas linhas correspondentes ao "Apache" e ao "MySQL". Ambas devem ficar verdes.
+
+PASSO 2: COPIAR OS ARQUIVOS PARA O XAMPP
+1. Crie uma pasta chamada "hospaudit" dentro da pasta "htdocs" do seu XAMPP.
+   Geralmente o caminho completo é:
+   👉 C:\xampp\htdocs\hospaudit\
+2. Copie os seguintes arquivos do HospAudit compilado para dentro de C:\xampp\htdocs\hospaudit\:
+   - A pasta "dist" (Copie todo o CONTEÚDO de "dist" diretamente para "hospaudit", de forma que o arquivo index.html fique na raiz da pasta hospaudit: C:\xampp\htdocs\hospaudit\index.html)
+   - O arquivo "api.php" (Copie para a raiz: C:\xampp\htdocs\hospaudit\api.php)
+   - O arquivo "config.php" (Copie para a raiz: C:\xampp\htdocs\hospaudit\config.php - configure suas credenciais aqui!)
+   - A pasta "data" (Opcional - caso queira migrar dados locais)
+   - O arquivo ".env" (Opcional - caso queira customizar credenciais)
+
+PASSO 3: COMPARTILHAR E USAR!
+1. Abra seu navegador e acesse o sistema pelo endereço:
+   👉 http://localhost/hospaudit/
+2. O sistema carregará instantaneamente. No primeiro carregamento, o back-end em PHP 
+   conectará ao seu MySQL via PDO, criará o banco "hospaudit" e migrará todos os dados 
+   antigos de forma 100% invisível e automática!
+
+-----------------------------------------------------------------------------------------
+COMO FAZER O GERENCIAMENTO DOS SEUS DADOS VIA PHPMYADMIN (OPCIONAL)
+-----------------------------------------------------------------------------------------
+Se você deseja inspecionar as tabelas ou fazer cópias de segurança manuais pelo phpMyAdmin:
+1. Com o Apache e MySQL iniciados no XAMPP, acesse:
+   👉 http://localhost/phpmyadmin/
+2. Na barra lateral esquerda, selecione o banco de dados chamado "hospaudit" criado automaticamente.
+3. Clique na tabela "hospaudit_store" para visualizar todos os registros do seu sistema de forma organizada!
+
+-----------------------------------------------------------------------------------------
+DICA DE OURO: BACKUPS E SEGURANÇA
+-----------------------------------------------------------------------------------------
+Para garantir a máxima proteção do seu trabalho diário, continue utilizando nossos scripts
+de backup automático ou acesse a página de Configurações/Diagnóstico do sistema diretamente 
+na Web para baixar os dumps em formato SQL ou JSON com um único clique!
+
+=========================================================================================
+🏥 Suporte HospAudit - Gestão e Auditoria Hospitalar de Alta Performance
+=========================================================================================
