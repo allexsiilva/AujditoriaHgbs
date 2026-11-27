@@ -8,7 +8,6 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { execSync, execFileSync } from 'child_process';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from "@google/genai";
 import mysql from 'mysql2/promise';
 
@@ -5403,6 +5402,7 @@ REGRAS DE RESPOSTA:
 
   // Vite integration
   if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
