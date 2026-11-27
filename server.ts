@@ -7,7 +7,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from "@google/genai";
 import mysql from 'mysql2/promise';
@@ -190,61 +190,67 @@ async function startServer() {
   }
 
   async function initializeMysql() {
-    let host = '';
-    let port = 3306;
-    let user = '';
-    let password = '';
-    let database = '';
-    let enabled = false;
-
-    // 1. Try loading from mysql_config.json first
-    if (fs.existsSync(MYSQL_CONFIG_FILE)) {
-      try {
-        const config = JSON.parse(fs.readFileSync(MYSQL_CONFIG_FILE, 'utf8'));
-        host = config.host || '';
-        port = Number(config.port) || 3306;
-        user = config.user || '';
-        password = config.password || '';
-        database = config.database || '';
-        enabled = config.enabled !== false;
-      } catch (err) {
-        console.error('[MySQL Config Load Error]', err);
-      }
-    }
-
-    // 2. Try loading from config.php if not configured in json file
-    if (!host) {
-      const phpConfig = parsePhpConfig();
-      if (phpConfig && phpConfig.host) {
-        host = phpConfig.host;
-        port = phpConfig.port;
-        user = phpConfig.user;
-        password = phpConfig.password;
-        database = phpConfig.database;
-        enabled = true;
-        console.log(`[MySQL] Credenciais carregadas do config.php local: host=${host}, database=${database}`);
-      }
-    }
-
-    // 3. Fallback to env variables (or defaults if missing)
-    if (!host) {
-      host = process.env.MYSQL_HOST || process.env.DB_HOST || '127.0.0.1';
-      port = Number(process.env.MYSQL_PORT || process.env.DB_PORT) || 3306;
-      user = process.env.MYSQL_USER || process.env.DB_USER || 'root';
-      // Configurações padrão seguras para XAMPP/MySQL local (sem forçar variáveis de ambiente)
-      password = process.env.MYSQL_PASSWORD || '';
-      database = process.env.MYSQL_DATABASE || 'hospaudit';
-      enabled = true;
-    }
-
-    if (!enabled || !host) {
-      console.log('[MySQL] Banco de dados MySQL desativado ou não configurado. Usando modo de arquivos locais JSON.');
-      isMysqlActive = false;
-      mysqlPool = null;
-      return null;
-    }
-
     try {
+      let host = '';
+      let port = 3306;
+      let user = '';
+      let password = '';
+      let database = '';
+      let enabled = false;
+
+      // 1. Try loading from mysql_config.json first
+      if (fs.existsSync(MYSQL_CONFIG_FILE)) {
+        try {
+          const config = JSON.parse(fs.readFileSync(MYSQL_CONFIG_FILE, 'utf8'));
+          host = config.host || '';
+          port = Number(config.port) || 3306;
+          user = config.user || '';
+          password = config.password || '';
+          database = config.database || '';
+          enabled = config.enabled !== false;
+        } catch (err) {
+          console.error('[MySQL Config Load Error]', err);
+        }
+      }
+
+      // 2. Try loading from config.php if not configured in json file
+      if (!host) {
+        const phpConfig = parsePhpConfig();
+        if (phpConfig && phpConfig.host) {
+          host = phpConfig.host;
+          port = phpConfig.port;
+          user = phpConfig.user;
+          password = phpConfig.password;
+          database = phpConfig.database;
+          enabled = true;
+          console.log(`[MySQL] Credenciais carregadas do config.php local: host=${host}, database=${database}`);
+        }
+      }
+
+      // 3. Fallback to env variables (or defaults if missing)
+      if (!host) {
+        host = process.env.MYSQL_HOST || process.env.DB_HOST || '127.0.0.1';
+        port = Number(process.env.MYSQL_PORT || process.env.DB_PORT) || 3306;
+        user = process.env.MYSQL_USER || process.env.DB_USER || 'root';
+        // Configurações padrão seguras para XAMPP/MySQL local (sem forçar variáveis de ambiente)
+        password = process.env.MYSQL_PASSWORD || '';
+        database = process.env.MYSQL_DATABASE || 'hospaudit';
+        enabled = true;
+      }
+
+      if (!enabled || !host) {
+        if (isMysqlActive) {
+          console.log('[MySQL] Banco de dados MySQL desativado. Usando modo de arquivos locais JSON.');
+        }
+        isMysqlActive = false;
+        if (mysqlPool) {
+          try {
+            await mysqlPool.end();
+          } catch (e) {}
+        }
+        mysqlPool = null;
+        return null;
+      }
       // List of host variations to ensure connection succeeds regardless of IPv6/IPv4 DNS resolution on Windows/XAMPP
       const hostsToTry = [host];
       if (host === 'localhost' && !hostsToTry.includes('127.0.0.1')) {
@@ -392,7 +398,27 @@ async function startServer() {
 
   let isConnectingMysql = false;
 
+  function isMysqlDisabledInConfig(): boolean {
+    try {
+      if (fs.existsSync(MYSQL_CONFIG_FILE)) {
+        const cfg = JSON.parse(fs.readFileSync(MYSQL_CONFIG_FILE, 'utf8'));
+        return cfg.enabled === false;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   async function checkMysqlHealth() {
+    if (isMysqlDisabledInConfig()) {
+      if (isMysqlActive || mysqlPool) {
+        isMysqlActive = false;
+        if (mysqlPool) {
+          try { await mysqlPool.end(); } catch (e) {}
+          mysqlPool = null;
+        }
+      }
+      return;
+    }
     if (!mysqlPool) {
       if (!isConnectingMysql) {
         isConnectingMysql = true;
@@ -796,7 +822,7 @@ async function startServer() {
 
   // Agendador em segundo plano: verifica a cada 15 segundos se atingiu o próximo timestamp de envio
   setInterval(() => {
-    if (!isAutoSyncActive) return;
+    if (!isAutoSyncActive || !isMysqlActive || isMysqlDisabledInConfig()) return;
     if (Date.now() >= nextAutoSyncTimestamp) {
       triggerAutoSync('agendador_automatico_5min');
     }
@@ -1172,7 +1198,13 @@ async function startServer() {
 
     await initializeMysql();
 
-    if (isMysqlActive) {
+    if (!mysqlConfig.enabled) {
+      res.json({
+        success: true,
+        connected: false,
+        message: 'MySQL (XAMPP) desativado. O sistema está operando no Banco Local (Node.js).'
+      });
+    } else if (isMysqlActive) {
       await saveToMysql(cachedDb || getLocalDb());
       res.json({
         success: true,
@@ -1545,6 +1577,19 @@ async function startServer() {
       snapshotFilename
     };
   }
+
+  // GET /api/health - Verificação rápida de disponibilidade do servidor Node.js local
+  app.get('/api/health', (_req, res) => {
+    res.status(200).json({
+      success: true,
+      status: 'online',
+      service: 'hospaudit-node',
+      port: PORT,
+      uptimeSeconds: Math.floor(process.uptime()),
+      dbMode: isMysqlActive ? 'mysql_xampp' : 'node_native',
+      timestamp: new Date().toISOString()
+    });
+  });
 
   // GET /api/node-db/status
   app.get('/api/node-db/status', (req, res) => {
@@ -2212,9 +2257,9 @@ async function startServer() {
       ],
       cargos: [
         { id: 'master', name: 'Administrador Master', role: 'MASTER', permissions: ['ALL'] },
-        { id: 'admin', name: 'Administrador', role: 'ADMIN', permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'USERS_PERMISSIONS'] },
-        { id: 'auditor_clinico', name: 'Auditor Clínico', role: 'USER', permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'] },
-        { id: 'enfermeiro_chefe', name: 'Enfermeiro Chefe', role: 'ADMIN', permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS'] },
+        { id: 'admin', name: 'Administrador', role: 'ADMIN', permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'USERS_PERMISSIONS'] },
+        { id: 'auditor_clinico', name: 'Auditor Clínico', role: 'USER', permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'] },
+        { id: 'enfermeiro_chefe', name: 'Enfermeiro Chefe', role: 'ADMIN', permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS'] },
         { id: 'atendente_recepcao', name: 'Atendente de Recepção', role: 'USER', permissions: ['DASHBOARD'] },
         { id: 'farmaceutico', name: 'Farmacêutico Hospitalar', role: 'USER', permissions: ['DASHBOARD'] },
         { id: 'faturista', name: 'Faturista Hospitalar', role: 'USER', permissions: ['DASHBOARD'] },
@@ -2222,17 +2267,18 @@ async function startServer() {
       ],
       patients: [],
       modulos_sistema: [
-        { id: 'DASHBOARD', name: 'Painel de Indicadores & Estatísticas', status: 1 },
+        { id: 'DASHBOARD', name: 'Indicadores & Estatísticas', status: 1 },
         { id: 'INDICADORES', name: 'Módulo Indicadores (TV/Tablets)', status: 1 },
         { id: 'COMPARATIVE', name: 'Painel Comparativo de Setores', status: 1 },
         { id: 'PATIENTS', name: 'Cadastro de Pacientes', status: 1 },
         { id: 'SECTORS', name: 'Cadastro de Setores', status: 1 },
         { id: 'BEDS', name: 'Cadastro de Leitos', status: 1 },
-        { id: 'QUESTIONS', name: 'Cadastro de Perguntas & Checklists', status: 1 },
+        { id: 'QUESTIONS', name: 'Cadastro de Perguntas', status: 1 },
         { id: 'NEW_AUDIT', name: 'Nova Auditoria', status: 1 },
         { id: 'COMPLETED_AUDITS', name: 'Auditorias Realizadas', status: 1 },
+        { id: 'IRAS_LOGS', name: 'Logs de Auditoria IRAS', status: 1 },
         { id: 'VOTING', name: 'Votação Online & Modelos', status: 1 },
-        { id: 'REPORTS', name: 'Gerar Relatórios & Exportações', status: 1 },
+        { id: 'REPORTS', name: 'Gerar Relatórios', status: 1 },
         { id: 'USERS_PERMISSIONS', name: 'Gestão de Usuários & Permissões', status: 1 },
         { id: 'EQUIPAMENTOS', name: 'Manutenção de Equipamentos', status: 1 }
       ],
@@ -3069,7 +3115,14 @@ async function startServer() {
             // Attempt to re-initialize pool
             await initializeMysql();
 
-            if (isMysqlActive) {
+            if (!mysqlConfig.enabled) {
+              return res.json({
+                success: true,
+                message: 'MySQL (XAMPP) desativado. O sistema está operando no Banco Local (Node.js).',
+                isUsingPostgres: false,
+                isPostgresConfigured: false
+              });
+            } else if (isMysqlActive) {
               // Sync existing data from memory to the new database
               await saveToMysql(cachedDb || getLocalDb());
               return res.json({
@@ -4862,56 +4915,171 @@ REGRAS DE RESPOSTA:
   });
 
   // --- GITHUB UPDATER ENDPOINTS ---
+  const GITHUB_DEFAULT_REPO = 'https://github.com/allexsiilva/HospAudit';
+  const GITHUB_CONFIG_FILE = path.join(process.cwd(), 'data', 'github_config.json');
+
+  function loadGithubConfig() {
+    let customConfig = {
+      repoUrl: GITHUB_DEFAULT_REPO,
+      branch: 'main',
+      token: ''
+    };
+    if (fs.existsSync(GITHUB_CONFIG_FILE)) {
+      try {
+        const parsed = JSON.parse(fs.readFileSync(GITHUB_CONFIG_FILE, 'utf8'));
+        customConfig = {
+          repoUrl: (parsed.repoUrl || GITHUB_DEFAULT_REPO).trim(),
+          branch: (parsed.branch || 'main').trim(),
+          token: (parsed.token || '').trim()
+        };
+      } catch (e) {}
+    }
+    return customConfig;
+  }
+
+  function saveGithubConfigFile(cfg: { repoUrl: string; branch: string; token: string }) {
+    const dataDir = path.dirname(GITHUB_CONFIG_FILE);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    fs.writeFileSync(GITHUB_CONFIG_FILE, JSON.stringify(cfg, null, 2), 'utf8');
+  }
+
+  function normalizeRepoUrl(rawUrl: string): string {
+    let clean = (rawUrl || '').trim().replace(/\/+$/, '');
+    if (!clean) return GITHUB_DEFAULT_REPO;
+    if (!/^https?:\/\//i.test(clean) && !clean.startsWith('git@')) {
+      clean = `https://${clean}`;
+    }
+    return clean;
+  }
+
+  function buildAuthRepoUrl(repoUrl: string, token?: string): string {
+    const cleanUrl = normalizeRepoUrl(repoUrl);
+    const cleanToken = (token || '').trim();
+    if (!cleanToken) return cleanUrl;
+    const withoutProto = cleanUrl.replace(/^https?:\/\/([^@]+@)?/i, '');
+    return `https://x-access-token:${encodeURIComponent(cleanToken)}@${withoutProto}`;
+  }
+
+  function runGit(args: string[], timeout = 30000): string {
+    return execFileSync('git', args, {
+      cwd: process.cwd(),
+      encoding: 'utf8',
+      timeout,
+      env: {
+        ...process.env,
+        GIT_TERMINAL_PROMPT: '0',
+        GCM_INTERACTIVE: 'never'
+      }
+    });
+  }
+
+  function sanitizeGitText(text: string, token?: string): string {
+    let out = String(text || '');
+    if (token && token.trim()) {
+      out = out.split(token.trim()).join('***');
+      out = out.split(encodeURIComponent(token.trim())).join('***');
+    }
+    out = out.replace(/https:\/\/[^@\s]+@/gi, 'https://***@');
+    return out;
+  }
+
+  function formatFriendlyGitError(err: any, branch: string, token?: string): string {
+    const raw = sanitizeGitText(
+      [err?.stderr, err?.stdout, err?.message].filter(Boolean).join('\n') || String(err),
+      token
+    );
+    const lower = raw.toLowerCase();
+    if (lower.includes('repository not found') || lower.includes('404')) {
+      return 'Repositório não encontrado (404) ou privado sem autorização. Confira a URL do GitHub ou informe um Personal Access Token (PAT) em Configurações Avançadas.';
+    }
+    if (lower.includes('authentication failed') || lower.includes('could not read username') || lower.includes('403') || lower.includes('invalid username or password')) {
+      return 'Falha de autenticação no GitHub. Informe ou revise o Personal Access Token (PAT) em Configurações Avançadas.';
+    }
+    if (lower.includes("couldn't find remote ref") || lower.includes('not found in upstream origin')) {
+      return `A branch "${branch}" não existe no repositório remoto. Verifique o nome da branch (ex: main ou master).`;
+    }
+    if (lower.includes('could not resolve host') || lower.includes('failed to connect') || lower.includes('timed out')) {
+      return 'Sem conexão com o GitHub ou tempo limite esgotado ao acessar o repositório remoto.';
+    }
+    return raw.trim() || 'Erro desconhecido ao executar comando Git.';
+  }
+
+  function configureGitOriginRemote(authUrl: string) {
+    let hasOrigin = false;
+    try {
+      runGit(['remote', 'get-url', 'origin']);
+      hasOrigin = true;
+    } catch (e) {}
+
+    if (hasOrigin) {
+      runGit(['remote', 'set-url', 'origin', authUrl]);
+    } else {
+      runGit(['remote', 'add', 'origin', authUrl]);
+    }
+  }
+
+  function parseLsRemoteBranches(lsOutput: string): Record<string, string> {
+    const branches: Record<string, string> = {};
+    (lsOutput || '').split(/\r?\n/).forEach(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      const [hash, ref] = trimmed.split(/\s+/);
+      if (hash && ref && ref.startsWith('refs/heads/')) {
+        branches[ref.replace('refs/heads/', '')] = hash;
+      }
+    });
+    return branches;
+  }
+
   app.get('/api/github/status', (req, res) => {
     try {
-      const configPath = path.join(process.cwd(), 'data', 'github_config.json');
-      let customConfig = {
-        repoUrl: 'https://github.com/allexsiilva/HospAudit',
-        branch: 'main',
-        token: ''
-      };
-      if (fs.existsSync(configPath)) {
-        try {
-          customConfig = { ...customConfig, ...JSON.parse(fs.readFileSync(configPath, 'utf8')) };
-        } catch (e) {}
-      }
+      const customConfig = loadGithubConfig();
 
-      let currentBranch = 'Desconhecido';
-      let lastCommitHash = 'Desconhecido';
-      let lastCommitMessage = 'Desconhecido';
-      let lastCommitAuthor = 'Desconhecido';
-      let lastCommitDate = 'Desconhecido';
+      let currentBranch = customConfig.branch || 'main';
+      let lastCommitHash = 'Nenhum';
+      let lastCommitMessage = 'Repositório Git ainda não sincronizado neste ambiente.';
+      let lastCommitAuthor = '—';
+      let lastCommitDate = '—';
       let remoteUrl = customConfig.repoUrl;
       let isGitRepo = false;
+      let hasCommits = false;
       let gitAvailable = false;
 
       try {
-        execSync('git --version', { stdio: 'ignore' });
+        runGit(['--version'], 5000);
         gitAvailable = true;
       } catch (e) {}
 
       if (gitAvailable) {
-        try {
-          isGitRepo = fs.existsSync(path.join(process.cwd(), '.git'));
-          if (isGitRepo) {
-            currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf8' }).trim();
-            lastCommitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim();
-            lastCommitMessage = execSync('git log -1 --format=%s', { encoding: 'utf8' }).trim();
-            lastCommitAuthor = execSync('git log -1 --format=%an', { encoding: 'utf8' }).trim();
-            lastCommitDate = execSync('git log -1 --format=%cd --date=format:"%d/%m/%Y %H:%M"', { encoding: 'utf8' }).trim();
-            
+        isGitRepo = fs.existsSync(path.join(process.cwd(), '.git'));
+        if (isGitRepo) {
+          try {
+            runGit(['rev-parse', '--verify', 'HEAD'], 5000);
+            hasCommits = true;
+          } catch (e) {
+            hasCommits = false;
+          }
+
+          if (hasCommits) {
             try {
-              remoteUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
-              // Strip oauth credentials for security in status response
-              if (remoteUrl.includes('@')) {
-                remoteUrl = 'https://' + remoteUrl.split('@')[1];
-              }
-            } catch (e) {
-              remoteUrl = customConfig.repoUrl;
+              currentBranch = runGit(['rev-parse', '--abbrev-ref', 'HEAD'], 5000).trim();
+              lastCommitHash = runGit(['rev-parse', '--short', 'HEAD'], 5000).trim();
+              lastCommitMessage = runGit(['log', '-1', '--format=%s'], 5000).trim();
+              lastCommitAuthor = runGit(['log', '-1', '--format=%an'], 5000).trim();
+              lastCommitDate = runGit(['log', '-1', '--format=%cd', '--date=format:%d/%m/%Y %H:%M'], 5000).trim();
+            } catch (errLog: any) {
+              console.error('[GitHub Status Info Error]', errLog.message);
             }
           }
-        } catch (error: any) {
-          console.error('[GitHub Status Info Error]', error.message);
+
+          try {
+            const rawRemote = runGit(['remote', 'get-url', 'origin'], 5000).trim();
+            remoteUrl = rawRemote.replace(/^https:\/\/[^@]+@/i, 'https://');
+          } catch (e) {
+            remoteUrl = customConfig.repoUrl;
+          }
         }
       }
 
@@ -4919,6 +5087,7 @@ REGRAS DE RESPOSTA:
         success: true,
         gitAvailable,
         isGitRepo,
+        hasCommits,
         currentBranch,
         lastCommitHash,
         lastCommitMessage,
@@ -4939,53 +5108,26 @@ REGRAS DE RESPOSTA:
 
   app.post('/api/github/config', (req, res) => {
     try {
-      const { repoUrl, branch, token } = req.body;
-      if (!repoUrl) {
+      const { repoUrl, branch, token } = req.body || {};
+      if (!repoUrl || !String(repoUrl).trim()) {
         return res.status(400).json({ success: false, message: 'A URL do repositório é obrigatória.' });
       }
 
-      const configPath = path.join(process.cwd(), 'data', 'github_config.json');
-      const dataDir = path.dirname(configPath);
-      if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
-      }
-
-      let existing: any = {};
-      if (fs.existsSync(configPath)) {
-        try {
-          existing = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        } catch (e) {}
-      }
-
+      const existing = loadGithubConfig();
+      const normalizedUrl = normalizeRepoUrl(repoUrl);
       const newConfig = {
-        repoUrl,
-        branch: branch || 'main',
-        token: token !== undefined ? token : (existing.token || '')
+        repoUrl: normalizedUrl,
+        branch: (branch || existing.branch || 'main').trim(),
+        token: token !== undefined && String(token).trim() !== '' ? String(token).trim() : (token === '' ? '' : existing.token || '')
       };
 
-      fs.writeFileSync(configPath, JSON.stringify(newConfig, null, 2), 'utf8');
+      saveGithubConfigFile(newConfig);
 
       if (fs.existsSync(path.join(process.cwd(), '.git'))) {
         try {
-          let hasOrigin = false;
-          try {
-            execSync('git remote get-url origin', { stdio: 'ignore' });
-            hasOrigin = true;
-          } catch (e) {}
-
-          let urlWithToken = repoUrl;
-          if (newConfig.token) {
-            const cleanUrl = repoUrl.replace(/^https?:\/\//, '');
-            urlWithToken = `https://oauth2:${newConfig.token}@${cleanUrl}`;
-          }
-
-          if (hasOrigin) {
-            execSync(`git remote set-url origin "${urlWithToken}"`);
-          } else {
-            execSync(`git remote add origin "${urlWithToken}"`);
-          }
+          configureGitOriginRemote(buildAuthRepoUrl(newConfig.repoUrl, newConfig.token));
         } catch (errRemote: any) {
-          console.error('[Error setting git remote URL]', errRemote.message);
+          console.error('[Error setting git remote URL]', sanitizeGitText(errRemote.message, newConfig.token));
         }
       }
 
@@ -4997,125 +5139,265 @@ REGRAS DE RESPOSTA:
   });
 
   app.post('/api/github/check-updates', (req, res) => {
+    const saved = loadGithubConfig();
+    const repoUrl = normalizeRepoUrl(req.body?.repoUrl || saved.repoUrl);
+    const branch = (req.body?.branch || saved.branch || 'main').trim();
+    const token = (req.body?.token !== undefined && String(req.body.token).trim() !== '')
+      ? String(req.body.token).trim()
+      : saved.token;
+
     try {
-      const configPath = path.join(process.cwd(), 'data', 'github_config.json');
-      let customConfig = { repoUrl: '', branch: 'main', token: '' };
-      if (fs.existsSync(configPath)) {
-        try {
-          customConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        } catch (e) {}
+      runGit(['--version'], 5000);
+    } catch (e) {
+      return res.status(500).json({
+        success: false,
+        hasUpdates: false,
+        behindCount: 0,
+        message: 'O utilitário "git" não está instalado neste servidor.'
+      });
+    }
+
+    const authUrl = buildAuthRepoUrl(repoUrl, token);
+
+    try {
+      const lsOut = runGit(['ls-remote', '--heads', authUrl], 15000);
+      const remoteBranches = parseLsRemoteBranches(lsOut);
+      const remoteHash = remoteBranches[branch];
+
+      if (!remoteHash) {
+        const available = Object.keys(remoteBranches);
+        const hint = available.length > 0
+          ? ` Branches disponíveis no repositório: ${available.join(', ')}.`
+          : ' O repositório remoto não possui branches publicadas.';
+        return res.json({
+          success: false,
+          hasUpdates: false,
+          behindCount: 0,
+          message: `Branch "${branch}" não encontrada no repositório remoto.${hint}`
+        });
       }
 
       const isGitRepo = fs.existsSync(path.join(process.cwd(), '.git'));
-      if (!isGitRepo) {
+      let hasLocalHead = false;
+      let localHash = '';
+
+      if (isGitRepo) {
+        try {
+          localHash = runGit(['rev-parse', 'HEAD'], 5000).trim();
+          hasLocalHead = !!localHash;
+        } catch (e) {
+          hasLocalHead = false;
+        }
+      }
+
+      if (!isGitRepo || !hasLocalHead) {
         return res.json({
           success: true,
           hasUpdates: true,
           behindCount: 1,
-          message: 'Repositório local não inicializado. Uma atualização configurará o repositório Git local.'
-        });
-      }
-
-      const branch = customConfig.branch || 'main';
-      try {
-        execSync('git fetch origin', { timeout: 15000, stdio: 'ignore' });
-        
-        const localHash = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
-        let remoteHash = '';
-        try {
-          remoteHash = execSync(`git rev-parse origin/${branch}`, { encoding: 'utf8' }).trim();
-        } catch (e) {
-          remoteHash = localHash;
-        }
-
-        const hasUpdates = localHash !== remoteHash;
-        let behindCount = 0;
-        if (hasUpdates) {
-          try {
-            behindCount = parseInt(execSync(`git rev-list --count HEAD..origin/${branch}`, { encoding: 'utf8' }).trim(), 10) || 0;
-          } catch (e) {
-            behindCount = 1;
-          }
-        }
-
-        res.json({
-          success: true,
-          hasUpdates,
-          behindCount,
-          localHash: localHash.slice(0, 7),
           remoteHash: remoteHash.slice(0, 7),
-          message: hasUpdates 
-            ? `Existem ${behindCount} novos commits disponíveis na branch "${branch}".` 
-            : 'Seu sistema já está na versão mais recente disponível no GitHub!'
-        });
-      } catch (errGit: any) {
-        console.error('[Git check-updates error]', errGit.message);
-        res.json({
-          success: true,
-          hasUpdates: false,
-          behindCount: 0,
-          message: 'Não foi possível verificar atualizações remotas. Verifique sua conexão ou token se for repositório privado.'
+          message: `Repositório remoto acessível (commit ${remoteHash.slice(0, 7)} na branch "${branch}"). Clique em "Atualizar Sistema" para sincronizar.`
         });
       }
-    } catch (err: any) {
-      console.error('[POST /api/github/check-updates Error]', err);
-      res.status(500).json({ success: false, message: 'Erro ao verificar atualizações do GitHub.', error: err.message });
+
+      const hasUpdates = localHash !== remoteHash;
+      let behindCount = hasUpdates ? 1 : 0;
+
+      if (hasUpdates) {
+        try {
+          configureGitOriginRemote(authUrl);
+          runGit(['fetch', 'origin', branch], 20000);
+          const countRaw = runGit(['rev-list', '--count', `HEAD..origin/${branch}`], 5000).trim();
+          behindCount = parseInt(countRaw, 10) || 1;
+        } catch (e) {
+          behindCount = 1;
+        }
+      }
+
+      return res.json({
+        success: true,
+        hasUpdates,
+        behindCount,
+        localHash: localHash.slice(0, 7),
+        remoteHash: remoteHash.slice(0, 7),
+        message: hasUpdates
+          ? `Existem ${behindCount} novo(s) commit(s) disponíveis na branch "${branch}" (${localHash.slice(0, 7)} → ${remoteHash.slice(0, 7)}).`
+          : `Seu sistema já está na versão mais recente da branch "${branch}" (${localHash.slice(0, 7)})!`
+      });
+    } catch (errGit: any) {
+      const friendly = formatFriendlyGitError(errGit, branch, token);
+      console.error('[Git check-updates error]', friendly);
+      return res.json({
+        success: false,
+        hasUpdates: false,
+        behindCount: 0,
+        message: friendly
+      });
     }
   });
 
   app.post('/api/github/update', (req, res) => {
+    const saved = loadGithubConfig();
+    const repoUrl = normalizeRepoUrl(req.body?.repoUrl || saved.repoUrl);
+    const branch = (req.body?.branch || saved.branch || 'main').trim();
+    const token = (req.body?.token !== undefined && String(req.body.token).trim() !== '')
+      ? String(req.body.token).trim()
+      : saved.token;
+
     try {
-      const configPath = path.join(process.cwd(), 'data', 'github_config.json');
-      let customConfig = { repoUrl: 'https://github.com/allexsiilva/HospAudit', branch: 'main', token: '' };
-      if (fs.existsSync(configPath)) {
-        try {
-          customConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        } catch (e) {}
-      }
+      runGit(['--version'], 5000);
+    } catch (e) {
+      return res.status(500).json({
+        success: false,
+        message: 'O utilitário "git" não está instalado neste servidor.'
+      });
+    }
 
-      const isGitRepo = fs.existsSync(path.join(process.cwd(), '.git'));
-      if (!isGitRepo) {
-        try {
-          execSync('git init');
-          let urlWithToken = customConfig.repoUrl;
-          if (customConfig.token) {
-            const cleanUrl = urlWithToken.replace(/^https?:\/\//, '');
-            urlWithToken = `https://oauth2:${customConfig.token}@${cleanUrl}`;
+    // Persist active config
+    saveGithubConfigFile({ repoUrl, branch, token });
+    const authUrl = buildAuthRepoUrl(repoUrl, token);
+
+    // 1. Validate remote connectivity & branch before altering local files
+    let remoteBranches: Record<string, string> = {};
+    try {
+      const lsOut = runGit(['ls-remote', '--heads', authUrl], 20000);
+      remoteBranches = parseLsRemoteBranches(lsOut);
+    } catch (errRemote: any) {
+      const friendly = formatFriendlyGitError(errRemote, branch, token);
+      return res.status(400).json({
+        success: false,
+        message: friendly,
+        error: friendly
+      });
+    }
+
+    if (!remoteBranches[branch]) {
+      const available = Object.keys(remoteBranches);
+      const hint = available.length > 0
+        ? ` Branches encontradas: ${available.join(', ')}.`
+        : ' Nenhuma branch encontrada no repositório remoto.';
+      const msg = `Branch "${branch}" não existe em ${repoUrl}.${hint}`;
+      return res.status(400).json({ success: false, message: msg, error: msg });
+    }
+
+    // 2. Snapshot local data/*.json files in memory so user DB & configs are NEVER overwritten
+    const preservedDataFiles: Record<string, string> = {};
+    try {
+      if (fs.existsSync(DATA_DIR)) {
+        fs.readdirSync(DATA_DIR).forEach(file => {
+          const full = path.join(DATA_DIR, file);
+          if (fs.statSync(full).isFile() && file.endsWith('.json')) {
+            preservedDataFiles[file] = fs.readFileSync(full, 'utf8');
           }
-          execSync(`git remote add origin "${urlWithToken}"`);
-        } catch (errInit: any) {
-          return res.status(500).json({ success: false, message: 'Falha ao inicializar repositório Git local', error: errInit.message });
+        });
+      }
+    } catch (e) {
+      console.warn('[Git Update] Aviso ao ler data/ antes do pull:', e);
+    }
+
+    try {
+      const gitDir = path.join(process.cwd(), '.git');
+      const hadGitDir = fs.existsSync(gitDir);
+      if (!hadGitDir) {
+        runGit(['init'], 10000);
+      }
+
+      // Ensure local git user identity exists for merge commits
+      try {
+        runGit(['config', 'user.name'], 5000);
+      } catch (e) {
+        runGit(['config', 'user.name', 'HospAudit Updater'], 5000);
+        runGit(['config', 'user.email', 'updater@hospaudit.local'], 5000);
+      }
+
+      configureGitOriginRemote(authUrl);
+
+      let prevHash = '';
+      let hasHead = false;
+      try {
+        prevHash = runGit(['rev-parse', 'HEAD'], 5000).trim();
+        hasHead = !!prevHash;
+      } catch (e) {
+        hasHead = false;
+      }
+
+      const fetchOut = runGit(['fetch', 'origin', branch], 30000);
+      let syncOutput = '';
+
+      if (!hasHead) {
+        // First-time sync over existing project directory: force-checkout remote tree while keeping data/, node_modules/, .env
+        syncOutput = runGit(['checkout', '-f', '-B', branch, `origin/${branch}`], 30000);
+      } else {
+        // Stash local source modifications if dirty (excluding untracked data/)
+        let stashed = false;
+        try {
+          const statusOut = runGit(['status', '--porcelain'], 5000).trim();
+          if (statusOut) {
+            runGit(['stash', 'push', '-m', `pre-git-update-${Date.now()}`], 15000);
+            stashed = true;
+          }
+        } catch (e) {}
+
+        try {
+          runGit(['checkout', branch], 15000);
+        } catch (e) {
+          runGit(['checkout', '-f', '-B', branch, `origin/${branch}`], 20000);
+        }
+
+        try {
+          syncOutput = runGit(['pull', '--no-rebase', '--allow-unrelated-histories', '-X', 'theirs', 'origin', branch], 30000);
+        } catch (e) {
+          // Fallback to clean fast-forward/reset to remote branch if merge fails
+          syncOutput = runGit(['reset', '--hard', `origin/${branch}`], 20000);
+        }
+
+        if (stashed) {
+          syncOutput += '\n[INFO] Alterações locais temporárias foram arquivadas via git stash.';
         }
       }
 
-      const branch = customConfig.branch || 'main';
-      try {
-        execSync('git fetch origin', { timeout: 30000, stdio: 'ignore' });
-        
-        try {
-          execSync(`git checkout ${branch}`);
-        } catch (e) {
-          execSync(`git checkout -b ${branch} origin/${branch}`);
+      // 3. Restore preserved data/*.json runtime files so local DB & configs remain untouched
+      if (Object.keys(preservedDataFiles).length > 0) {
+        if (!fs.existsSync(DATA_DIR)) {
+          fs.mkdirSync(DATA_DIR, { recursive: true });
         }
-        
-        const pullOutput = execSync(`git pull origin ${branch}`, { encoding: 'utf8', timeout: 30000 });
-        
-        res.json({
-          success: true,
-          message: 'Sistema atualizado com sucesso a partir do GitHub!',
-          output: pullOutput
-        });
-      } catch (errGit: any) {
-        console.error('[Git pull error]', errGit.message);
-        res.status(500).json({ 
-          success: false, 
-          message: 'Erro ao realizar o pull do GitHub. Verifique as credenciais ou a conexão de internet.', 
-          error: errGit.message || String(errGit)
+        Object.entries(preservedDataFiles).forEach(([fileName, content]) => {
+          fs.writeFileSync(path.join(DATA_DIR, fileName), content, 'utf8');
         });
       }
-    } catch (err: any) {
-      console.error('[POST /api/github/update Error]', err);
-      res.status(500).json({ success: false, message: 'Erro ao atualizar sistema via GitHub', error: err.message });
+
+      const newHash = runGit(['rev-parse', '--short', 'HEAD'], 5000).trim();
+      const commitTitle = runGit(['log', '-1', '--format=%s'], 5000).trim();
+      const summaryLines = [
+        sanitizeGitText(fetchOut, token),
+        sanitizeGitText(syncOutput, token),
+        `[COMMIT] ${prevHash ? `${prevHash.slice(0, 7)} -> ` : ''}${newHash} (${commitTitle})`,
+        `[DADOS] ${Object.keys(preservedDataFiles).length} arquivos locais em /data preservados intactos.`
+      ].filter(Boolean).join('\n');
+
+      res.json({
+        success: true,
+        message: 'Sistema atualizado com sucesso a partir do GitHub!',
+        output: summaryLines,
+        localHash: newHash
+      });
+    } catch (errGit: any) {
+      // Restore data/*.json even on failure
+      try {
+        if (Object.keys(preservedDataFiles).length > 0 && fs.existsSync(DATA_DIR)) {
+          Object.entries(preservedDataFiles).forEach(([fileName, content]) => {
+            fs.writeFileSync(path.join(DATA_DIR, fileName), content, 'utf8');
+          });
+        }
+      } catch (e) {}
+
+      const friendly = formatFriendlyGitError(errGit, branch, token);
+      console.error('[Git pull error]', friendly);
+      res.status(500).json({
+        success: false,
+        message: friendly,
+        error: friendly
+      });
     }
   });
 

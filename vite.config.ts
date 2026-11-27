@@ -26,15 +26,24 @@ export default defineConfig(() => {
       },
     },
     server: {
+      host: '0.0.0.0',
       allowedHosts: true as any,
       proxy: {
         '/api.php': {
-          target: 'http://localhost:3000',
+          target: 'http://127.0.0.1:3000',
           changeOrigin: true,
+          secure: false,
         },
         '/api': {
-          target: 'http://localhost:3000',
+          target: 'http://127.0.0.1:3000',
           changeOrigin: true,
+          secure: false,
+        },
+        '/socket.io': {
+          target: 'http://127.0.0.1:3000',
+          changeOrigin: true,
+          secure: false,
+          ws: true,
         },
       },
       // HMR is disabled in AI Studio via DISABLE_HMR env var.

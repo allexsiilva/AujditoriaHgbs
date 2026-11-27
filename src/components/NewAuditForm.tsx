@@ -254,7 +254,7 @@ export function NewAuditForm({ initialParams, onClearParams }: NewAuditFormProps
             )
           ) : (
             <div className="bg-amber-50 text-amber-800 p-6 rounded-xl border border-amber-200 text-center">
-              Nenhuma pergunta cadastrada para este tipo de auditoria ainda. Vá em "Cadastro Perguntas" para cadastrá-las.
+              Nenhuma pergunta cadastrada para este tipo de auditoria ainda. Vá em "Cadastro de Perguntas" para cadastrá-las.
             </div>
           )}
 

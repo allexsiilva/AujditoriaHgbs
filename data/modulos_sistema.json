@@ -1,7 +1,7 @@
 [
   {
     "id": "DASHBOARD",
-    "name": "Painel de Indicadores & Estatísticas",
+    "name": "Indicadores & Estatísticas",
     "status": 1
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "id": "QUESTIONS",
-    "name": "Cadastro de Perguntas & Checklists",
+    "name": "Cadastro de Perguntas",
     "status": 1
   },
   {
@@ -40,8 +40,13 @@
     "status": 1
   },
   {
+    "id": "IRAS_LOGS",
+    "name": "Logs de Auditoria IRAS",
+    "status": 1
+  },
+  {
     "id": "REPORTS",
-    "name": "Gerar Relatórios & Exportações",
+    "name": "Gerar Relatórios",
     "status": 1
   },
   {

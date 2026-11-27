@@ -45,7 +45,7 @@ const defaultSettings: AppSettings = {
   appIconLetter: 'HG',
   loginLogoText: 'HospAudit',
   loginLogoUrl: '',
-  installedModules: ['DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'USERS_PERMISSIONS'],
+  installedModules: ['DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'USERS_PERMISSIONS'],
   theme: 'light',
   sarahWebUrl: 'http://sarah.hgbs.lan:8080/Sarah',
   sarahWebProxyEnabled: false,
@@ -209,14 +209,14 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           parsed.backupFrequency = '24h';
         }
         if (!parsed.installedModules) {
-          parsed.installedModules = ['DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'USERS_PERMISSIONS'];
+          parsed.installedModules = ['DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'USERS_PERMISSIONS'];
         } else {
           // Remover qualquer módulo que tenha sido banido/excluído
           const forbidden = ['AGENDA', 'FORMULARIO', 'FORM_LESAO', 'FORM_CATETER', 'VOTING', 'PATIENTS', 'EQUIPAMENTOS', 'EQUIP_MAINTENANCE', 'FINANCEIRO', 'AGENDAMENTO_WHATSAPP', 'PRONTUARIO_ELETRONICO', 'FATURAMENTO_HOSPITALAR', 'VOTE_MODELS', 'VOTE_IMPORT', 'VOTE_BOOTH', 'VOTE_RESULTS'];
           parsed.installedModules = parsed.installedModules.filter((m: string) => !forbidden.includes(m));
           
           // Garantir que os essenciais estão inclusos
-          const essentialModules = ['DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'USERS_PERMISSIONS'];
+          const essentialModules = ['DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'USERS_PERMISSIONS'];
           essentialModules.forEach(m => {
             if (!parsed.installedModules.includes(m)) {
               parsed.installedModules.push(m);

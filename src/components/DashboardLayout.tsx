@@ -23,8 +23,9 @@ const AdminProfileManager = lazy(() => import('./AdminProfileManager').then(m =>
 const AdminPanelCentral = lazy(() => import('./AdminPanelCentral').then(m => ({ default: m.AdminPanelCentral })));
 const ModuleIndicadores = lazy(() => import('./ModuleIndicadores').then(m => ({ default: m.ModuleIndicadores })));
 const ComparativeDashboard = lazy(() => import('./ComparativeDashboard').then(m => ({ default: m.ComparativeDashboard })));
+const IrasAuditLogsViewer = lazy(() => import('./IrasAuditLogsViewer').then(m => ({ default: m.IrasAuditLogsViewer })));
 
-type View = 'DASHBOARD' | 'INDICADORES' | 'COMPARATIVE' | 'SECTORS' | 'BEDS' | 'NEW_AUDIT' | 'COMPLETED_AUDITS' | 'QUESTIONS' | 'REPORTS' | 'ADMIN' | 'PROFILE' | 'ADMIN_PROFILE' | 'ADMIN_USERS' | 'USERS_PERMISSIONS' | 'ADMIN_SETTINGS' | 'ADMIN_BACKUP' | 'ADMIN_LOGS' | 'ADMIN_MODULES' | 'ADMIN_APIS' | 'ADMIN_MAINTENANCE' | 'ADMIN_GEMINI' | 'ADMIN_PANEL' | 'ACCESS_DENIED';
+type View = 'DASHBOARD' | 'INDICADORES' | 'COMPARATIVE' | 'SECTORS' | 'BEDS' | 'NEW_AUDIT' | 'COMPLETED_AUDITS' | 'IRAS_LOGS' | 'QUESTIONS' | 'REPORTS' | 'ADMIN' | 'PROFILE' | 'ADMIN_PROFILE' | 'ADMIN_USERS' | 'USERS_PERMISSIONS' | 'ADMIN_SETTINGS' | 'ADMIN_BACKUP' | 'ADMIN_LOGS' | 'ADMIN_MODULES' | 'ADMIN_APIS' | 'ADMIN_MAINTENANCE' | 'ADMIN_GEMINI' | 'ADMIN_PANEL' | 'ACCESS_DENIED';
 
 function NetworkStatus() {
   const { status, pendingQueue, reconnect } = useAuditSync();
@@ -206,7 +207,7 @@ export function DashboardLayout() {
     if (viewId === 'ADMIN_USERS') return 'USERS_PERMISSIONS';
     
     const knownViews = [
-      'DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS'
+      'DASHBOARD', 'INDICADORES', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS'
     ];
     if (knownViews.includes(viewId)) return viewId;
     return null;
@@ -306,7 +307,7 @@ export function DashboardLayout() {
         { id: 'DASHBOARD', name: 'Estatística Principal' },
         { id: 'SECTORS', name: 'Cadastro Setores' },
         { id: 'BEDS', name: 'Cadastro Leitos' },
-        { id: 'QUESTIONS', name: 'Cadastro Perguntas' },
+        { id: 'QUESTIONS', name: 'Cadastro de Perguntas' },
         { id: 'NEW_AUDIT', name: 'Nova Auditoria' },
         { id: 'COMPLETED_AUDITS', name: 'Auditorias Realizadas' },
         { id: 'REPORTS', name: 'Gerar Relatórios' }
@@ -333,7 +334,7 @@ export function DashboardLayout() {
     const generalInconsistencies: string[] = [];
     
     const knownModules = [
-      'DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS'
+      'DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS'
     ];
 
     // 1. Verificar o usuário atual para aviso rápido no console
@@ -537,6 +538,7 @@ export function DashboardLayout() {
       case 'QUESTIONS': return <Settings2 size={20} />;
       case 'NEW_AUDIT': return <ClipboardList size={20} />;
       case 'COMPLETED_AUDITS': return <ClipboardCheck size={20} />;
+      case 'IRAS_LOGS': return <ShieldAlert size={20} />;
       case 'REPORTS': return <FileText size={20} />;
       default: return <Smartphone size={20} />;
     }
@@ -713,6 +715,7 @@ export function DashboardLayout() {
       case 'QUESTIONS': return <QuestionManager />;
       case 'NEW_AUDIT': return <NewAuditForm key={`new-audit-${formKey}`} initialParams={auditParams} onClearParams={() => setAuditParams(null)} />;
       case 'COMPLETED_AUDITS': return <CompletedAudits />;
+      case 'IRAS_LOGS': return <IrasAuditLogsViewer />;
       case 'REPORTS': return <ReportGenerator />;
       case 'ADMIN': 
         return (
@@ -1026,22 +1029,6 @@ export function DashboardLayout() {
               )}
             </div>
 
-            {/* User Avatar Action */}
-            <div className="h-6 w-px bg-slate-200 hidden sm:block"></div>
-
-            <button 
-              onClick={() => setActiveView('PROFILE')}
-              className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 transition cursor-pointer text-left"
-              title="Meu Perfil"
-            >
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-600 to-teal-500 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                {user?.name?.charAt(0).toUpperCase()}
-              </div>
-              <div className="hidden sm:block leading-none max-w-28 truncate">
-                <span className="text-xs font-bold text-slate-800 block truncate">{user?.name}</span>
-                <span className="text-[11px] text-slate-500 font-medium block mt-0.5 truncate">{user?.cargo || user?.role}</span>
-              </div>
-            </button>
           </div>
         </header>
 

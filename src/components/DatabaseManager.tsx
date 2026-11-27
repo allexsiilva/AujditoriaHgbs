@@ -251,7 +251,7 @@ export function DatabaseManager() {
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12 text-slate-400">
               <RefreshCw className="w-8 h-8 animate-spin mb-3 text-indigo-500" />
-              <p className="text-sm font-medium">Carregando esquema do banco de dados MySQL...</p>
+              <p className="text-sm font-medium">Carregando tabelas do banco de dados...</p>
             </div>
           ) : error ? (
             <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl flex items-center gap-3">
@@ -590,7 +590,7 @@ export function DatabaseManager() {
           <div className="bg-indigo-50 border border-indigo-100 p-5 rounded-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-1">
               <h3 className="font-bold text-indigo-950 flex items-center gap-2">
-                <Database className="w-5 h-5 text-indigo-600 animate-pulse" /> Sincronização Inteligente sem Perda de Dados
+                <Database className="w-5 h-5 text-indigo-600" /> Sincronização Inteligente sem Perda de Dados
               </h3>
               <p className="text-xs text-indigo-800/80 leading-relaxed max-w-2xl">
                 O importador analisa scripts SQL legados e executa um mecanismo que detecta e gerencia registros duplicados com base no método escolhido abaixo, garantindo a integridade dos dados existentes.

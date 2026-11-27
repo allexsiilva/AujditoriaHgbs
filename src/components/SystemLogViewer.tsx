@@ -55,8 +55,9 @@ export function SystemLogViewer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(25);
 
-  // Modal de Detalhes
+  // Modal de Detalhes e Aviso Inline
   const [inspectedLog, setInspectedLog] = useState<EnrichedLog | null>(null);
+  const [notice, setNotice] = useState<{ type: 'info' | 'warning'; text: string } | null>(null);
 
   // Classificação e Enriquecimento Inteligente dos Logs para Conformidade
   const enrichedLogs = useMemo<EnrichedLog[]>(() => {
@@ -290,9 +291,10 @@ export function SystemLogViewer() {
   // 1. Exportação em CSV (com UTF-8 BOM para Excel brasileiro)
   const exportToCSV = () => {
     if (filteredLogs.length === 0) {
-      alert('Nenhum registro para exportar com os filtros atuais.');
+      setNotice({ type: 'warning', text: 'Nenhum registro disponível para exportar com os filtros atuais.' });
       return;
     }
+    setNotice(null);
 
     const headers = [
       'ID_LOG',
@@ -332,9 +334,10 @@ export function SystemLogViewer() {
   // 2. Exportação em JSON Completo
   const exportToJSON = () => {
     if (filteredLogs.length === 0) {
-      alert('Nenhum registro para exportar com os filtros atuais.');
+      setNotice({ type: 'warning', text: 'Nenhum registro disponível para exportar com os filtros atuais.' });
       return;
     }
+    setNotice(null);
 
     const exportData = {
       meta: {
@@ -441,107 +444,121 @@ export function SystemLogViewer() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       
-      {/* 1. Header Oficial de Conformidade Hospitalar (Print Friendly) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div className="space-y-1.5">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 shadow-2xs">
-              <History className="w-6 h-6" />
+      {/* 1. Header Oficial de Conformidade Hospitalar (Compacto e Alinhado) */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <div className="flex items-start gap-3 min-w-0 flex-1">
+          <div className="p-2.5 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 shrink-0">
+            <History className="w-5 h-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-extrabold text-slate-900 tracking-tight leading-snug">
+                Trilha de Auditoria & Logs
+              </h2>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1 whitespace-nowrap shrink-0">
+                <ShieldCheck className="w-3 h-3 shrink-0" />
+                RDC 36 / LGPD
+              </span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-black text-slate-900 tracking-tight">
-                  Visualizador de Trilha de Auditoria & Logs
-                </h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3" />
-                  RDC 36 / LGPD
-                </span>
-              </div>
-              <p className="text-xs text-slate-500">
-                Histórico imutável de alterações realizadas no banco de dados e registros clínicos para conformidade hospitalar.
-              </p>
-            </div>
+            <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+              Histórico imutável de alterações realizadas no banco de dados e registros clínicos para conformidade hospitalar.
+            </p>
           </div>
         </div>
 
-        {/* Botões de Ação e Exportação */}
-        <div className="flex flex-wrap items-center gap-2 print:hidden">
+        {/* Botões de Ação e Exportação em linha única */}
+        <div className="flex flex-wrap items-center gap-2 shrink-0 print:hidden">
           <button
             type="button"
             onClick={exportToCSV}
-            className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            className="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold transition inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
             title="Exportar dados filtrados para planilha Excel / CSV com UTF-8"
           >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span>Exportar CSV</span>
           </button>
 
           <button
             type="button"
             onClick={exportToJSON}
-            className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            className="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold transition inline-flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
             title="Exportar dossiê técnico de auditoria em JSON"
           >
-            <Code className="w-4 h-4 text-indigo-600" />
+            <Code className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
             <span>Exportar JSON</span>
           </button>
 
           <button
             type="button"
             onClick={handlePrintAuditReport}
-            className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm shadow-blue-500/20 cursor-pointer"
+            className="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white text-xs font-bold transition inline-flex items-center gap-1.5 whitespace-nowrap shadow-sm cursor-pointer"
             title="Imprimir relatório formal de conformidade hospitalar"
           >
-            <Printer className="w-4 h-4" />
+            <Printer className="w-3.5 h-3.5 shrink-0" />
             <span>Imprimir Relatório</span>
           </button>
         </div>
       </div>
 
+      {notice && (
+        <div className="px-4 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <span>{notice.text}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setNotice(null)}
+            className="text-amber-700 hover:text-amber-900 p-0.5 cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {/* 2. Cards de Métricas em Tempo Real */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 print:hidden">
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 print:hidden">
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span className="font-semibold">Total de Eventos</span>
-            <History className="w-4 h-4 text-blue-500" />
+            <History className="w-4 h-4 text-sky-500" />
           </div>
           <p className="text-2xl font-black text-slate-800 mt-1">{stats.total}</p>
-          <span className="text-[10px] text-slate-400">Registros em memória/disco</span>
+          <span className="text-[11px] text-slate-400">Registros em memória/disco</span>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span className="font-semibold">Alterações no BD</span>
             <Database className="w-4 h-4 text-amber-500" />
           </div>
           <p className="text-2xl font-black text-amber-600 mt-1">{stats.dbChangesCount}</p>
-          <span className="text-[10px] text-slate-400">Mutações SQL / tabelas</span>
+          <span className="text-[11px] text-slate-400">Mutações SQL / tabelas</span>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span className="font-semibold">Auditorias Clínicas</span>
-            <Activity className="w-4 h-4 text-blue-500" />
+            <Activity className="w-4 h-4 text-sky-600" />
           </div>
-          <p className="text-2xl font-black text-blue-600 mt-1">{stats.clinicalCount}</p>
-          <span className="text-[10px] text-slate-400">Checklists e prontuários</span>
+          <p className="text-2xl font-black text-sky-600 mt-1">{stats.clinicalCount}</p>
+          <span className="text-[11px] text-slate-400">Checklists e prontuários</span>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span className="font-semibold">Integridade Hospitalar</span>
             <ShieldCheck className="w-4 h-4 text-emerald-500" />
           </div>
           <p className="text-2xl font-black text-emerald-600 mt-1">100%</p>
-          <span className="text-[10px] text-emerald-600 font-bold">Trilha Auditada e Conforme</span>
+          <span className="text-[11px] text-emerald-600 font-bold">Trilha Auditada e Conforme</span>
         </div>
       </div>
 
       {/* 3. Painel de Filtros Avançados */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4 print:hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm space-y-3.5 print:hidden">
         <div className="flex flex-col md:flex-row gap-3">
           {/* Busca Textual */}
           <div className="flex-1 relative">
@@ -554,12 +571,12 @@ export function SystemLogViewer() {
                 setCurrentPage(1);
               }}
               placeholder="Buscar por usuário, ação, leito, setor, ID ou detalhes da alteração..."
-              className="w-full pl-10 pr-4 py-2.5 text-xs font-medium border border-slate-200 rounded-xl bg-slate-50/60 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all placeholder:text-slate-400 text-slate-800"
+              className="w-full pl-10 pr-4 py-2 text-xs font-medium border border-slate-200 rounded-xl bg-slate-50/70 focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-500/15 focus:outline-none transition-all placeholder:text-slate-400 text-slate-800"
             />
           </div>
 
           {/* Checkbox: Apenas Alterações no BD */}
-          <label className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-900 text-xs font-bold cursor-pointer select-none hover:bg-amber-100/60 transition">
+          <label className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-900 text-xs font-bold cursor-pointer select-none hover:bg-amber-100/60 transition whitespace-nowrap shrink-0">
             <input
               type="checkbox"
               checked={onlyDbChanges}
@@ -569,13 +586,13 @@ export function SystemLogViewer() {
               }}
               className="w-4 h-4 rounded text-amber-600 border-amber-300 focus:ring-amber-500 cursor-pointer"
             />
-            <Database className="w-3.5 h-3.5 text-amber-600" />
+            <Database className="w-3.5 h-3.5 text-amber-600 shrink-0" />
             <span>Apenas Alterações no Banco</span>
           </label>
         </div>
 
         {/* Linha de Dropdowns de Filtro */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-0.5">
           {/* Categoria */}
           <div className="space-y-1">
             <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Categoria</label>
@@ -585,16 +602,16 @@ export function SystemLogViewer() {
                 setSelectedCategory(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full px-3 py-2 text-xs font-semibold border border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:bg-white focus:border-blue-500 focus:outline-none cursor-pointer"
+              className="w-full px-3 py-2 text-xs font-semibold border border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:bg-white focus:border-sky-500 focus:outline-none cursor-pointer"
             >
               <option value="ALL">Todas as Categorias</option>
-              <option value="BANCO_DE_DADOS">💾 Banco de Dados & SQL</option>
-              <option value="AUDITORIA_CLINICA">🩺 Auditoria Clínica</option>
-              <option value="SETORES_LEITOS">🏢 Setores & Leitos</option>
-              <option value="USUARIOS_PERMISSOES">👥 Usuários & Permissões</option>
-              <option value="BACKUP_SISTEMA">📦 Backups & Migrações</option>
-              <option value="AUTENTICACAO_ACESSO">🔐 Autenticação & Login</option>
-              <option value="SISTEMA_GERAL">⚙️ Sistema Geral</option>
+              <option value="BANCO_DE_DADOS">Banco de Dados & SQL</option>
+              <option value="AUDITORIA_CLINICA">Auditoria Clínica</option>
+              <option value="SETORES_LEITOS">Setores & Leitos</option>
+              <option value="USUARIOS_PERMISSOES">Usuários & Permissões</option>
+              <option value="BACKUP_SISTEMA">Backups & Migrações</option>
+              <option value="AUTENTICACAO_ACESSO">Autenticação & Login</option>
+              <option value="SISTEMA_GERAL">Sistema Geral</option>
             </select>
           </div>
 
@@ -704,68 +721,68 @@ export function SystemLogViewer() {
       {/* 4. Tabela de Logs Formatada para Auditoria Hospitalar */}
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left border-collapse">
+          <table className="w-full text-xs text-left border-collapse table-auto">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-700 font-extrabold uppercase tracking-wider text-[10px]">
-                <th 
+                <th
                   onClick={() => handleSort('timestamp')}
-                  className="p-3.5 pl-5 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap"
+                  className="px-3 py-3 pl-4 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap w-[104px]"
                 >
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1">
                     <span>Data / Hora</span>
                     <ArrowUpDown className="w-3 h-3 text-slate-400" />
                   </div>
                 </th>
-                <th 
+                <th
                   onClick={() => handleSort('category')}
-                  className="p-3.5 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap"
+                  className="px-3 py-3 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap w-[135px]"
                 >
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1">
                     <span>Categoria</span>
                     <ArrowUpDown className="w-3 h-3 text-slate-400" />
                   </div>
                 </th>
-                <th 
+                <th
                   onClick={() => handleSort('action')}
-                  className="p-3.5 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap"
+                  className="px-3 py-3 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap w-[195px]"
                 >
-                  <div className="flex items-center gap-1.5">
-                    <span>Ação</span>
+                  <div className="flex items-center gap-1">
+                    <span>Ação / Tipo</span>
                     <ArrowUpDown className="w-3 h-3 text-slate-400" />
                   </div>
                 </th>
-                <th 
+                <th
                   onClick={() => handleSort('user')}
-                  className="p-3.5 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap"
+                  className="px-3 py-3 cursor-pointer hover:bg-slate-100 transition whitespace-nowrap w-[145px]"
                 >
-                  <div className="flex items-center gap-1.5">
-                    <span>Usuário / Auditor</span>
+                  <div className="flex items-center gap-1">
+                    <span>Usuário</span>
                     <ArrowUpDown className="w-3 h-3 text-slate-400" />
                   </div>
                 </th>
-                <th className="p-3.5">Histórico & Detalhes da Alteração</th>
-                <th className="p-3.5 pr-5 text-right print:hidden">Ação</th>
+                <th className="px-3 py-3 min-w-[200px]">Detalhes da Alteração</th>
+                <th className="px-3 py-3 pr-4 text-right whitespace-nowrap w-[92px] print:hidden">Inspeção</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {paginatedLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-12 text-center text-slate-400">
-                    <History className="w-10 h-10 mx-auto text-slate-300 mb-2" />
+                  <td colSpan={6} className="p-10 text-center text-slate-400">
+                    <History className="w-9 h-9 mx-auto text-slate-300 mb-2" />
                     <p className="font-bold text-slate-600">Nenhum registro encontrado</p>
                     <p className="text-[11px] text-slate-400 mt-0.5">Tente ajustar ou limpar os filtros de busca acima.</p>
                   </td>
                 </tr>
               ) : (
                 paginatedLogs.map((log) => (
-                  <tr 
-                    key={log.id} 
-                    className="hover:bg-slate-50/70 transition-colors group cursor-pointer"
+                  <tr
+                    key={log.id}
+                    className="hover:bg-slate-50/80 transition-colors group cursor-pointer align-top"
                     onClick={() => setInspectedLog(log)}
                   >
                     {/* Data / Hora */}
-                    <td className="p-3.5 pl-5 whitespace-nowrap">
-                      <span className="font-mono font-bold text-slate-700 block">
+                    <td className="px-3 py-3 pl-4 whitespace-nowrap">
+                      <span className="font-mono font-bold text-slate-700 block text-[11px]">
                         {new Date(log.timestamp).toLocaleDateString('pt-BR')}
                       </span>
                       <span className="font-mono text-[10px] text-slate-400">
@@ -774,55 +791,55 @@ export function SystemLogViewer() {
                     </td>
 
                     {/* Categoria */}
-                    <td className="p-3.5 whitespace-nowrap">
+                    <td className="px-3 py-3 whitespace-nowrap">
                       {getCategoryBadge(log.category)}
                     </td>
 
                     {/* Ação */}
-                    <td className="p-3.5 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-slate-800">{log.action}</span>
+                    <td className="px-3 py-3 max-w-[210px]">
+                      <div className="font-bold text-slate-800 text-[11px] break-all leading-snug" title={log.action}>
+                        {log.action}
+                      </div>
+                      <div className="flex flex-wrap items-center gap-1 mt-1">
+                        {getSeverityBadge(log.severity)}
                         {log.isDbChange && (
-                          <span className="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-black text-[9px] uppercase border border-amber-200">
+                          <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 font-extrabold text-[9px] uppercase border border-amber-200">
                             BD
                           </span>
                         )}
                       </div>
-                      <div className="mt-0.5">
-                        {getSeverityBadge(log.severity)}
-                      </div>
                     </td>
 
                     {/* Usuário */}
-                    <td className="p-3.5 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-[10px] shrink-0 border border-slate-200">
-                          {(log.user || 'A')[0].toUpperCase()}
+                    <td className="px-3 py-3 max-w-[150px]">
+                      <div className="flex items-center gap-1.5 min-w-0" title={log.user || 'Sistema'}>
+                        <div className="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-[10px] shrink-0 border border-slate-200">
+                          {(log.user || 'S')[0].toUpperCase()}
                         </div>
-                        <span className="font-semibold text-slate-700 truncate max-w-[130px]">
+                        <span className="font-semibold text-slate-700 truncate text-[11px]">
                           {log.user || 'Sistema'}
                         </span>
                       </div>
                     </td>
 
                     {/* Detalhes */}
-                    <td className="p-3.5 text-slate-600 max-w-md">
-                      <p className="line-clamp-2 leading-relaxed" title={log.details}>
+                    <td className="px-3 py-3 text-slate-600">
+                      <p className="line-clamp-2 text-[11px] leading-relaxed break-words" title={log.details}>
                         {log.details || 'Sem detalhes adicionais.'}
                       </p>
                     </td>
 
                     {/* Ação (Inspecionar) */}
-                    <td className="p-3.5 pr-5 text-right whitespace-nowrap print:hidden">
+                    <td className="px-3 py-3 pr-4 text-right whitespace-nowrap print:hidden">
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           setInspectedLog(log);
                         }}
-                        className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-600 font-bold text-[11px] transition cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-600 font-bold text-[11px] transition cursor-pointer"
                       >
-                        Inspecionar
+                        Detalhes
                       </button>
                     </td>
                   </tr>
@@ -879,8 +896,8 @@ export function SystemLogViewer() {
 
       {/* 5. Modal de Inspeção Completa do Log */}
       {inspectedLog && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden">
             
             {/* Modal Header */}
             <div className="px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white flex items-center justify-between">
@@ -910,21 +927,21 @@ export function SystemLogViewer() {
             {/* Modal Body */}
             <div className="p-6 space-y-5 text-xs text-slate-700">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <div className="bg-slate-50 p-3 rounded-xl border border-slate-150">
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Data e Hora</span>
                   <span className="font-bold text-slate-800 mt-0.5 block">
                     {new Date(inspectedLog.timestamp).toLocaleString('pt-BR')}
                   </span>
                 </div>
 
-                <div className="bg-slate-50 p-3 rounded-xl border border-slate-150">
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Auditor / Usuário</span>
                   <span className="font-bold text-slate-800 mt-0.5 block truncate">
                     {inspectedLog.user || 'Sistema'}
                   </span>
                 </div>
 
-                <div className="bg-slate-50 p-3 rounded-xl border border-slate-150">
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Categoria</span>
                   <div className="mt-1">{getCategoryBadge(inspectedLog.category)}</div>
                 </div>

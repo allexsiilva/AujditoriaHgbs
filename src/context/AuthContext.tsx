@@ -39,28 +39,28 @@ export const DEFAULT_CARGOS: CargoProfile[] = [
     id: 'diretor_geral',
     name: 'Diretor Geral Hospitalar',
     role: 'ADMIN',
-    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'USERS_PERMISSIONS'],
+    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'USERS_PERMISSIONS'],
     category: 'Administração e Direção'
   },
   {
     id: 'diretor_medico',
     name: 'Diretor Médico',
     role: 'ADMIN',
-    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS'],
+    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS'],
     category: 'Administração e Direção'
   },
   {
     id: 'diretor_enfermagem',
     name: 'Diretor de Enfermagem',
     role: 'ADMIN',
-    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS'],
+    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS'],
     category: 'Administração e Direção'
   },
   {
     id: 'admin',
     name: 'Administrador',
     role: 'ADMIN',
-    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'USERS_PERMISSIONS'],
+    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'USERS_PERMISSIONS'],
     category: 'Administração e Direção'
   },
 
@@ -69,28 +69,28 @@ export const DEFAULT_CARGOS: CargoProfile[] = [
     id: 'medico_clinico',
     name: 'Médico Clínico Geral',
     role: 'USER',
-    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'],
+    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'],
     category: 'Corpo Médico'
   },
   {
     id: 'medico_especialista',
     name: 'Médico Especialista',
     role: 'USER',
-    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'],
+    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'],
     category: 'Corpo Médico'
   },
   {
     id: 'auditor_clinico',
     name: 'Médico Auditor',
     role: 'USER',
-    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'],
+    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'],
     category: 'Corpo Médico'
   },
   {
     id: 'medico_plantonista',
     name: 'Médico Plantonista',
     role: 'USER',
-    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'],
+    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'],
     category: 'Corpo Médico'
   },
 
@@ -99,14 +99,14 @@ export const DEFAULT_CARGOS: CargoProfile[] = [
     id: 'enfermeiro_chefe',
     name: 'Enfermeiro Chefe',
     role: 'ADMIN',
-    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS'],
+    permissions: ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS'],
     category: 'Corpo de Enfermagem'
   },
   {
     id: 'enfermeiro_assistencial',
     name: 'Enfermeiro Assistencial',
     role: 'USER',
-    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'],
+    permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'],
     category: 'Corpo de Enfermagem'
   },
   {
@@ -358,8 +358,8 @@ export const getUserPermissions = (email: string | undefined | null, role: Role,
   
   // 5. Fallback final: permissões básicas padrão baseadas no nível (Role)
   const defaults = role === 'ADMIN' 
-    ? ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS']
-    : ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS'];
+    ? ['DASHBOARD', 'COMPARATIVE', 'SECTORS', 'BEDS', 'QUESTIONS', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS']
+    : ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS'];
   
   console.log(`[PERMISSIONS] Usando permissões padrão de nível de acesso (${role}) para ${safeEmail}:`, defaults);
   return defaults;
@@ -422,7 +422,7 @@ const defaultLuizRominingUser: User = {
   email: 'luiz.romining',
   password: 'luiz',
   role: 'USER',
-  permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'COMPARATIVE'],
+  permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'COMPARATIVE'],
   cargo: 'Auditor Clínico'
 };
 
@@ -653,7 +653,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 ...u,
                 password: 'luiz', // Garante e força a senha padrão 'luiz'
                 role: 'USER',
-                permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'REPORTS', 'COMPARATIVE', 'SECTOR_BOARD']
+                permissions: ['DASHBOARD', 'NEW_AUDIT', 'COMPLETED_AUDITS', 'IRAS_LOGS', 'REPORTS', 'COMPARATIVE', 'SECTOR_BOARD']
               };
             }
             return u;

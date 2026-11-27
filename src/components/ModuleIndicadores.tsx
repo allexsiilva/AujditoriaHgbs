@@ -182,7 +182,7 @@ export function ModuleIndicadores() {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <BarChart2 className="w-6 h-6 text-blue-600" />
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Painel de Indicadores & Estatísticas</h1>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Indicadores & Estatísticas</h1>
           </div>
           <p className="text-sm text-slate-500 font-medium">
             Monitoramento de conformidade de metas, cobertura de auditorias à beira do leito e status operacional.

@@ -12,6 +12,7 @@ import { ToastProvider, ToastContext } from './context/ToastContext';
 import { LoginScreen } from './components/LoginScreen';
 import { ToastContainer } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { BackendConnectionChecker } from './components/BackendConnectionBanner';
 
 const DashboardLayout = lazy(() =>
   import('./components/DashboardLayout').then(m => ({ default: m.DashboardLayout }))
@@ -51,23 +52,26 @@ function AppContent() {
     };
   }, [user, logout, showToast]);
 
-  if (!user) {
-    return <LoginScreen />;
-  }
-
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-[#F3F7FA] flex items-center justify-center">
-          <div className="text-center space-y-3">
-            <div className="w-8 h-8 border-2 border-sky-600 border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs font-semibold text-slate-500">Carregando ambiente clínico...</p>
-          </div>
-        </div>
-      }
-    >
-      <DashboardLayout />
-    </Suspense>
+    <>
+      <BackendConnectionChecker />
+      {!user ? (
+        <LoginScreen />
+      ) : (
+        <Suspense
+          fallback={
+            <div className="min-h-screen bg-[#F3F7FA] flex items-center justify-center">
+              <div className="text-center space-y-3">
+                <div className="w-8 h-8 border-2 border-sky-600 border-t-transparent rounded-full animate-spin mx-auto" />
+                <p className="text-xs font-semibold text-slate-500">Carregando ambiente clínico...</p>
+              </div>
+            </div>
+          }
+        >
+          <DashboardLayout />
+        </Suspense>
+      )}
+    </>
   );
 }
 

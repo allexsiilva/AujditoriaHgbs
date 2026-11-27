@@ -1218,7 +1218,7 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
   const [isUpdatingSystem, setIsUpdatingSystem] = useState(false);
   const [updateTerminalOutput, setUpdateTerminalOutput] = useState<string[]>([]);
   const [updateResult, setUpdateResult] = useState<{ success: boolean; message: string; output?: string } | null>(null);
-  const [gitUpdatesInfo, setGitUpdatesInfo] = useState<{ hasUpdates: boolean; behindCount: number; message: string } | null>(null);
+  const [gitUpdatesInfo, setGitUpdatesInfo] = useState<{ hasUpdates: boolean; behindCount: number; message: string; hasError?: boolean } | null>(null);
 
   const loadGitStatus = async () => {
     try {
@@ -1248,33 +1248,51 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
       });
       const data = await res.json();
       if (data.success) {
-        alert(data.message);
+        setMsg({ text: data.message, type: 'success' });
         loadGitStatus();
       } else {
-        alert('Erro ao salvar configuração: ' + data.message);
+        setMsg({ text: 'Erro ao salvar configuração: ' + data.message, type: 'error' });
       }
     } catch (err: any) {
-      alert('Erro de conexão: ' + err.message);
+      setMsg({ text: 'Erro de conexão: ' + err.message, type: 'error' });
     }
   };
 
   const checkGitUpdates = async () => {
     setIsCheckingUpdates(true);
+    setGitUpdatesInfo(null);
     try {
-      const res = await fetch('/api/github/check-updates', { method: 'POST' });
+      const res = await fetch('/api/github/check-updates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          repoUrl: gitConfig.repoUrl,
+          branch: gitConfig.branch || 'main',
+          token: gitConfig.token || undefined
+        })
+      });
       const data = await res.json();
       if (data.success) {
         setGitUpdatesInfo({
-          hasUpdates: data.hasUpdates,
-          behindCount: data.behindCount,
-          message: data.message
+          hasUpdates: Boolean(data.hasUpdates),
+          behindCount: data.behindCount || 0,
+          message: data.message,
+          hasError: false
+        });
+      } else {
+        setGitUpdatesInfo({
+          hasUpdates: false,
+          behindCount: 0,
+          message: data.message || 'Não foi possível verificar atualizações remotas.',
+          hasError: true
         });
       }
     } catch (err: any) {
       setGitUpdatesInfo({
         hasUpdates: false,
         behindCount: 0,
-        message: 'Erro ao verificar atualizações: ' + err.message
+        message: 'Erro ao verificar atualizações: ' + err.message,
+        hasError: true
       });
     } finally {
       setIsCheckingUpdates(false);
@@ -1282,29 +1300,59 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
   };
 
   const updateSystemViaGit = async () => {
-    if (!window.confirm('Tem certeza de que deseja atualizar o sistema? Essa operação executará um pull e poderá alterar o código-fonte em tempo real.')) {
+    if (!gitConfig.repoUrl.trim()) {
+      setGitUpdatesInfo({
+        hasUpdates: false,
+        behindCount: 0,
+        message: 'Informe a URL do repositório GitHub no painel ao lado antes de atualizar.',
+        hasError: true
+      });
       return;
     }
     setIsUpdatingSystem(true);
-    setUpdateTerminalOutput(['$ git fetch origin && git pull origin ' + gitConfig.branch]);
+    setGitUpdatesInfo(null);
+    setUpdateTerminalOutput([
+      `$ Repositório: ${gitConfig.repoUrl}`,
+      `$ git fetch origin ${gitConfig.branch || 'main'} && sync`
+    ]);
     setUpdateResult(null);
     try {
-      const res = await fetch('/api/github/update', { method: 'POST' });
+      const res = await fetch('/api/github/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          repoUrl: gitConfig.repoUrl,
+          branch: gitConfig.branch || 'main',
+          token: gitConfig.token || undefined
+        })
+      });
       const data = await res.json();
       setUpdateResult(data);
       if (data.success) {
         setUpdateTerminalOutput(prev => [
           ...prev,
-          '[INFO] Pull do GitHub concluído com sucesso!',
-          data.output || 'Já atualizado.'
+          '[OK] Atualização via GitHub concluída com sucesso!',
+          ...(String(data.output || 'Já atualizado.').split('\n'))
         ]);
+        setGitUpdatesInfo({
+          hasUpdates: false,
+          behindCount: 0,
+          message: data.message || 'Sistema atualizado com sucesso!',
+          hasError: false
+        });
         loadGitStatus();
       } else {
         setUpdateTerminalOutput(prev => [
           ...prev,
-          '[ERRO] Falha ao atualizar: ' + data.message,
-          data.error || ''
+          '[ERRO] ' + (data.message || 'Falha ao atualizar via GitHub.'),
+          ...(data.error && data.error !== data.message ? [String(data.error)] : [])
         ]);
+        setGitUpdatesInfo({
+          hasUpdates: false,
+          behindCount: 0,
+          message: data.message || 'Falha ao atualizar via GitHub.',
+          hasError: true
+        });
       }
     } catch (err: any) {
       setUpdateTerminalOutput(prev => [...prev, '[ERRO] Falha na requisição de atualização: ' + err.message]);
@@ -1314,15 +1362,18 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
   };
 
   const handleQuickUpdate = async () => {
-    if (!gitConfig.repoUrl) {
-      alert('Por favor, informe a URL do repositório do GitHub.');
+    if (!gitConfig.repoUrl.trim()) {
+      setGitUpdatesInfo({
+        hasUpdates: false,
+        behindCount: 0,
+        message: 'Por favor, informe a URL do repositório do GitHub.',
+        hasError: true
+      });
       return;
     }
-    if (!window.confirm('Deseja atualizar o sistema agora? Isso salvará o link informado e baixará os arquivos atualizados do GitHub.')) {
-      return;
-    }
-    
+
     setIsUpdatingSystem(true);
+    setGitUpdatesInfo(null);
     setUpdateTerminalOutput([
       `$ Configurando repositório: ${gitConfig.repoUrl}`,
       `$ Branch: ${gitConfig.branch || 'main'}`
@@ -1330,14 +1381,13 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
     setUpdateResult(null);
 
     try {
-      // 1. Save config first
       const configRes = await fetch('/api/github/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           repoUrl: gitConfig.repoUrl,
           branch: gitConfig.branch || 'main',
-          token: gitConfig.token || ''
+          token: gitConfig.token
         })
       });
       const configData = await configRes.json();
@@ -1346,31 +1396,50 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
         setIsUpdatingSystem(false);
         return;
       }
-      
+
       setUpdateTerminalOutput(prev => [
         ...prev,
-        '[OK] Repositório configurado com sucesso!',
-        '$ git fetch origin && git pull origin ' + (gitConfig.branch || 'main')
+        '[OK] Repositório salvo com sucesso!',
+        `$ git fetch origin ${gitConfig.branch || 'main'} && sync`
       ]);
 
-      // 2. Trigger the system update
-      const updateRes = await fetch('/api/github/update', { method: 'POST' });
+      const updateRes = await fetch('/api/github/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          repoUrl: gitConfig.repoUrl,
+          branch: gitConfig.branch || 'main',
+          token: gitConfig.token
+        })
+      });
       const updateData = await updateRes.json();
       setUpdateResult(updateData);
-      
+
       if (updateData.success) {
         setUpdateTerminalOutput(prev => [
           ...prev,
-          '[INFO] Pull do GitHub concluído com sucesso!',
-          updateData.output || 'Já atualizado.'
+          '[OK] Atualização via GitHub concluída com sucesso!',
+          ...(String(updateData.output || 'Já atualizado.').split('\n'))
         ]);
+        setGitUpdatesInfo({
+          hasUpdates: false,
+          behindCount: 0,
+          message: updateData.message || 'Sistema atualizado com sucesso!',
+          hasError: false
+        });
         loadGitStatus();
       } else {
         setUpdateTerminalOutput(prev => [
           ...prev,
-          '[ERRO] Falha ao atualizar: ' + updateData.message,
-          updateData.error || ''
+          '[ERRO] ' + (updateData.message || 'Falha ao atualizar via GitHub.'),
+          ...(updateData.error && updateData.error !== updateData.message ? [String(updateData.error)] : [])
         ]);
+        setGitUpdatesInfo({
+          hasUpdates: false,
+          behindCount: 0,
+          message: updateData.message || 'Falha ao atualizar via GitHub.',
+          hasError: true
+        });
       }
     } catch (err: any) {
       setUpdateTerminalOutput(prev => [...prev, '[ERRO] Falha na operação de atualização: ' + err.message]);
@@ -4779,8 +4848,8 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
                         </div>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-150 text-slate-400">
-                        <Loader2 className="w-4 h-4 animate-spin text-blue-500" />
+                      <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200 text-slate-400">
+                        <Loader2 className="w-4 h-4 animate-spin text-sky-500" />
                         <span className="text-xs font-bold">Carregando informações do Git...</span>
                       </div>
                     )}
@@ -4796,18 +4865,20 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
 
                       <div className="flex items-center gap-2">
                         <button
+                          type="button"
                           onClick={checkGitUpdates}
                           disabled={isCheckingUpdates || isUpdatingSystem}
-                          className="flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl text-xs hover:bg-slate-50 transition shadow-3xs cursor-pointer disabled:opacity-50"
+                          className="flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl text-xs hover:bg-slate-50 transition shadow-sm cursor-pointer disabled:opacity-50"
                         >
                           <RefreshCw className={`w-3.5 h-3.5 ${isCheckingUpdates ? 'animate-spin' : ''}`} />
                           Verificar Agora
                         </button>
 
                         <button
+                          type="button"
                           onClick={updateSystemViaGit}
                           disabled={isCheckingUpdates || isUpdatingSystem}
-                          className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white font-extrabold rounded-xl text-xs hover:bg-blue-700 transition shadow-3xs cursor-pointer disabled:opacity-50"
+                          className="flex items-center gap-1.5 px-4 py-2 bg-sky-600 text-white font-extrabold rounded-xl text-xs hover:bg-sky-700 transition shadow-sm cursor-pointer disabled:opacity-50"
                         >
                           <GitPullRequest className="w-3.5 h-3.5" />
                           Atualizar Sistema
@@ -4817,17 +4888,27 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
 
                     {gitUpdatesInfo && (
                       <div className={`p-4 rounded-xl border flex items-start gap-3 transition-all ${
-                        gitUpdatesInfo.hasUpdates 
-                          ? 'bg-amber-50 border-amber-200 text-amber-800' 
-                          : 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                        gitUpdatesInfo.hasError
+                          ? 'bg-rose-50 border-rose-200 text-rose-800'
+                          : gitUpdatesInfo.hasUpdates 
+                            ? 'bg-amber-50 border-amber-200 text-amber-800' 
+                            : 'bg-emerald-50 border-emerald-200 text-emerald-800'
                       }`}>
-                        {gitUpdatesInfo.hasUpdates ? (
+                        {gitUpdatesInfo.hasError ? (
+                          <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                        ) : gitUpdatesInfo.hasUpdates ? (
                           <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                         ) : (
                           <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                         )}
                         <div className="space-y-1">
-                          <p className="text-xs font-black">{gitUpdatesInfo.hasUpdates ? 'Novas atualizações disponíveis!' : 'Sistema atualizado!'}</p>
+                          <p className="text-xs font-black">
+                            {gitUpdatesInfo.hasError
+                              ? 'Não foi possível sincronizar com o GitHub'
+                              : gitUpdatesInfo.hasUpdates
+                                ? 'Novas atualizações disponíveis!'
+                                : 'Sistema atualizado!'}
+                          </p>
                           <p className="text-xs font-medium opacity-90">{gitUpdatesInfo.message}</p>
                         </div>
                       </div>
@@ -4841,15 +4922,15 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
                             <Terminal className="w-3.5 h-3.5 text-slate-400" /> Console de Atualização
                           </span>
                           {isUpdatingSystem && (
-                            <span className="text-[9px] font-extrabold uppercase bg-blue-50 border border-blue-200 px-2 py-0.5 rounded text-blue-600 animate-pulse">
-                              Baixando...
+                            <span className="text-[9px] font-extrabold uppercase bg-sky-50 border border-sky-200 px-2 py-0.5 rounded text-sky-700">
+                              Sincronizando...
                             </span>
                           )}
                         </div>
 
-                        <div className="bg-slate-900 border border-slate-950 text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto max-h-[180px] overflow-y-auto space-y-1 shadow-inner select-all">
+                        <div className="bg-slate-900 border border-slate-950 text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto max-h-[200px] overflow-y-auto space-y-1 shadow-inner select-all">
                           {updateTerminalOutput.map((line, idx) => (
-                            <div key={idx} className={line.startsWith('$') ? 'text-blue-400 font-semibold' : line.startsWith('[ERRO]') ? 'text-rose-400' : 'text-slate-300'}>
+                            <div key={idx} className={line.startsWith('$') ? 'text-sky-400 font-semibold' : line.startsWith('[ERRO]') ? 'text-rose-400' : line.startsWith('[OK]') || line.startsWith('[COMMIT]') || line.startsWith('[DADOS]') ? 'text-emerald-400' : 'text-slate-300'}>
                               {line}
                             </div>
                           ))}
@@ -4863,7 +4944,7 @@ export function AdminProfileManager({ onBackToAudit, initialTab = 'PROFILE', hid
                 <div className="space-y-6">
                   
                   {/* GIT CREDENTIALS CARD */}
-                  <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4 shadow-2xs">
+                  <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4 shadow-sm">
                     <h3 className="font-bold text-slate-800 flex items-center gap-2 text-xs uppercase tracking-wider text-slate-400">
                       <Settings className="w-4 h-4 text-blue-500" /> Atualização Simplificada
                     </h3>

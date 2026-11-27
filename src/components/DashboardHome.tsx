@@ -595,12 +595,20 @@ export function DashboardHome({
                 </h3>
               </div>
               {onNavigate && (
-                <button 
-                  onClick={() => onNavigate('COMPLETED_AUDITS')}
-                  className="text-xs font-bold text-sky-700 hover:text-sky-800 flex items-center gap-1 group cursor-pointer"
-                >
-                  Ver Tudo <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => onNavigate('IRAS_LOGS')}
+                    className="text-xs font-bold text-slate-600 hover:text-sky-700 flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    Logs IRAS <ArrowUpRight size={13} />
+                  </button>
+                  <button 
+                    onClick={() => onNavigate('COMPLETED_AUDITS')}
+                    className="text-xs font-bold text-sky-700 hover:text-sky-800 flex items-center gap-1 group cursor-pointer"
+                  >
+                    Ver Tudo <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </button>
+                </div>
               )}
             </div>
 

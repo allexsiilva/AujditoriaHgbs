@@ -156,6 +156,103 @@ export function resetApiCache() {
   lastCacheTime = 0;
 }
 
+export interface BackendHealthResult {
+  online: boolean;
+  latencyMs: number;
+  service?: string;
+  dbMode?: string;
+  error?: string;
+  checkedAt: string;
+}
+
+/**
+ * Fast, non-blocking startup check against the local Node.js backend (/api/health -> fallback /api.php?action=ping).
+ */
+export async function checkBackendHealth(timeoutMs: number = 3500): Promise<BackendHealthResult> {
+  const startedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
+  const checkedAt = new Date().toISOString();
+
+  const tryEndpoint = async (url: string): Promise<{ ok: boolean; data?: any; status?: number; error?: string }> => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        cache: 'no-store',
+        headers: { Accept: 'application/json' },
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+
+      if (!res.ok) {
+        return { ok: false, status: res.status, error: `HTTP ${res.status} (${res.statusText || 'Sem resposta do backend'})` };
+      }
+
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        return { ok: false, status: res.status, error: 'Resposta inválida do servidor (esperado JSON).' };
+      }
+
+      const data = await res.json();
+      const online = Boolean(data && (data.success === true || data.status === 'online'));
+      return {
+        ok: online,
+        data,
+        error: online ? undefined : (data?.message || 'Servidor backend retornou status offline.')
+      };
+    } catch (err: any) {
+      clearTimeout(timer);
+      if (err?.name === 'AbortError') {
+        return { ok: false, error: `Tempo limite excedido (${timeoutMs}ms) aguardando o servidor Node.js.` };
+      }
+      return { ok: false, error: err?.message || 'Conexão recusada com o servidor backend.' };
+    }
+  };
+
+  let probe = await tryEndpoint('/api/health');
+  if (!probe.ok) {
+    const fallback = await tryEndpoint(`${API_URL}?action=ping`);
+    if (fallback.ok) {
+      probe = fallback;
+    } else if (!probe.error) {
+      probe = fallback;
+    }
+  }
+
+  const finishedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
+  const latencyMs = Math.max(1, Math.round(finishedAt - startedAt));
+
+  if (probe.ok) {
+    isApiAvailableCached = true;
+    lastCacheTime = Date.now();
+    lastApiErrorMessage = null;
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('hospaudit_last_api_error');
+    }
+    return {
+      online: true,
+      latencyMs,
+      service: probe.data?.service || 'hospaudit-node',
+      dbMode: probe.data?.dbMode,
+      checkedAt
+    };
+  }
+
+  const errMsg = probe.error || 'Servidor Node.js local não está respondendo.';
+  isApiAvailableCached = false;
+  lastCacheTime = Date.now();
+  lastApiErrorMessage = errMsg;
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem('hospaudit_last_api_error', errMsg);
+  }
+  return {
+    online: false,
+    latencyMs,
+    error: errMsg,
+    checkedAt
+  };
+}
+
 /**
  * Fetches all persistent data from the MySQL database with optional pagination.
  */

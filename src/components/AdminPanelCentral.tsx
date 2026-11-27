@@ -40,15 +40,19 @@ import {
   FileSpreadsheet, 
   Cpu, 
   Info,
-  Check
+  Check,
+  Table
 } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
+import { useAuditData } from '../context/AuditContext';
 import { useSettings } from '../context/SettingsContext';
 import { useSystemLogs } from '../context/SystemLogContext';
 import { DbMiddleware } from '../services/dbMiddleware';
 import { AdminProfileManager } from './AdminProfileManager';
 import { AVAILABLE_MODULES } from '../lib/modules';
+import { getDbConfig } from '../lib/apiClient';
 import { DatabaseConfigManager } from './DatabaseConfigManager';
+import { DatabaseManager } from './DatabaseManager';
 
 interface ModuleConfig {
   id: string;
@@ -60,18 +64,20 @@ interface ModuleConfig {
 }
 
 export function AdminPanelCentral() {
-  const { user, cargos } = useContext(AuthContext);
+  const { user, users, cargos } = useContext(AuthContext);
+  const { sectors, beds, dbConnected } = useAuditData();
   const { settings, toggleTheme, updateSettings } = useSettings();
   const { addLog } = useSystemLogs();
 
   // Navigation states
-  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'DBCONFIG' | 'USERS' | 'SECTORS' | 'BEDS' | 'BACKUP' | 'LOGS' | 'SETTINGS' | 'GITHUB'>('OVERVIEW');
+  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'DBCONFIG' | 'DATABASE' | 'USERS' | 'SECTORS' | 'BEDS' | 'BACKUP' | 'LOGS' | 'SETTINGS' | 'GITHUB'>('OVERVIEW');
   const [moduleSearchText, setModuleSearchText] = useState('');
   const [moduleFilterCategory, setModuleFilterCategory] = useState('All');
   
   // Database state
   const [dbModulos, setDbModulos] = useState<any[]>([]);
   const [customModules, setCustomModules] = useState<any[]>([]);
+  const [mysqlConnected, setMysqlConnected] = useState<boolean>(false);
   const [stats, setStats] = useState({
     totalModules: 0,
     activeModules: 0,
@@ -115,7 +121,13 @@ export function AdminPanelCentral() {
   // Sync Modules and General Data
   const loadModulesAndStats = async () => {
     try {
-      const data = await DbMiddleware.executeRead();
+      const [data, cfg] = await Promise.all([
+        DbMiddleware.executeRead(),
+        getDbConfig().catch(() => null)
+      ]);
+      if (cfg !== null) {
+        setMysqlConnected(Boolean(cfg?.connected));
+      }
       if (data) {
         // Extract modules
         const modulosList = data.modulos_sistema || [];
@@ -135,10 +147,10 @@ export function AdminPanelCentral() {
           }));
         setCustomModules(customFromDb);
 
-        // Calculate Stats
-        const usersCount = (data.usuarios || []).length;
-        const sectorsCount = (data.setores || []).length;
-        const bedsCount = (data.leitos || []).length;
+        // Calculate Stats with live fallback from contexts
+        const usersCount = Math.max((data.usuarios || data.users || []).length, users?.length || 0);
+        const sectorsCount = Math.max((data.setores || data.sectors || []).length, sectors?.length || 0);
+        const bedsCount = Math.max((data.leitos || data.beds || []).length, beds?.length || 0);
         const activeCount = modulosList.filter((m: any) => m.status === 1).length + 
                             (AVAILABLE_MODULES.length - modulosList.filter((m: any) => standardIds.includes(m.id)).length);
 
@@ -154,7 +166,13 @@ export function AdminPanelCentral() {
       }
     } catch (e) {
       console.warn('[AdminPanelCentral] Erro ao carregar dados:', e);
-      setStats(prev => ({ ...prev, isDbConnected: false }));
+      setStats(prev => ({
+        ...prev,
+        usersCount: users?.length || prev.usersCount,
+        sectorsCount: sectors?.length || prev.sectorsCount,
+        bedsCount: beds?.length || prev.bedsCount,
+        isDbConnected: false
+      }));
     }
   };
 
@@ -581,239 +599,279 @@ export function AdminPanelCentral() {
   }
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-1">
+    <div className="space-y-4 max-w-7xl mx-auto">
       {/* Toast Notification */}
       {toast && (
-        <div className={`fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg border text-xs font-bold animate-fade-in ${
+        <div className={`fixed top-4 right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg border text-xs font-bold ${
           toast.type === 'success' 
             ? 'bg-emerald-50 border-emerald-200 text-emerald-800' 
             : 'bg-rose-50 border-rose-200 text-rose-800'
         }`}>
-          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+          <CheckCircle2 className={`w-4 h-4 ${toast.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`} />
           {toast.text}
         </div>
       )}
 
-      {/* TOP HEADER CONSOLE */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 text-white p-6 rounded-3xl shadow-sm relative overflow-hidden border border-slate-800">
-        <div className="relative z-10 space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] bg-blue-600 text-white px-2.5 py-0.5 rounded-full font-extrabold tracking-widest uppercase">
-              Área Administrativa
-            </span>
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-            <span className="text-[10px] text-emerald-400 font-bold tracking-tight">Banco Local Ativo</span>
+      {/* TOP HEADER CONSOLE — CLEAN CLINICAL HOSPITAL STYLE */}
+      <div className="bg-white border border-slate-200 rounded-2xl px-5 py-4 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex items-start gap-3.5 min-w-0">
+          <div className="w-11 h-11 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-700 shrink-0">
+            <Cpu className="w-5 h-5" />
           </div>
-          <h1 className="text-2xl font-black tracking-tight flex items-center gap-2.5">
-            <Cpu className="text-blue-500 w-6 h-6 animate-pulse" /> Painel Admin
-          </h1>
-          <p className="text-xs text-slate-400 max-w-2xl font-medium leading-relaxed">
-            Configure e centralize todos os recursos do HospAudit. Gerencie as permissões de acesso por cargo, mude status dos módulos, insira atividades de checklist e monitore bancos de dados em lote.
-          </p>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h1 className="text-lg font-extrabold text-slate-900 tracking-tight">
+                Painel de Gestão
+              </h1>
+              <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-sky-50 text-sky-700 border border-sky-200">
+                Administração
+              </span>
+              <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold border ${
+                mysqlConnected
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : 'bg-teal-50 text-teal-700 border-teal-200'
+              }`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${mysqlConnected ? 'bg-emerald-500' : 'bg-teal-500'}`} />
+                {mysqlConnected ? 'MySQL (XAMPP) Conectado' : dbConnected ? 'Banco Local Ativo (Node.js)' : 'Desconectado'}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">
+              Centralize módulos, usuários, permissões, conexões de banco de dados e manutenção do sistema.
+            </p>
+          </div>
         </div>
 
-        {activeTab !== 'OVERVIEW' ? (
-          <button
-            onClick={handleBackToHub}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold border border-slate-700 transition cursor-pointer"
-          >
-            <ArrowLeft size={14} /> Voltar ao Painel Geral
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsCreateModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-extrabold transition shadow-sm hover:shadow-md cursor-pointer shrink-0"
-          >
-            <Plus size={14} className="stroke-[3]" /> Cadastrar Módulo Dinâmico
-          </button>
-        )}
-
-        {/* Decorative elements */}
-        <div className="absolute right-0 bottom-0 top-0 w-1/3 bg-radial-gradient from-blue-500/10 via-transparent to-transparent opacity-60 pointer-events-none" />
+        <div className="shrink-0 w-full sm:w-auto flex justify-end">
+          {activeTab !== 'OVERVIEW' ? (
+            <button
+              type="button"
+              onClick={handleBackToHub}
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold border border-slate-200 transition cursor-pointer whitespace-nowrap"
+            >
+              <ArrowLeft size={14} /> Voltar aos Módulos
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsCreateModalOpen(true)}
+              className="flex items-center gap-1.5 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer whitespace-nowrap"
+            >
+              <Plus size={14} /> Novo Módulo
+            </button>
+          )}
+        </div>
       </div>
 
       {/* KPI CONTROL PANEL */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-4 flex items-center gap-4 hover:shadow-3xs transition duration-200">
-          <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="bg-white border border-slate-200 rounded-xl px-4 py-3.5 flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 shrink-0">
             <LayoutGrid size={18} />
           </div>
           <div className="min-w-0">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Módulos Totais</span>
-            <span className="text-lg font-black text-slate-800 block mt-0.5">{stats.totalModules}</span>
-            <span className="text-[10px] text-emerald-600 font-bold block">{stats.activeModules} Ativos</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Módulos</span>
+            <span className="text-lg font-extrabold text-slate-900 tabular-nums block leading-tight mt-0.5">{stats.totalModules}</span>
+            <span className="text-[11px] text-emerald-600 font-semibold block">{stats.activeModules} ativos</span>
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-4 flex items-center gap-4 hover:shadow-3xs transition duration-200">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0">
+        <div
+          onClick={() => setActiveTab('USERS')}
+          className="bg-white border border-slate-200 hover:border-sky-300 rounded-xl px-4 py-3.5 flex items-center gap-3.5 shadow-sm cursor-pointer transition"
+        >
+          <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
             <Users size={18} />
           </div>
           <div className="min-w-0">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Colaboradores</span>
-            <span className="text-lg font-black text-slate-800 block mt-0.5">{stats.usersCount}</span>
-            <span className="text-[10px] text-indigo-500 font-bold block">Controle RBAC ativo</span>
+            <span className="text-lg font-extrabold text-slate-900 tabular-nums block leading-tight mt-0.5">
+              {Math.max(stats.usersCount, users?.length || 0)}
+            </span>
+            <span className="text-[11px] text-indigo-600 font-semibold block">Controle RBAC</span>
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-4 flex items-center gap-4 hover:shadow-3xs transition duration-200">
-          <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+        <div className="bg-white border border-slate-200 rounded-xl px-4 py-3.5 flex items-center gap-3.5 shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
             <Building2 size={18} />
           </div>
           <div className="min-w-0">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Alas & Leitos</span>
-            <span className="text-lg font-black text-slate-800 block mt-0.5">{stats.sectorsCount} Setores</span>
-            <span className="text-[10px] text-amber-600 font-bold block">{stats.bedsCount} Leitos vinculados</span>
+            <span className="text-lg font-extrabold text-slate-900 tabular-nums block leading-tight mt-0.5">
+              {Math.max(stats.sectorsCount, sectors?.length || 0)} Setores
+            </span>
+            <span className="text-[11px] text-amber-700 font-semibold tabular-nums block">
+              {Math.max(stats.bedsCount, beds?.length || 0)} leitos vinculados
+            </span>
           </div>
         </div>
 
         <div 
-          onClick={() => setActiveTab('DBCONFIG')}
-          className="bg-white border border-slate-200/80 rounded-2xl p-4 flex items-center gap-4 hover:shadow-3xs transition duration-200 cursor-pointer group hover:border-indigo-300"
-          title="Clique para configurar os dados do banco de dados MySQL / XAMPP"
+          onClick={() => setActiveTab('DATABASE')}
+          className="bg-white border border-slate-200 hover:border-sky-300 rounded-xl px-4 py-3.5 flex items-center gap-3.5 shadow-sm transition cursor-pointer group"
+          title="Clique para visualizar as tabelas e registros do banco de dados"
         >
-          <div className="w-10 h-10 rounded-xl bg-teal-50 group-hover:bg-teal-100 flex items-center justify-center text-teal-600 shrink-0 transition">
-            <Database size={18} />
+          <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-100 group-hover:bg-teal-100 flex items-center justify-center text-teal-600 shrink-0 transition">
+            <Table size={18} />
           </div>
           <div className="min-w-0">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Banco de Dados</span>
-            <span className="text-xs font-black text-emerald-600 flex items-center gap-1 mt-1 bg-emerald-50 px-2 py-0.5 rounded-full w-max border border-emerald-100">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-              MySQL / XAMPP
+            <span className="text-xs font-bold text-emerald-700 block mt-1 truncate">
+              {mysqlConnected ? 'MySQL Conectado' : dbConnected ? 'Banco Local (Node.js)' : 'Desconectado'}
             </span>
-            <span className="text-[9px] text-blue-600 font-bold block mt-1 hover:underline">Configurar no Painel &rarr;</span>
+            <span className="text-[11px] text-sky-700 font-semibold block mt-0.5 group-hover:underline">Ver tabelas &rarr;</span>
           </div>
         </div>
       </div>
 
       {/* MAIN VIEWPORT AND SIDEBAR */}
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 items-start">
         
         {/* INNER SIDEBAR FOR ADMIN CATEGORIES */}
-        <aside className="w-full lg:w-64 shrink-0 flex flex-col gap-2.5 bg-white p-3 border border-slate-200 rounded-2xl h-max shadow-3xs">
-          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 block">Navegação Administrativa</span>
+        <aside className="w-full lg:w-60 shrink-0 flex flex-col gap-1 bg-white p-2.5 border border-slate-200 rounded-2xl shadow-sm">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2.5 py-1.5 block">Navegação</span>
           
           <button
+            type="button"
             onClick={() => setActiveTab('OVERVIEW')}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
               activeTab === 'OVERVIEW' 
-                ? 'bg-blue-600 text-white shadow-xs' 
+                ? 'bg-sky-600 text-white shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <LayoutGrid size={15} />
+            <LayoutGrid size={15} className="shrink-0" />
             <span>Central de Módulos</span>
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('DBCONFIG')}
-            className={`flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
               activeTab === 'DBCONFIG' 
-                ? 'bg-indigo-600 text-white shadow-xs' 
-                : 'text-indigo-900 bg-indigo-50/60 hover:bg-indigo-50 hover:text-indigo-950 border border-indigo-100/60'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <Database size={15} className={activeTab === 'DBCONFIG' ? 'text-white' : 'text-indigo-600'} />
-              <span>Conexão MySQL (XAMPP)</span>
-            </div>
-            <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase tracking-wider ${
-              activeTab === 'DBCONFIG' ? 'bg-white/20 text-white' : 'bg-indigo-200/60 text-indigo-800'
-            }`}>
-              Config
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('USERS')}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
-              activeTab === 'USERS' 
-                ? 'bg-blue-600 text-white shadow-xs' 
+                ? 'bg-sky-600 text-white shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <Users size={15} />
+            <Database size={15} className="shrink-0" />
+            <span>Conexão MySQL (XAMPP)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('USERS')}
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
+              activeTab === 'USERS' 
+                ? 'bg-sky-600 text-white shadow-sm' 
+                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+            }`}
+          >
+            <Users size={15} className="shrink-0" />
             <span>Cadastro de Usuários</span>
           </button>
 
-          <div className="h-px bg-slate-100 my-1" />
-          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 block">Manutenção & Dados</span>
+          <div className="h-px bg-slate-100 my-1.5" />
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2.5 py-1 block">Manutenção & Dados</span>
 
           <button
-            onClick={() => setActiveTab('BACKUP')}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
-              activeTab === 'BACKUP' 
-                ? 'bg-blue-600 text-white shadow-xs' 
+            type="button"
+            onClick={() => setActiveTab('DATABASE')}
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
+              activeTab === 'DATABASE' 
+                ? 'bg-sky-600 text-white shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <Database size={15} />
+            <Table size={15} className="shrink-0" />
+            <span>Tabelas do Banco</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('BACKUP')}
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
+              activeTab === 'BACKUP' 
+                ? 'bg-sky-600 text-white shadow-sm' 
+                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+            }`}
+          >
+            <RefreshCw size={15} className="shrink-0" />
             <span>Backups & Sincronização</span>
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('LOGS')}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
               activeTab === 'LOGS' 
-                ? 'bg-blue-600 text-white shadow-xs' 
+                ? 'bg-sky-600 text-white shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <FileText size={15} />
+            <FileText size={15} className="shrink-0" />
             <span>Logs do Sistema</span>
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('GITHUB')}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
               activeTab === 'GITHUB' 
-                ? 'bg-blue-600 text-white shadow-xs' 
+                ? 'bg-sky-600 text-white shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <Github size={15} />
+            <Github size={15} className="shrink-0" />
             <span>Atualização via GitHub</span>
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('SETTINGS')}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition cursor-pointer ${
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-xs text-left transition cursor-pointer whitespace-nowrap ${
               activeTab === 'SETTINGS' 
-                ? 'bg-blue-600 text-white shadow-xs' 
+                ? 'bg-sky-600 text-white shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
-            <Settings size={15} />
+            <Settings size={15} className="shrink-0" />
             <span>Configurações Globais</span>
           </button>
         </aside>
 
         {/* WORKSPACE CONTENT ROUTER */}
-        <main className="flex-1 min-w-0">
+        <main className="flex-1 min-w-0 w-full">
           
           {/* TAB: DBCONFIG / CONEXÃO BANCO DE DADOS XAMPP */}
           {activeTab === 'DBCONFIG' && (
             <div className="space-y-4">
-              <DatabaseConfigManager />
+              <DatabaseConfigManager onViewTables={() => setActiveTab('DATABASE')} />
+            </div>
+          )}
+
+          {/* TAB: DATABASE / INSPETOR DE TABELAS DO BANCO DE DADOS */}
+          {activeTab === 'DATABASE' && (
+            <div className="space-y-4">
+              <DatabaseManager />
             </div>
           )}
 
           {/* TAB 1: OVERVIEW / CENTRAL DE MÓDULOS */}
           {activeTab === 'OVERVIEW' && (
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               
               {/* SEARCH & FILTERS BAR */}
-              <div className="flex flex-col lg:flex-row gap-3 items-center justify-between bg-white p-4 border border-slate-200 rounded-2xl shadow-3xs">
-                <div className="relative w-full lg:w-96">
+              <div className="flex flex-col xl:flex-row gap-3 items-stretch xl:items-center justify-between bg-white px-4 py-3 border border-slate-200 rounded-2xl shadow-sm">
+                <div className="relative w-full xl:w-72 shrink-0">
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
                     <Search size={14} />
                   </span>
                   <input
                     type="text"
-                    placeholder="Filtrar módulos por nome, descrição ou atividade..."
+                    placeholder="Buscar módulo..."
                     value={moduleSearchText}
                     onChange={(e) => setModuleSearchText(e.target.value)}
-                    className="w-full pl-9 pr-8 py-2 bg-slate-50/50 border border-slate-250 rounded-xl text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition font-medium text-slate-800"
+                    className="w-full h-9 pl-9 pr-8 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white outline-none transition font-medium text-slate-800"
                   />
                   {moduleSearchText && (
                     <button 
@@ -826,15 +884,15 @@ export function AdminPanelCentral() {
                   )}
                 </div>
 
-                <div className="flex flex-wrap gap-1 w-full lg:w-auto justify-start lg:justify-end">
+                <div className="flex items-center gap-1 overflow-x-auto pb-0.5 xl:pb-0">
                   {['All', 'Gestão', 'Cadastros', 'Auditoria', 'Relatórios', 'Hospitalar', 'Estatísticas', 'Personalizados'].map(cat => (
                     <button
                       key={cat}
                       type="button"
                       onClick={() => setModuleFilterCategory(cat)}
-                      className={`px-3 py-1.5 rounded-lg text-[10px] font-extrabold tracking-wide transition border cursor-pointer ${
+                      className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition border cursor-pointer whitespace-nowrap shrink-0 ${
                         moduleFilterCategory === cat
-                          ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
+                          ? 'bg-sky-600 border-sky-600 text-white shadow-sm'
                           : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                       }`}
                     >
@@ -844,135 +902,129 @@ export function AdminPanelCentral() {
                 </div>
               </div>
 
-              {/* CARDS GRID OF CENTRALIZED MODULES */}
+              {/* LIST OF CENTRALIZED MODULES */}
               {filteredModules.length === 0 ? (
-                <div className="p-12 text-center text-slate-400 text-xs font-semibold bg-white border border-slate-200 rounded-2xl shadow-3xs">
+                <div className="p-10 text-center text-slate-400 text-xs font-semibold bg-white border border-slate-200 rounded-2xl">
                   Nenhum módulo encontrado correspondente aos filtros aplicados.
                 </div>
               ) : (
-                <div className="flex flex-col gap-2 bg-white rounded-2xl border border-slate-200 p-2 shadow-2xs">
+                <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 shadow-sm overflow-hidden">
                   {filteredModules.map(m => {
                     const isActive = m.status === 1;
                     
                     const catColors: Record<string, string> = {
-                      'Gestão': 'bg-blue-50 text-blue-750 border-blue-150',
-                      'Cadastros': 'bg-amber-50 text-amber-750 border-amber-150',
-                      'Auditoria': 'bg-indigo-50 text-indigo-750 border-indigo-150',
-                      'Relatórios': 'bg-rose-50 text-rose-750 border-rose-150',
-                      'Hospitalar': 'bg-emerald-50 text-emerald-750 border-emerald-150',
-                      'Estatísticas': 'bg-violet-50 text-violet-750 border-violet-150',
-                      'Personalizados': 'bg-sky-50 text-sky-750 border-sky-150',
+                      'Gestão': 'bg-sky-50 text-sky-700 border-sky-200',
+                      'Cadastros': 'bg-amber-50 text-amber-700 border-amber-200',
+                      'Auditoria': 'bg-indigo-50 text-indigo-700 border-indigo-200',
+                      'Relatórios': 'bg-rose-50 text-rose-700 border-rose-200',
+                      'Hospitalar': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+                      'Estatísticas': 'bg-violet-50 text-violet-700 border-violet-200',
+                      'Personalizados': 'bg-teal-50 text-teal-700 border-teal-200',
                     };
 
                     const iconBgColors: Record<string, string> = {
-                      'Gestão': 'bg-blue-500/10 text-blue-600 border border-blue-200/20',
-                      'Cadastros': 'bg-amber-500/10 text-amber-600 border border-amber-200/20',
-                      'Auditoria': 'bg-indigo-500/10 text-indigo-600 border border-indigo-200/20',
-                      'Relatórios': 'bg-rose-500/10 text-rose-600 border border-rose-200/20',
-                      'Hospitalar': 'bg-emerald-500/10 text-emerald-600 border border-emerald-200/20',
-                      'Estatísticas': 'bg-violet-500/10 text-violet-600 border border-violet-200/20',
-                      'Personalizados': 'bg-sky-500/10 text-sky-600 border border-sky-200/20',
+                      'Gestão': 'bg-sky-50 text-sky-600 border border-sky-100',
+                      'Cadastros': 'bg-amber-50 text-amber-600 border border-amber-100',
+                      'Auditoria': 'bg-indigo-50 text-indigo-600 border border-indigo-100',
+                      'Relatórios': 'bg-rose-50 text-rose-600 border border-rose-100',
+                      'Hospitalar': 'bg-emerald-50 text-emerald-600 border border-emerald-100',
+                      'Estatísticas': 'bg-violet-50 text-violet-600 border border-violet-100',
+                      'Personalizados': 'bg-teal-50 text-teal-600 border border-teal-100',
                     };
 
                     return (
                       <div 
                         key={m.id}
-                        className={`flex items-center justify-between p-2 px-3 hover:bg-slate-50 rounded-xl transition duration-150 border border-transparent hover:border-slate-100 ${
-                          isActive ? 'opacity-100' : 'opacity-65 bg-slate-50/35'
+                        className={`flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 px-4 py-2.5 hover:bg-slate-50/80 transition ${
+                          isActive ? 'opacity-100' : 'opacity-60 bg-slate-50/50'
                         }`}
                       >
                         {/* Left: Icon + Name + Category + ID */}
                         <div className="flex items-center gap-3 min-w-0 flex-1">
-                          {/* Icon */}
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                            isActive ? iconBgColors[m.category] || 'bg-slate-100 text-slate-600' : 'bg-slate-200 text-slate-450'
+                            isActive ? iconBgColors[m.category] || 'bg-slate-100 text-slate-600 border border-slate-200' : 'bg-slate-100 text-slate-400 border border-slate-200'
                           }`}>
                             {renderModuleIcon(m.icon || 'Cpu')}
                           </div>
 
-                          {/* Info */}
-                          <div className="min-w-0 flex items-center gap-2.5">
-                            <h3 className="text-xs font-black text-slate-800 truncate" title={m.description}>
+                          <div className="min-w-0 flex items-center gap-2 flex-wrap">
+                            <h3 className="text-xs font-bold text-slate-800 truncate" title={m.description}>
                               {m.name}
                             </h3>
-                            <span className={`text-[8.5px] font-extrabold uppercase px-1.5 py-0.2 rounded-md border tracking-wide whitespace-nowrap shrink-0 ${
+                            <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-md border whitespace-nowrap shrink-0 ${
                               catColors[m.category] || 'bg-slate-100 text-slate-600 border-slate-200'
                             }`}>
                               {m.category}
                             </span>
                             {m.type === 'custom' && (
-                              <span className="text-[8px] font-black uppercase px-1.5 py-0.2 bg-indigo-50 border border-indigo-150 text-indigo-600 rounded-sm tracking-wider shrink-0 select-none">
+                              <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-md shrink-0 select-none">
                                 Custom
                               </span>
                             )}
-                            <span className="font-mono text-[8.5px] text-slate-400 select-none">
-                              ID: {m.id}
+                            <span className="hidden md:inline font-mono text-[10px] text-slate-400 select-none">
+                              {m.id}
                             </span>
                           </div>
                         </div>
 
                         {/* Right: Actions */}
-                        <div className="flex items-center gap-2 shrink-0">
-                          {/* Acessar (Launch) Button */}
+                        <div className="flex items-center gap-1.5 shrink-0">
                           <button
                             type="button"
                             disabled={!isActive}
                             onClick={() => handleLaunchModule(m.id)}
-                            className={`px-2.5 py-1 rounded-lg flex items-center gap-1 text-[10px] font-bold transition-all border ${
+                            className={`px-2.5 py-1.5 rounded-lg flex items-center gap-1 text-[11px] font-bold transition border whitespace-nowrap ${
                               isActive 
-                                ? 'bg-blue-50 border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer'
-                                : 'bg-slate-50 border-slate-100 text-slate-350 cursor-not-allowed'
+                                ? 'bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-600 hover:text-white cursor-pointer'
+                                : 'bg-slate-50 border-slate-200 text-slate-400 cursor-not-allowed'
                             }`}
                           >
-                            <ArrowRight size={11} className="stroke-[2.5]" />
+                            <ArrowRight size={12} />
                             <span>Acessar</span>
                           </button>
 
-                          {/* Editar */}
                           {m.type !== 'system_tool' && (
                             <button
                               type="button"
                               onClick={() => handleOpenEditModal(m)}
-                              className="px-2.5 py-1 bg-slate-50 border border-slate-200 hover:bg-amber-50 hover:text-amber-600 text-slate-600 rounded-lg text-[10px] font-bold transition flex items-center gap-1 cursor-pointer"
+                              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700 text-slate-600 rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer whitespace-nowrap"
                             >
-                              <Edit size={11} />
+                              <Edit size={12} />
                               <span>Editar</span>
                             </button>
                           )}
 
-                          {/* Ocultar / Mostrar */}
                           {m.type !== 'system_tool' && (
                             <button
                               type="button"
                               onClick={() => handleToggleModuleStatus(m.id, isActive ? 1 : 0)}
-                              className={`px-2.5 py-1 border text-[10px] font-bold rounded-lg transition flex items-center gap-1 cursor-pointer ${
+                              className={`px-2.5 py-1.5 border text-[11px] font-semibold rounded-lg transition flex items-center gap-1 cursor-pointer whitespace-nowrap ${
                                 isActive 
-                                  ? 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600'
-                                  : 'bg-emerald-50 border-emerald-200 hover:bg-emerald-100 text-emerald-700 font-extrabold'
+                                  ? 'bg-white border-slate-200 hover:bg-slate-100 text-slate-600'
+                                  : 'bg-emerald-50 border-emerald-200 hover:bg-emerald-100 text-emerald-700 font-bold'
                               }`}
                             >
                               {isActive ? (
                                 <>
-                                  <EyeOff size={11} />
+                                  <EyeOff size={12} />
                                   <span>Ocultar</span>
                                 </>
                               ) : (
                                 <>
-                                  <Eye size={11} />
+                                  <Eye size={12} />
                                   <span>Mostrar</span>
                                 </>
                               )}
                             </button>
                           )}
 
-                          {/* Excluir */}
                           {m.type === 'custom' && (
                             <button
                               type="button"
                               onClick={() => handleDeleteModule(m.id, m.name, m.type)}
-                              className="px-2.5 py-1 bg-slate-50 border border-slate-200 hover:bg-rose-50 hover:text-rose-600 text-slate-600 rounded-lg text-[10px] font-bold transition flex items-center gap-1 cursor-pointer"
+                              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-slate-600 rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer whitespace-nowrap"
                             >
-                              <Trash2 size={11} />
+                              <Trash2 size={12} />
                               <span>Excluir</span>
                             </button>
                           )}
@@ -987,7 +1039,7 @@ export function AdminPanelCentral() {
 
           {/* TAB 2: GESTÃO DE USUÁRIOS & PERMISSÕES */}
           {activeTab === 'USERS' && (
-            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">Cadastro de Usuários & Níveis de Acesso</h3>
@@ -1009,117 +1061,133 @@ export function AdminPanelCentral() {
 
           {/* TAB 4: GESTÃO DE SETORES */}
           {activeTab === 'SECTORS' && (
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xs space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-slate-800">Mapeamento de Setores & Alas Clínicas</h3>
-                  <p className="text-xs text-slate-500">Cadastre e configure as alas hospitalares (UTI, Internação, Clínicas) e seus chefes responsáveis.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Mapeamento de Setores & Alas Clínicas</h3>
+                  <p className="text-xs text-slate-500">Cadastre e configure as alas hospitalares e seus responsáveis.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={handleBackToHub}
-                  className="px-3 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-xs font-bold transition border border-slate-200/60 flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                 >
-                  <ArrowLeft size={12} /> Voltar ao Painel
+                  <ArrowLeft size={13} /> Voltar ao Painel
                 </button>
               </div>
-              <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="SECTORS" hideSidebar={true} />
+              <div className="p-5">
+                <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="SECTORS" hideSidebar={true} />
+              </div>
             </div>
           )}
 
           {/* TAB 5: GESTÃO DE LEITOS */}
           {activeTab === 'BEDS' && (
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xs space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-slate-800">Gestão de Leitos Hospitalares</h3>
-                  <p className="text-xs text-slate-500">Registre e distribua os leitos físicos ativos associando-os às suas alas hospitalares correspondentes.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Gestão de Leitos Hospitalares</h3>
+                  <p className="text-xs text-slate-500">Registre e distribua os leitos físicos associando-os às alas correspondentes.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={handleBackToHub}
-                  className="px-3 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-xs font-bold transition border border-slate-200/60 flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                 >
-                  <ArrowLeft size={12} /> Voltar ao Painel
+                  <ArrowLeft size={13} /> Voltar ao Painel
                 </button>
               </div>
-              <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="BEDS" hideSidebar={true} />
+              <div className="p-5">
+                <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="BEDS" hideSidebar={true} />
+              </div>
             </div>
           )}
 
           {/* TAB 6: BACKUPS & DADOS */}
           {activeTab === 'BACKUP' && (
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xs space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-slate-800">Manutenção de Dados, Backups & MySQL</h3>
-                  <p className="text-xs text-slate-500">Realize dumps SQL, sincronize tabelas fragmentadas ou restaure cópias de segurança.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Manutenção de Dados, Backups & Sincronização</h3>
+                  <p className="text-xs text-slate-500">Exporte cópias de segurança, sincronize dados ou restaure backups.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={handleBackToHub}
-                  className="px-3 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-xs font-bold transition border border-slate-200/60 flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                 >
-                  <ArrowLeft size={12} /> Voltar ao Painel
+                  <ArrowLeft size={13} /> Voltar ao Painel
                 </button>
               </div>
-              <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="BACKUP" hideSidebar={true} />
+              <div className="p-5">
+                <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="BACKUP" hideSidebar={true} />
+              </div>
             </div>
           )}
 
           {/* TAB 7: LOGS DO SISTEMA */}
           {activeTab === 'LOGS' && (
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xs space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-slate-800">Logs e Trilha de Auditoria Geral</h3>
-                  <p className="text-xs text-slate-500">Histórico completo de transações e logs de atividade do sistema em tempo de execução.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Logs e Trilha de Auditoria Geral</h3>
+                  <p className="text-xs text-slate-500">Histórico de transações e registros de atividade do sistema.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={handleBackToHub}
-                  className="px-3 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-xs font-bold transition border border-slate-200/60 flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                 >
-                  <ArrowLeft size={12} /> Voltar ao Painel
+                  <ArrowLeft size={13} /> Voltar ao Painel
                 </button>
               </div>
-              <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="LOGS" hideSidebar={true} />
+              <div className="p-5">
+                <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="LOGS" hideSidebar={true} />
+              </div>
             </div>
           )}
 
-
-
           {/* TAB 9: SETTINGS GLOBAIS */}
           {activeTab === 'SETTINGS' && (
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xs space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-slate-800">Configurações Globais do Painel</h3>
-                  <p className="text-xs text-slate-500">Altere o nome do hospital, letra do ícone de launcher e temas visuais do HospAudit.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Configurações Globais do Sistema</h3>
+                  <p className="text-xs text-slate-500">Personalize identidade visual, nome da instituição e preferências gerais.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={handleBackToHub}
-                  className="px-3 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-xs font-bold transition border border-slate-200/60 flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                 >
-                  <ArrowLeft size={12} /> Voltar ao Painel
+                  <ArrowLeft size={13} /> Voltar ao Painel
                 </button>
               </div>
-              <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="SETTINGS" hideSidebar={true} />
+              <div className="p-5">
+                <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="SETTINGS" hideSidebar={true} />
+              </div>
             </div>
           )}
 
           {/* TAB 10: SINC & ATUALIZAÇÃO GITHUB */}
           {activeTab === 'GITHUB' && (
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xs space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-black text-slate-800">Sincronização & Atualização via GitHub</h3>
-                  <p className="text-xs text-slate-500">Mantenha sua cópia local do HospAudit sincronizada e atualizada com o repositório oficial do GitHub.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-3.5 border-b border-slate-200 bg-slate-50/70">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Sincronização & Atualização via GitHub</h3>
+                  <p className="text-xs text-slate-500">Configure repositório remoto e verifique atualizações do sistema.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={handleBackToHub}
-                  className="px-3 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-xs font-bold transition border border-slate-200/60 flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 rounded-lg text-xs font-semibold transition border border-slate-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                 >
-                  <ArrowLeft size={12} /> Voltar ao Painel
+                  <ArrowLeft size={13} /> Voltar ao Painel
                 </button>
               </div>
-              <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="GITHUB" hideSidebar={true} />
+              <div className="p-5">
+                <AdminProfileManager onBackToAudit={handleBackToHub} initialTab="GITHUB" hideSidebar={true} />
+              </div>
             </div>
           )}
 
@@ -1128,8 +1196,8 @@ export function AdminPanelCentral() {
 
       {/* CREATE DYNAMIC MODULE MODAL */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
-          <div className="bg-white rounded-3xl border border-slate-250 max-w-2xl w-full p-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto space-y-5">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className="bg-white rounded-2xl border border-slate-200 max-w-2xl w-full p-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto space-y-5">
             <button
               type="button"
               onClick={() => setIsCreateModalOpen(false)}
@@ -1139,11 +1207,11 @@ export function AdminPanelCentral() {
             </button>
 
             <div className="space-y-1">
-              <h2 className="text-base font-black text-slate-800 tracking-tight flex items-center gap-2">
-                <FolderPlus className="w-5 h-5 text-blue-600 animate-pulse" /> Criar Novo Módulo Hospitalar Dinâmico
+              <h2 className="text-base font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+                <FolderPlus className="w-5 h-5 text-sky-600" /> Criar Novo Módulo Dinâmico
               </h2>
               <p className="text-xs text-slate-500 font-medium">
-                Insira as especificações gerais para adicionar o módulo ao controle central e configurar as permissões imediatas.
+                Insira as especificações gerais para adicionar o módulo ao controle central e configurar as permissões.
               </p>
             </div>
 
@@ -1157,7 +1225,7 @@ export function AdminPanelCentral() {
                      placeholder="Ex: Medicina do Trabalho"
                      value={newModuleName}
                      onChange={(e) => setNewModuleName(e.target.value)}
-                     className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 outline-none text-slate-800 font-bold"
+                     className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none text-slate-800 font-bold"
                   />
                 </div>
 
@@ -1166,7 +1234,7 @@ export function AdminPanelCentral() {
                   <select
                      value={newModuleCategory}
                      onChange={(e) => setNewModuleCategory(e.target.value)}
-                     className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 outline-none text-slate-700 font-bold"
+                     className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none text-slate-700 font-bold"
                   >
                     <option value="Gestão">Gestão</option>
                     <option value="Cadastros">Cadastros</option>
@@ -1181,16 +1249,16 @@ export function AdminPanelCentral() {
               <div className="space-y-1.5">
                 <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Descrição Funcional:</label>
                 <textarea
-                  placeholder="Descreva detalhadamente a finalidade do novo módulo para orientação dos usuários..."
+                  placeholder="Descreva a finalidade do novo módulo para orientação dos usuários..."
                   rows={2}
                   value={newModuleDesc}
                   onChange={(e) => setNewModuleDesc(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 outline-none text-slate-700 font-medium"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none text-slate-700 font-medium"
                 />
               </div>
 
               {/* Items listing inside modal */}
-              <div className="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-150">
+              <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">Atividades / Itens do Checklist Inicial</span>
                 <div className="flex gap-2">
                   <input
@@ -1204,12 +1272,12 @@ export function AdminPanelCentral() {
                         handleAddModalItem();
                       }
                     }}
-                    className="flex-1 px-3 py-1.5 bg-white border border-slate-250 rounded-xl text-xs outline-none text-slate-700 font-bold"
+                    className="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs outline-none text-slate-700 font-bold focus:border-sky-500"
                   />
                   <button
                     type="button"
                     onClick={handleAddModalItem}
-                    className="px-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition cursor-pointer"
+                    className="px-3.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition cursor-pointer"
                   >
                     Inserir
                   </button>
@@ -1242,7 +1310,7 @@ export function AdminPanelCentral() {
               {cargos && cargos.length > 0 && (
                 <div className="space-y-3">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Definição Imediata de Acesso por Cargo:</span>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-2xl divide-y divide-slate-150 p-2 space-y-1">
+                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-100 p-2 space-y-1">
                     {cargos.map((c: any) => {
                       const perm = cargoPermsToAssign[c.id] || { pode_visualizar: false, pode_criar_editar: false, pode_deletar: false };
                       return (
@@ -1307,8 +1375,8 @@ export function AdminPanelCentral() {
 
       {/* EDIT MODULE MODAL */}
       {isEditModalOpen && editingModule && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
-          <div className="bg-white rounded-3xl border border-slate-250 max-w-xl w-full p-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto space-y-5">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className="bg-white rounded-2xl border border-slate-200 max-w-xl w-full p-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto space-y-5">
             <button
               type="button"
               onClick={() => {
@@ -1321,8 +1389,8 @@ export function AdminPanelCentral() {
             </button>
 
             <div className="space-y-1">
-              <h2 className="text-base font-black text-slate-800 tracking-tight flex items-center gap-2">
-                <Edit className="w-5 h-5 text-blue-600" /> Editar Detalhes do Módulo Nível Técnico
+              <h2 className="text-base font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+                <Edit className="w-5 h-5 text-sky-600" /> Editar Detalhes do Módulo
               </h2>
               <p className="text-xs text-slate-500 font-medium">
                 Altere informações básicas, categoria ou a lista estrutural de atividades deste módulo.
@@ -1337,7 +1405,7 @@ export function AdminPanelCentral() {
                    required
                    value={editModuleName}
                    onChange={(e) => setEditModuleName(e.target.value)}
-                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 outline-none text-slate-800 font-bold"
+                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none text-slate-800 font-bold"
                 />
               </div>
 
@@ -1346,7 +1414,7 @@ export function AdminPanelCentral() {
                 <select
                    value={editModuleCategory}
                    onChange={(e) => setEditModuleCategory(e.target.value)}
-                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 outline-none text-slate-700 font-bold"
+                   className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none text-slate-700 font-bold"
                 >
                   <option value="Gestão">Gestão</option>
                   <option value="Cadastros">Cadastros</option>
@@ -1363,12 +1431,12 @@ export function AdminPanelCentral() {
                   rows={2}
                   value={editModuleDesc}
                   onChange={(e) => setEditModuleDesc(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 outline-none text-slate-700 font-medium"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none text-slate-700 font-medium"
                 />
               </div>
 
               {/* Edit checklist activities */}
-              <div className="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-150">
+              <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block font-mono">Estrutura de Atividades</span>
                 <div className="flex gap-2">
                   <input
@@ -1382,12 +1450,12 @@ export function AdminPanelCentral() {
                         handleAddEditModalItem();
                       }
                     }}
-                    className="flex-1 px-3 py-1.5 bg-white border border-slate-250 rounded-xl text-xs outline-none text-slate-700 font-bold"
+                    className="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs outline-none text-slate-700 font-bold focus:border-sky-500"
                   />
                   <button
                     type="button"
                     onClick={handleAddEditModalItem}
-                    className="px-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition cursor-pointer"
+                    className="px-3.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition cursor-pointer"
                   >
                     Inserir
                   </button>
