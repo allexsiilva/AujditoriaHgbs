@@ -11,6 +11,24 @@ import { execSync, execFileSync } from 'child_process';
 import { GoogleGenAI } from "@google/genai";
 import mysql from 'mysql2/promise';
 
+let isRunningAsExecutable = false;
+try {
+  // Detecta execução dentro de binário compilado (Node.js SEA)
+  const sea = require('node:sea');
+  isRunningAsExecutable = Boolean(sea && typeof sea.isSea === 'function' && sea.isSea());
+} catch {}
+
+if (isRunningAsExecutable) {
+  const exeDir = path.dirname(process.execPath);
+  try {
+    if (process.cwd() !== exeDir) {
+      process.chdir(exeDir);
+    }
+  } catch {}
+  dotenv.config({ path: path.join(exeDir, '.env') });
+  process.env.NODE_ENV = 'production';
+}
+
 const md5 = (str: string) => crypto.createHash('md5').update(str).digest('hex');
 
 // Lazy-initialized Gemini AI client
@@ -35,7 +53,7 @@ function getGeminiClient() {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
   const httpServer = http.createServer(app);
   const io = new SocketIOServer(httpServer, {
     transports: ['polling', 'websocket'],
@@ -5401,7 +5419,7 @@ REGRAS DE RESPOSTA:
   });
 
   // Vite integration
-  if (process.env.NODE_ENV !== 'production') {
+  if (!isRunningAsExecutable && process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: {
@@ -5426,10 +5444,31 @@ REGRAS DE RESPOSTA:
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
+    const embeddedDist: Record<string, { contentType: string; base64: string }> | undefined =
+      (globalThis as any).__HOSPAUDIT_EMBEDDED_DIST__;
+
+    if (fs.existsSync(path.join(distPath, 'index.html'))) {
+      app.use(express.static(distPath));
+      app.get('*', (_req, res) => {
+        res.sendFile(path.join(distPath, 'index.html'));
+      });
+    } else if (embeddedDist && embeddedDist['/index.html']) {
+      app.get('*', (req, res) => {
+        const cleanPath = decodeURIComponent(req.path || '/');
+        const asset = embeddedDist[cleanPath] || embeddedDist['/index.html'];
+        const buffer = Buffer.from(asset.base64, 'base64');
+        res.setHeader('Content-Type', asset.contentType);
+        if (cleanPath.startsWith('/assets/')) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+        res.status(200).send(buffer);
+      });
+    } else {
+      app.use(express.static(distPath));
+      app.get('*', (_req, res) => {
+        res.status(404).send('Frontend de producao nao encontrado. Execute "npm run build".');
+      });
+    }
   }
 
   // Inicializa o banco de dados local imediatamente na inicialização do servidor
@@ -5442,6 +5481,12 @@ REGRAS DE RESPOSTA:
 
   httpServer.listen(PORT, '0.0.0.0', () => {
     console.log(`[HospAudit Server] Executando com Socket.IO e Express em http://0.0.0.0:${PORT}`);
+    if (isRunningAsExecutable) {
+      console.log('======================================================');
+      console.log(` HospAudit Executavel Ativo -> http://localhost:${PORT}`);
+      console.log(` Pasta de Dados: ${DATA_DIR}`);
+      console.log('======================================================');
+    }
   });
 }
 
